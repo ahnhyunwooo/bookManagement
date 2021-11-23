@@ -1,6 +1,7 @@
 package project.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name="BOOK")
 public class Book {
 
@@ -41,14 +42,24 @@ public class Book {
     @Column(name="BOOK_RENTAL_COUNT")
     private LocalDateTime rentalCount;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<BookReservation> bookReservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<BookManagement> bookManagements = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ADMIN_INDEX")
     private Admin admin;
+
+    //연관관계 메서드
+    public void setAdmin(Admin admin) {
+        if(this.admin != null){
+            this.admin.getBooks().remove(this);
+        }
+        this.admin = admin;
+        admin.getBooks().add(this);
+    }
+
 
 }

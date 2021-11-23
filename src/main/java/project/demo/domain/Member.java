@@ -1,6 +1,7 @@
 package project.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="MEMBER")
-@Getter
+@Getter @Setter
 public class Member {
 
     @Id
@@ -52,16 +53,17 @@ public class Member {
     @Column(name="MEMBER_UPDATE")
     private LocalDateTime update;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<BookManagement> bookManagements = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<BookReservation> bookReservations = new ArrayList<>();
+
 
 }

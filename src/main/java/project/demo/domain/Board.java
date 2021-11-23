@@ -1,6 +1,7 @@
 package project.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Board {
 
     @Column(name="BOARD_INDEX")
@@ -40,11 +41,30 @@ public class Board {
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
-    @OneToMany(mappedBy = "board")
+    //연관관계 메서드
+    public void setMember(Member member) {
+        if(this.member != null){
+            this.member.getBoards().remove(this);
+        }
+        this.member = member;
+        member.getBoards().add(this);
+    }
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
     private List<BoardComment> boardComments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CATEGORY_INDEX")
     private Category category;
+
+    //연관관계 메서드
+    public void setCategory(Category category) {
+        if(this.category != null){
+            this.category.getBoards().remove(this);
+        }
+        this.category = category;
+        category.getBoards().add(this);
+    }
+
 
 }

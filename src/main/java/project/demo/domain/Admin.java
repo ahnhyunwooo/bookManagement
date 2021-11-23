@@ -1,14 +1,17 @@
 package project.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Admin {
+
 
     @Column(name="ADMIN_INDEX")
     @Id
@@ -26,6 +29,8 @@ public class Admin {
     @Column(name="ADMIN_NICKNAME")
     private String nickName;
 
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<>();
+
+
 }

@@ -1,12 +1,13 @@
 package project.demo.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 @Table(name="BOOK_MANAGEMENT")
 public class BookManagement {
 
@@ -24,8 +25,27 @@ public class BookManagement {
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
+    //연관관계 메서드
+    public void setMember(Member member) {
+        if(this.member != null){
+            this.member.getBookManagements().remove(this);
+        }
+        this.member = member;
+        member.getBookManagements().add(this);
+    }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="BOOK_INDEX")
     private Book book;
+
+    //연관관계 메서드
+    public void setBook(Book book) {
+        if(this.book != null){
+            this.book.getBookManagements().remove(this);
+        }
+        this.book = book;
+        book.getBookManagements().add(this);
+    }
+
 
 }
