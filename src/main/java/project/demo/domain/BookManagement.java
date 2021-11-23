@@ -20,11 +20,11 @@ public class BookManagement {
     @Column(name="DEADLINE_DATE")
     private LocalDateTime deadlineDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="BOOK_INDEX")
     private Book book;
 

@@ -47,7 +47,7 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<BookManagement> bookManagements = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="ADMIN_INDEX")
     private Admin admin;
 

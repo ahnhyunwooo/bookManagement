@@ -36,14 +36,14 @@ public class Board {
     @Column(name="BOARD_STATE_MEMO")
     private String stateMemo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
     @OneToMany(mappedBy = "board")
     private List<BoardComment> boardComments = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="CATEGORY_INDEX")
     private Category category;
 

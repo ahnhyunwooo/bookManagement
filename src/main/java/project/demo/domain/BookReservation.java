@@ -17,11 +17,11 @@ public class BookReservation {
     @Column(name="RESERVATION_DATE")
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="BOOK_INDEX")
     private Book book;
 }

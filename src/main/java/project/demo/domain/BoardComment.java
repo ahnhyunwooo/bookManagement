@@ -23,11 +23,11 @@ public class BoardComment {
     @Column(name="COMMENT_UDP_DATE")
     private LocalDateTime udpDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="BOARD_INDEX")
     private Board board;
 
