@@ -1,0 +1,29 @@
+server:
+  port: 8181
+  servlet:
+    context-path: /
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: company
+    password: 1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    open-in-view: true
+    hibernate:
+      ddl-auto: none
+
+
+
+
+
+
+
