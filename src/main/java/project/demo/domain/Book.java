@@ -42,10 +42,10 @@ public class Book {
     @Column(name="BOOK_RENTAL_COUNT")
     private LocalDateTime rentalCount;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book")
     private List<BookReservation> bookReservations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book")
     private List<BookManagement> bookManagements = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

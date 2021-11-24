@@ -1,5 +1,6 @@
 package project.demo.domain;
 
+import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,16 +54,16 @@ public class Member {
     @Column(name="MEMBER_UPDATE")
     private LocalDateTime update;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private List<BoardComment> boardComments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private List<BookManagement> bookManagements = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member")
     private List<BookReservation> bookReservations = new ArrayList<>();
 
 

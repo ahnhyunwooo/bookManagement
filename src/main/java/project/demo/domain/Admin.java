@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@Table(name="ADMIN")
 public class Admin {
 
 
@@ -29,7 +30,7 @@ public class Admin {
     @Column(name="ADMIN_NICKNAME")
     private String nickName;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "admin")
     private List<Book> books = new ArrayList<>();
 
 

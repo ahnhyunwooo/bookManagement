@@ -1,14 +1,8 @@
 server:
   port: 8181
-  servlet:
-    context-path: /
+
 
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
-
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     url: jdbc:oracle:thin:@localhost:1521:XE
@@ -20,6 +14,7 @@ spring:
     open-in-view: true
     hibernate:
       ddl-auto: none
+    show-sql: true
 
 
 

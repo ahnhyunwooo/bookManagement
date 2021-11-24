@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@Table(name="BOARD")
 public class Board {
 
     @Column(name="BOARD_INDEX")
@@ -41,6 +42,7 @@ public class Board {
     @JoinColumn(name="MEMBER_INDEX")
     private Member member;
 
+
     //연관관계 메서드
     public void setMember(Member member) {
         if(this.member != null){
@@ -50,7 +52,7 @@ public class Board {
         member.getBoards().add(this);
     }
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "board")
     private List<BoardComment> boardComments = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

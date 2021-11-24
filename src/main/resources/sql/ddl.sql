@@ -20,7 +20,7 @@ CREATE TABLE admin
     admin_name  VARCHAR2(20),
     admin_id    VARCHAR2(20),
     admin_pw    VARCHAR2(20),
-    adimin_nickname VARCHAR2(50)
+    admin_nickname VARCHAR2(50)
 );
 CREATE TABLE book
 (
@@ -32,14 +32,14 @@ CREATE TABLE book
     book_register_date DATE,
     book_count  NUMBER,
     book_yn VARCHAR2(5),
-    book_retal_count    NUMBER,
+    book_rental_count    NUMBER,
     admin_index VARCHAR2(10),
     CONSTRAINT admin_book_fk FOREIGN KEY(admin_index)
     REFERENCES admin(admin_index)
 );
 CREATE TABLE book_management
 (
-    retal_index VARCHAR2(10) PRIMARY KEY,
+    rental_index VARCHAR2(10) PRIMARY KEY,
     rental_date DATE,
     deadline_date DATE,
     book_index VARCHAR2(10),

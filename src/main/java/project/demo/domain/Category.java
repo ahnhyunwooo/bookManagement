@@ -19,7 +19,7 @@ public class Category {
     @Column(name="CATEGORY_NAME")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category")
     private List<Board> boards = new ArrayList<>();
 
 

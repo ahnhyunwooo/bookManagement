@@ -1,0 +1,304 @@
+@charset "UTF-8";
+body,
+h1, h2, h3, h4, h5, h6,
+ul, ol, dl, dd,
+p,
+fieldset, legend {
+    margin: 0;
+    padding: 0;
+}
+
+body, input, textarea, select, button {
+    font-size: 14px;
+    font-family: NanumGothic, "나눔 고딕", Dotum, "돋움", sans-serif;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+em {
+    font-style: normal;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+fieldset {
+    border: 0;
+}
+.header_title {
+    display: inline-block;
+    vertical-align: top;
+}
+.header_container {
+    text-align: center;
+    margin-top: 20px;
+}
+.login_container {
+    float: right;
+}
+.login_link {
+    border: 1px solid #cccccc;
+    float: left;
+    padding: 0 20px;
+    line-height: 32px;
+    font-size: 15px;
+}
+.login_link + .login_link {
+    margin-left: 10px;
+}
+.header_container:after,
+.login_container:after,
+.popular_new_container:after,
+.week_overdue_container:after,
+.info_faq_container:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.nav_container {
+    margin-top: 20px;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+.nav_label {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+.nav_label:after {
+    position: absolute;
+    content: '';
+    top: 10px;
+    right: 0;
+    bottom: 10px;
+    width: 1px;
+    background-color: #cccccc;
+}
+.nav_btn {
+    border: 0;
+    font-size: 18px;
+    background-color: transparent;
+    cursor: pointer;
+    line-height: 50px;
+    padding: 0 20px;
+}
+.nav_btn.active {
+    font-weight: bold;
+}
+.book_info_items {
+    display: none;
+    position: absolute;
+    font-size: 15px;
+    line-height: 30px;
+    left: 0;
+    right: 0;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;;
+}
+.nav_btn.active + .book_info_items {
+    display: block;
+}
+.book_info_item {
+    display: block;
+    cursor: pointer;
+}
+.book_info_item:hover {
+    font-weight: bold;
+}
+.book_search_box_container {
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+}
+.section_book_title {
+    display: inline;
+    vertical-align: top;
+    font-weight: normal;
+    font-size: 30px;
+    margin-right: 10px;
+}
+.book_search_box {
+    line-height: 40px;
+    width: 300px;
+    box-sizing: border-box;
+    padding-left: 40px;
+}
+.book_input_container {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.book_input_container::before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    top: 50%;
+    margin-top: -16px;
+    left: 5px;
+    background: url(../img/돋보기.png) no-repeat 0 0/32px 32px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+.popular_container,
+.new_book_container,
+.info_container,
+.faq_container {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+}
+.section_title {
+    font-size: 30px;
+    font-weight: normal;
+}
+.faq_items {
+    text-align: left;
+    margin-top: 20px;
+}
+.faq_item {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.faq_item:before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 2px;
+    margin-left: -10px;
+    margin-top: 15px;
+    background-color: #000;
+}
+.section_title {
+    text-align: center;
+}
+.week_rent_top_container {
+    position: relative;
+    padding-top: 60px;
+    width: 50%;
+    float: left;
+    height: 165px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.week_rent_top_container:after {
+    position: absolute;
+    content: '';
+    top: 10px;
+    bottom: 10px;
+    right: 0;
+    width: 1px;
+    background-color: #cccccc;
+}
+.week_overdue_container {
+    padding: 0 100px;
+    height: 200px;
+}
+.week_rent_total {
+    position: relative;
+}
+.week_rent_total:before {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    background: url("../img/왼쪽 아이콘.png") no-repeat 0 0/16px;
+    width: 16px;
+    height: 16px;
+    left: 5px;
+    cursor: pointer;
+}
+.week_rent_total:after {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    background: url("../img/오른쪽 아이콘.png") no-repeat 0 0/16px;
+    width: 16px;
+    height: 16px;
+    right: 5px;
+    cursor: pointer;
+}
+.overdue_total {
+    position: relative;
+}
+.overdue_total:before {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    background: url("../img/왼쪽 아이콘.png") no-repeat 0 0/16px;
+    width: 16px;
+    height: 16px;
+    left: 5px;
+    cursor: pointer;
+}
+.overdue_total:after {
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    position: absolute;
+    background: url("../img/오른쪽 아이콘.png") no-repeat 0 0/16px;
+    width: 16px;
+    height: 16px;
+    right: 5px;
+    cursor: pointer;
+}
+.overdue_top_container {
+    width: 50%;
+    float: left;
+    height: 165px;
+    padding-top: 60px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.footer_container {
+    margin-top: 20px;
+    padding: 20px 100px ;
+    background-color: #9e9e9e;
+    color: #fff;
+}
+.footer_inner {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+.footer_link {
+    display: table-cell;
+}
+.footer_link {
+    text-align: center;
+}
+.footer_copyrihgt {
+    padding-top: 20px;
+    text-align: center;
+}
+
