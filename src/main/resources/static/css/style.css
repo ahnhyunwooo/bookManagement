@@ -48,9 +48,12 @@ fieldset {
 .header_container {
     text-align: center;
     margin-top: 20px;
+    position: relative;
 }
 .login_container {
-    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .login_link {
     border: 1px solid #cccccc;
@@ -62,7 +65,6 @@ fieldset {
 .login_link + .login_link {
     margin-left: 10px;
 }
-.header_container:after,
 .login_container:after,
 .popular_new_container:after,
 .week_overdue_container:after,
@@ -70,6 +72,9 @@ fieldset {
     content: '';
     display: block;
     clear: both;
+}
+.header_containe {
+    position: relative;
 }
 .nav_container {
     margin-top: 20px;
