@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::link},~{::main})}"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <title>상상도서관 :: 로그인</title>
+    <link>
+</head>
+<body>
+    <main>
+        <div class="login_text_container">
+            <h2 class="login_title">로그인</h2>
+            <div class="login_id_container">
+                <label for="id_box" class="login_id_text">아이디:</label>
+                <input type="text" id="id_box" class="login_box id" placeholder="아이디를 입력해주세요.">
+            </div>
+            <div class="login_pw_container">
+                <label for="pw_box" class="login_pw_label">비밀번호:</label>
+                <input type="password" id="pw_box" class="login_box" placeholder="비밀번호를 입력해주세요.">
+            </div>
+            <a href="#" class="login_page_link">로그인</a>
+            <div class="login_id_pw_search">
+                <a href="#" class="login_id_pw_link">아이디 찾기</a>
+                <a href="#" class="login_id_pw_link">비밀번호 찾기</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -312,4 +312,72 @@ fieldset {
     padding-top: 20px;
     text-align: center;
 }
+.login_text_container {
+    padding: 200px 0 120px;
+    text-align: center;
+}
+.login_title {
+    font-size: 30px;
+    margin-left: 80px;
+}
+.login_id_container {
+    padding-top: 40px;
+    font-size: 15px;
+}
+.login_pw_container {
+    padding-top: 20px;
+    font-size: 15px;
+}
+.login_box {
+    box-sizing: border-box;
+    width: 300px;
+    line-height: 46px;
+    margin-left: 22px;
+    padding-left: 10px;
+}
+.login_box.id {
+    margin-left: 32px;
+}
+.login_pw_label {
+    margin-left: -5px;
+}
+.login_page_link {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 50px;
+    padding: 0 50px;
+    border: 1px solid #cccccc;
+    margin: 30px 0 0 80px;
+}
+.login_page_link:hover {
+    font-weight: bold;
+    border: 1px solid #000;
+}
+.login_id_pw_search {
+    font-size: 15px;
+    margin-top: 30px;
+}
+.login_id_pw_link {
+    display: block;
+    position: relative;
+    margin-left: -100px;
+}
+.login_id_pw_link + .login_id_pw_link {
+    margin-top: 15px;
+}
+.login_id_pw_link:hover {
+    font-weight: bold;
+}
+.login_id_pw_link:before {
+    position: absolute;
+    display: inline-block;
+    vertical-align: top;
+    content: '';
+    background: url("../img/star.com.png") no-repeat 0 0/50%;
+    width: 16px;
+    height: 16px;
+    top: 20%;
+    left: 50%;
+    margin-left: -60px;
+}
 
