@@ -380,4 +380,78 @@ fieldset {
     left: 50%;
     margin-left: -60px;
 }
+.member_join_container {
+    padding: 120px 0 60px;
+}
+.member_join_title {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+}
+.member_join_form_container {
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+.input_container {
+    font-size: 15px;
+    padding: 10px 0;
+}
+.member_join {
+    box-sizing: border-box;
+    width: 300px;
+    line-height: 30px;
+    margin-left: 22px;
+    padding-left: 10px;
+}
+.input_container:nth-child(1) .member_join {
+    margin-left: 64px;
+}
+.input_container:nth-child(2) .member_join {
+    margin-left: 50px;
+}
+.input_container:nth-child(4) .member_join {
+    margin-left: 80px;
+}
+.radio_container {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 73px;
+}
+.input_container:nth-child(5) .member_join,
+.input_container:nth-child(7) .member_join,
+.input_container:nth-child(8) .member_join {
+    margin-left: 64px;
+}
+.phone_check {
+    margin-top: 20px;
+    box-sizing: border-box;
+    width: 300px;
+    line-height: 30px;
+    margin-left: 120px;
+}
+.member_join_id_btn,
+.member_join_phone_check {
+    line-height: 30px;
+    margin-left: 10px;
+    border: 1px solid #cccccc;
+}
+.member_join_btn:hover,
+.member_join_id_btn:hover,
+.member_join_phone_check:hover {
+    font-weight: bold;
+    border: 1px solid #000;
+}
+.email_items {
+    height: 36px;
+}
+.member_join_btn {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 50px;
+    padding: 0 50px;
+    border: 1px solid #cccccc;
+    margin: 30px 0 0 80px;
+}
 

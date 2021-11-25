@@ -15,4 +15,8 @@ public class MainController {
     public String loginPage(){
         return "login.html";
     }
+    @GetMapping("login-join")
+    public String loginJoin(){
+        return "memberJoin.html";
+    }
 }
