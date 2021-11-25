@@ -373,7 +373,7 @@ fieldset {
     display: inline-block;
     vertical-align: top;
     content: '';
-    background: url("../img/star.com.png") no-repeat 0 0/50%;
+    background: url("../img/star.png") no-repeat 0 0/50%;
     width: 16px;
     height: 16px;
     top: 20%;
