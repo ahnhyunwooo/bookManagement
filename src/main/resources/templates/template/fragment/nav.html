@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<nav th:fragment="copy">
+  <div class="nav_container">
+    <label class="nav_label">
+      <!-- 버튼 hover 시 button 태그에 active 클래스를 추가-->
+      <button type="button" class="nav_btn active">도서정보</button>
+      <div class="book_info_items">
+        <a class="book_info_item">전체보기</a>
+        <a class="book_info_item">IT</a>
+        <a class="book_info_item">역사</a>
+        <a class="book_info_item">육아</a>
+        <a class="book_info_item">소설</a>
+      </div>
+    </label>
+    <label class="nav_label">
+      <button type="button" class="nav_btn">도서이용</button>
+    </label>
+    <label class="nav_label">
+      <button type="button" class="nav_btn">도서관소식</button>
+    </label>
+    <label class="nav_label">
+      <button type="button" class="nav_btn">마이메뉴</button>
+    </label>
+  </div>
+</nav>
+
+</body>
+</html>

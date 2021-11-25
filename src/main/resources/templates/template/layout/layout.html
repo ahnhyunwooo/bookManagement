@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" th:fragment="layout (title, link, content)"
+      xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">제목</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{/css/style.css}">
+  <th:block th:replace="${link}"/>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="header_container">
+        <h1 class="header_title">
+          <a href="#" class="header_link"></a>
+        </h1>
+        <div class="login_container">
+          <a href="#" class="login_link">로그인</a>
+          <a href="#" class="login_link">회원가입</a>
+        </div>
+      </div>
+    </header>
+    <nav>
+      <div class="nav_container">
+        <label class="nav_label">
+          <!-- 버튼 hover 시 button 태그에 active 클래스를 추가-->
+          <button type="button" class="nav_btn active">도서정보</button>
+          <div class="book_info_items">
+            <a class="book_info_item">전체보기</a>
+            <a class="book_info_item">IT</a>
+            <a class="book_info_item">역사</a>
+            <a class="book_info_item">육아</a>
+            <a class="book_info_item">소설</a>
+          </div>
+        </label>
+        <label class="nav_label">
+          <button type="button" class="nav_btn">도서이용</button>
+        </label>
+        <label class="nav_label">
+          <button type="button" class="nav_btn">도서관소식</button>
+        </label>
+        <label class="nav_label">
+          <button type="button" class="nav_btn">마이메뉴</button>
+        </label>
+      </div>
+    </nav>
+    <div th:replace="${content}"></div>
+    <footer>
+      <div class="footer_container">
+        <div class="footer_inner">
+          <a href="#" class="footer_link">도서관소개</a>
+          <a href="#" class="footer_link">도서관이용안내</a>
+          <a href="#" class="footer_link">공지사항</a>
+          <a href="#" class="footer_link">개인정보처리방침</a>
+        </div>
+        <div class="footer_copyrihgt">
+          &copy;COPYRIGHT
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
