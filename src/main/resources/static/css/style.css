@@ -405,31 +405,22 @@ fieldset {
     margin-left: 22px;
     padding-left: 10px;
 }
-.input_container:nth-child(1) .member_join {
-    margin-left: 64px;
-}
-.input_container:nth-child(2) .member_join {
-    margin-left: 50px;
-}
-.input_container:nth-child(4) .member_join {
-    margin-left: 80px;
-}
 .radio_container {
     display: inline-block;
     vertical-align: top;
-    margin-left: 73px;
+    margin-left: 140px;
 }
-.input_container:nth-child(5) .member_join,
-.input_container:nth-child(7) .member_join,
-.input_container:nth-child(8) .member_join {
-    margin-left: 64px;
+.member_join_label {
+    display: inline-block;
+    vertical-align: top;
+    width: 150px;
 }
 .phone_check {
     margin-top: 20px;
     box-sizing: border-box;
     width: 300px;
     line-height: 30px;
-    margin-left: 120px;
+    margin-left: 175px;
 }
 .member_join_id_btn,
 .member_join_phone_check {
