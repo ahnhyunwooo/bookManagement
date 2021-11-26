@@ -1,63 +1,62 @@
 <!DOCTYPE html>
-<html lang="ko">
-<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::link},~{::main})}"
+<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::script},~{::main})}"
       xmlns:th="http://thymeleaf.org">
 <title>상상도서관 :: 회원가입</title>
-<link>
+<script th:src="@{/js/memberJoin.js}"></script>
 </head>
 <body>
   <main>
     <div class="member_join_container">
       <h2 class="member_join_title">회원가입</h2>
-      <form action="">
+      <form th:action="login-join" method="post">
         <div class="member_join_form_container">
           <div class="input_container">
             <label for="member_join_id" class="member_join_label">아이디 :</label>
-            <input type="text" id="member_join_id" class="member_join">
-            <button type="button" class="member_join_id_btn">중복체크</button>
+            <input type="text" id="member_join_id" class="member_join" name="id">
+            <button type="button" class="member_join_id_btn" onclick="idOverlap()">중복체크</button>
           </div>
           <div class="input_container">
-            <label for="member_join_pw" class="member_join_label">비밀번호 :</label>
-            <input type="password" id="member_join_pw" class="member_join">
+            <label for="member_join_pw" class="member_join_label" >비밀번호 :</label>
+            <input type="password" id="member_join_pw" class="member_join"name="pw">
           </div>
           <div class="input_container">
-            <label for="member_join_pw_check" class="member_join_label">비밀번호확인 :</label>
-            <input type="password" id="member_join_pw_check" class="member_join">
+            <label for="member_join_pw_check" class="member_join_label" >비밀번호확인 :</label>
+            <input type="password" id="member_join_pw_check" class="member_join" name="pwCheck">
           </div>
           <div class="input_container">
-            <label for="member_join_name" class="member_join_label">이름 :</label>
-            <input type="text" id="member_join_name" class="member_join">
+            <label for="member_join_name" class="member_join_label" >이름 :</label>
+            <input type="text" id="member_join_name" class="member_join" name="name">
           </div>
           <div class="input_container">
-            <label for="member_join_nickname" class="member_join_label">닉네임 :</label>
+            <label for="member_join_nickname" class="member_join_label" name="nickName">닉네임 :</label>
             <input type="text" id="member_join_nickname" class="member_join">
           </div>
           <div class="input_container">
             <span>성별 :</span>
             <div class="radio_container">
-              <input type="radio" id="member_join_men" name="member_join_gender" class="member_join_gender">
+              <input type="radio" id="member_join_men" name="gender" class="member_join_gender">
               <label for="member_join_men" class="member_join_label">남</label>
-              <input type="radio" id="member_join_girl" name="member_join_gender" class="member_join_gender">
+              <input type="radio" id="member_join_girl" name="gender" class="member_join_gender">
               <label for="member_join_girl" class="member_join_label">여</label>
             </div>
           </div>
           <div class="input_container">
-            <label for="member_join_phone" class="member_join_label">연락처 :</label>
-            <input type="text" id="member_join_phone" class="member_join">'
+            <label for="member_join_phone" class="member_join_label" >연락처 :</label>
+            <input type="text" id="member_join_phone" class="member_join" name="phoneNumber">
             <button type="button" class="member_join_phone_check">인증번호 받기</button>
-            <input type="number" class="phone_check">
+            <input type="number" class="phone_check" name="phoneCheck">
           </div>
           <div class="input_container">
-            <label for="member_join_email" class="member_join_label">이메일 :</label>
-            <input type="text" id="member_join_email" class="member_join">
+            <label for="member_join_email" class="member_join_label" >이메일 :</label>
+            <input type="text" id="member_join_email" class="member_join" name="email">
             <span class="email_sign">@</span>
             <select class="email_items">
-              <option>naver.com</option>
-              <option>daum.net</option>
+              <option value="1">naver.com</option>
+              <option value="2">daum.net</option>
             </select>
           </div>
           <button type="submit" class="member_join_btn">가입하기</button>
-          <button type="submit" class="member_join_btn">취소하기</button>
+          <button type="button" class="member_join_btn">취소하기</button>
         </div>
       </form>
     </div>
