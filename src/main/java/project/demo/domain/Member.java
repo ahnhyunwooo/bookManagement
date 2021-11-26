@@ -15,7 +15,7 @@ import java.util.List;
 public class Member {
 
     @Id
-    @Column (name = "MEMBER_INDEX")
+    @Column (name ="MEMBER_INDEX")
     private String index;
 
     @Column(name="MEMBER_NAME")
@@ -26,6 +26,12 @@ public class Member {
 
     @Column(name="MEMBER_PW")
     private String pw;
+
+    @Transient
+    private String pwCheck;
+
+    @Transient
+    private String phoneCheck;
 
     @Column(name="MEMBER_NICKNAME")
     private String nickName;
@@ -48,7 +54,7 @@ public class Member {
     @Column(name="MEMBER_BOOK_RENTAL_TOTAL")
     private int bookRentalTotal;
 
-    @Column(name="MEMBER_WARNING_COUNT")
+    @Column(name="MEMBER_WARING_COUNT")
     private int warningCount;
 
     @Column(name="MEMBER_UPDATE")

@@ -39,7 +39,6 @@ public class BoardComment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="BOARD_INDEX")
     private Board board;
-
     //연관관계 메서드
     public void setBoard(Board board) {
         if(this.board != null){
@@ -48,6 +47,5 @@ public class BoardComment {
         this.board = board;
         board.getBoardComments().add(this);
     }
-
 
 }
