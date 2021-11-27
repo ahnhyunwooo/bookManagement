@@ -23,8 +23,9 @@ public class MemberRepository implements MemberRepositoryImple{
 
     //id로 회원정보 찾기
     @Override
-    @Transient
+    //@Transactional
     public List<String> findMemberById(String id) {
+
         List<String> resultList = e.createQuery("select m.id from Member m where m.id = :id",String.class)
                 .setParameter("id",id)
                 .getResultList();
