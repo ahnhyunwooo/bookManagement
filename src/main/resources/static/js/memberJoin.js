@@ -1,6 +1,8 @@
 $(document).ready(function (){
     $("#member_join_btn").click(function() {
-        alert("버튼1을 누르셨습니다.");
+        alert("22");
+        console.log("@@@@1");
+        nickName();
     });
 });
 function idOverlap() {
@@ -28,13 +30,27 @@ function idOverlap() {
             }
         },
         error : function(XMLHttpRequest, textStatus, errorThrown){
-            alert("통신 실패.")
+            alert("통신 실패.");
         }
     });
 }
 function idValueCheck(id) {
     var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
     return regExp.test(id);
+}
+function nickName() {
+    var nickName = $("#member_join_nickname").val();
+    var sendData = {"nickName" : nickName};
+    if(!nickNameCheck(id)){
+        console.log("@@@@");
+        $("#member_join_nickname").css('border', '2px solid red');
+        $("#member_join_nickname_error").css('display', 'block');
+        return ;
+    }
+}
+function nickNameCheck(nickName) {
+    var regExp = /^[.]{1,10}$/;
+    return regExp.test(nickName);
 }
 
 
