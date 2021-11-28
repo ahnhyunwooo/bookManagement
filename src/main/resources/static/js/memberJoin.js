@@ -1,13 +1,16 @@
 $(document).ready(function (){
-    $("#member_join_btn").click(function() {
-        alert("버튼1을 누르셨습니다.");
-        console.log("dddd");
-        //pwCheck();
+    $("#member_join_action").submit(function() {
+        pwCheck();
     });
 });
+/**
+ * 아이디 체크
+ */
 function idOverlap() {
     var id = $("#member_join_id").val();
     var sendData ={"id":id};
+
+    //아이디 유효성 체크
     if(!idValueCheck(id)){
         alert("아이디를 영문자로 시작하는 영문자 또는 숫자 6~20자로 입력하세요.");
         $("#member_join_id").css('border', '2px solid red');
@@ -21,6 +24,7 @@ function idOverlap() {
         contentType: "application/json",
         async: false,
         success: function(data){
+            //아이디 중복체크
             if(data == true){
                 alert("사용 가능한 아이디 입니다.");
                 $("#member_join_id").css('border', '1px solid rgb(118, 118, 118)');
@@ -38,23 +42,30 @@ function idValueCheck(id) {
     var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
     return regExp.test(id);
 }
-function pwValueCheck(pw) {
-    var regExp = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
-    return regExp.test(pw);
-}
+
+/**
+ * 비밀번호 체크
+ */
 function pwCheck(){
     var pw = $("#member_join_pw").val();
     var pwCheck = $("#member_join_pw_check").val();
 
+    //비밀번호 유효성 체크
     if(!pwValueCheck(pw)){
-        alert("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
+        //alert("6~20 영문 대소문자, 최소 1개의 숫자 혹은 특수문자를 포함해주세요.");
+        alert("특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호");
         $("#member_join_pw").css('border', '2px solid red');
         return ;
     }
-    if(pw != pwCheck){
+    //비밀번호와 비밀번호확인란이 null이거나 값이다를 경우
+    if(pw != pwCheck && pw == null){
         alert("비밀번호확인란 체크.");
     }
-}
 
+}
+function pwValueCheck(pw) {
+    var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    return regExp.test(pw);
+}
 
 

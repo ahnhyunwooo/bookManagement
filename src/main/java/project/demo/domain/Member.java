@@ -3,6 +3,7 @@ package project.demo.domain;
 import jdk.jfr.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="MEMBER")
+@ToString
 @Getter @Setter
 public class Member {
 

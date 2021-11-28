@@ -8,7 +8,7 @@
   <main>
     <div class="member_join_container">
       <h2 class="member_join_title">회원가입</h2>
-      <form th:action="login-join" method="post">
+      <form th:action="login-join" method="post" id="member_join_action">
         <div class="member_join_form_container">
           <div class="input_container">
             <label for="member_join_id" class="member_join_label">아이디 :</label>
@@ -28,8 +28,8 @@
             <input type="text" id="member_join_name" class="member_join" name="name">
           </div>
           <div class="input_container">
-            <label for="member_join_nickname" class="member_join_label" name="nickName">닉네임 :</label>
-            <input type="text" id="member_join_nickname" class="member_join">
+            <label for="member_join_nickname" class="member_join_label">닉네임 :</label>
+            <input type="text" id="member_join_nickname" class="member_join"  name="nickName">
           </div>
           <div class="input_container">
             <span>성별 :</span>
@@ -43,8 +43,8 @@
           <div class="input_container">
             <label for="member_join_phone" class="member_join_label" >연락처 :</label>
             <input type="text" id="member_join_phone" class="member_join" name="phoneNumber">
-            <button type="button" class="member_join_phone_check">인증번호 받기</button>
-            <input type="number" class="phone_check" name="phoneCheck">
+            <button type="button" class="member_join_phone_check" name="phoneCheck">인증번호 받기</button>
+            <input type="number" class="phone_check">
           </div>
           <div class="input_container">
             <label for="member_join_email" class="member_join_label" >이메일 :</label>
