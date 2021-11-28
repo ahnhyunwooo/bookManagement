@@ -50,6 +50,12 @@ function pwCheck(){
     var pw = $("#member_join_pw").val();
     var pwCheck = $("#member_join_pw_check").val();
 
+    //비밀번호와 비밀번호확인란이 null이거나 값이다를 경우
+    if(pw != pwCheck || pwCheck == null){
+        alert("비밀번호확인란 체크.");
+        return;
+    }
+
     //비밀번호 유효성 체크
     if(!pwValueCheck(pw)){
         //alert("6~20 영문 대소문자, 최소 1개의 숫자 혹은 특수문자를 포함해주세요.");
@@ -57,10 +63,7 @@ function pwCheck(){
         $("#member_join_pw").css('border', '2px solid red');
         return ;
     }
-    //비밀번호와 비밀번호확인란이 null이거나 값이다를 경우
-    if(pw != pwCheck && pw == null){
-        alert("비밀번호확인란 체크.");
-    }
+
 
 }
 function pwValueCheck(pw) {
