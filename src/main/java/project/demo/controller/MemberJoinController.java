@@ -33,7 +33,6 @@ public class MemberJoinController {
     @PostMapping("/nickNameOverlap")
     @ResponseBody
     public boolean nickNameOverlapCheck(@RequestBody Map<String,String> info){
-        log.info("@@@@@@@@@");
         return m.nickNameOverlap(info);
     }
 }

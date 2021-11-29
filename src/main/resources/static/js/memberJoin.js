@@ -1,12 +1,13 @@
-
+var idBoolean = false;
 function formCheck(){
-    pwCheck();
-    nickName();
+    var pwBoolean = pwCheck();
+    var nickNameBoolean= nickNameCheck();
+    var genderBoolean = genderCheck();
 }
 /**
  * 아이디 체크
  */
-function idOverlap() {
+function idCheck() {
     var id = $("#member_join_id").val();
     var sendData ={"id":id};
 
@@ -14,6 +15,7 @@ function idOverlap() {
     if(!idValueCheck(id)){
         alert("아이디를 영문자로 시작하는 영문자 또는 숫자 6~20자로 입력하세요.");
         $("#member_join_id").css('border', '2px solid #FF0000');
+        idBoolean = false;
         return ;
     }
     $.ajax({
@@ -28,9 +30,11 @@ function idOverlap() {
             if(data == true){
                 alert("사용 가능한 아이디 입니다.");
                 $("#member_join_id").css('border', '1px solid #767676');
+                idBoolean = true;
             }else{
                 $("#member_join_id").css('border', '2px solid #FF0000');
                 alert("이미 사용중인 아이디 입니다");
+                idBoolean = false;
             }
         },
         error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -46,13 +50,14 @@ function idValueCheck(id) {
 /**
  * 닉네임 체크
  */
-function nickName() {
+function nickNameCheck() {
     var nickName = $("#member_join_nickname").val();
     var sendData = {"nickName":nickName};
     //닉네임 정규식 검사
-    if(!nickNameCheck(nickName)){
+    if(!nickNameValueCheck(nickName)){
         $("#member_join_nickname").css('border', '2px solid #FF0000');
         $("#member_join_nickname_error").css('display', 'block');
+        return false;
     }else  {
         //닉네임 중복 체크
         $.ajax({
@@ -66,10 +71,12 @@ function nickName() {
                 if(data == true){
                     $("#member_join_nickname_error").css('display', 'none');
                     $("#member_join_nickname").css('border', '1px solid #767676');
+                    return true;
                 }else{
                     $("#member_join_nickname").css('border', '2px solid #FF0000');
                     $("#member_join_nickname_error").css('display', 'block');
                     $("#member_join_nickname").text("이미 사용 중인 닉네임입니다.");
+                    return false;
                 }
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -79,7 +86,7 @@ function nickName() {
     }
 }
 //2~6자 닉네임 체크
-function nickNameCheck(nickName) {
+function nickNameValueCheck(nickName) {
     var regExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/
     return regExp.test(nickName);
 }
@@ -99,7 +106,7 @@ function pwCheck(){
         $("#member_join_pw").css('border', '2px solid #FF0000');
         $("#member_join_pw_error").text("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
         $("#member_join_pw_error").css('display', 'block');
-
+        return false;
     }else {
         $("#member_join_pw").css('border', '1px solid #767676');
         $("#member_join_pw_error").css('display', 'none');
@@ -109,10 +116,12 @@ function pwCheck(){
         $("#member_join_pw_check").css('border', '2px solid #FF0000');
         $('#member_join_pw_check_error').text("비밀번호 확인란을 다시 입력해주세요.");
         $("#member_join_pw_check_error").css('display', 'block');
+        return false;
     }else {
         $("#member_join_pw_check_error").css('display', 'none');
         $("#member_join_pw_check").css('border', '1px solid #767676');
     }
+    return true;
     // //비밀번호란이 null일경우
     // if(pw == null){
     //     $("#member_join_pw").css('border', '2px solid #FF0000');
@@ -134,6 +143,12 @@ function pwValueCheck(pw) {
     var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     return regExp.test(pw);
 }
-
+function genderCheck() {
+    if(!$("input[name=gender]").is(":checked")) {
+        $("#gender_error").css('display', 'block');
+    }else {
+        $("#gender_error").css('display', 'none');
+    }
+}
 
 
