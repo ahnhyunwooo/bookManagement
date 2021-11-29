@@ -27,4 +27,14 @@ public class MemberJoinService implements MemberJoinServiceImple{
         }
         return false;
     }
+
+    @Override
+    public boolean nickNameOverlap(Map<String, String> info) {
+        String nickName = info.get("nickName");
+        List<String> result = m.findMemberByNickName(nickName);
+        if(result.isEmpty()){
+            return true;
+        }
+        return false;
+    }
 }

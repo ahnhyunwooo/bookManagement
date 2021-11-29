@@ -29,4 +29,12 @@ public class MemberJoinController {
     public String loginJoin(){
         return "memberJoin.html";
     }
+
+    //닉네임 중복체크
+    @PostMapping("/nickNameOverlap")
+    @ResponseBody
+    public boolean nickNameOverlapCheck(@RequestBody Map<String,String> info){
+        log.info("@@@@@@@@@");
+        return m.nickNameOverlap(info);
+    }
 }
