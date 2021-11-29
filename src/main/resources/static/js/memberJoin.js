@@ -1,13 +1,8 @@
 
 function formCheck(){
-    if(!pwCheck()){
-        return false;
-    }
-    if(!nickName()){
-        return false;
-    }
+    pwCheck();
+    nickName();
 }
-
 /**
  * 아이디 체크
  */
@@ -58,7 +53,6 @@ function nickName() {
     if(!nickNameCheck(nickName)){
         $("#member_join_nickname").css('border', '2px solid #FF0000');
         $("#member_join_nickname_error").css('display', 'block');
-        return false;
     }else  {
         //닉네임 중복 체크
         $.ajax({
@@ -71,13 +65,11 @@ function nickName() {
             success: function(data){
                 if(data == true){
                     $("#member_join_nickname_error").css('display', 'none');
-                    $("#member_join_nickname").css('border', '2px solid #767676');
+                    $("#member_join_nickname").css('border', '1px solid #767676');
                 }else{
-                    $("#member_join_nickname").css('display', 'block');
                     $("#member_join_nickname").css('border', '2px solid #FF0000');
                     $("#member_join_nickname_error").css('display', 'block');
                     $("#member_join_nickname").text("이미 사용 중인 닉네임입니다.");
-                    return false;
                 }
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -102,41 +94,46 @@ function pwCheck(){
     var pw = $("#member_join_pw").val();
     var pwCheck = $("#member_join_pw_check").val();
 
-    //비밀번호와 비밀번호확인 값이다를 경우
-    if(!pwValueCheck(pw)){
-        alert("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
-        $("#member_join_pw").css('border', '2px solid #FF0000');
-        return ;
-    }
-    if(pw != pwCheck){
-        $('#input_container_pw_check').append('비밀번호 확인란을 다시 입력해주세요.');
-        alert("비밀번호 확인란을 다시 입력해주세요.");
-        return false;
-    }
-    //비밀번호란이 null일경우
-    if(pw == null){
-        $('#input_container_pw').append('비밀번호란이 공백입니다.');
-        alert("비밀번호란이 공백입니다.");
-        return false;
-    }
-    //비밀번호 확인란이 null일경우
-    if(pwCheck == null){
-        $('#input_container_pw_check').append('비밀번호 확인란이 공백입니다.');
-        alert("비밀번호 확인란이 공백입니다.");
-        return false;
-    }
-
     //비밀번호 유효성 체크
     if(!pwValueCheck(pw)){
-        $('#input_container_pw').append('특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호');
-        alert("특수문자 / 문자 / 숫자 포함 형태의 8~15자리 이내의 암호를 입력해주세요");
-        $("#member_join_pw").css('border', '2px solid red');
-        return false;
+        $("#member_join_pw").css('border', '2px solid #FF0000');
+        $("#member_join_pw_error").text("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
+        $("#member_join_pw_error").css('display', 'block');
+
+    }else {
+        $("#member_join_pw").css('border', '1px solid #767676');
+        $("#member_join_pw_error").css('display', 'none');
     }
+    //비밀번호와 비밀번호확인 값이다를 경우
+    if(pw != pwCheck){
+        $("#member_join_pw_check").css('border', '2px solid #FF0000');
+        $('#member_join_pw_check_error').text("비밀번호 확인란을 다시 입력해주세요.");
+        $("#member_join_pw_check_error").css('display', 'block');
+    }else {
+        $("#member_join_pw_check_error").css('display', 'none');
+        $("#member_join_pw_check").css('border', '1px solid #767676');
+    }
+    // //비밀번호란이 null일경우
+    // if(pw == null){
+    //     $("#member_join_pw").css('border', '2px solid #FF0000');
+    //     $("#member_join_pw_error").text("비밀번호란이 공백입니다.");
+    //     $("#member_join_pw_error").css('display', 'block');
+    //     $("#member_join_pw_check_error").css('display', 'none');
+    //     return ;
+    // }
+    // //비밀번호 확인란이 null일경우
+    // if(pwCheck == null){
+    //     $("#member_join_pw_check").css('border', '2px solid #FF0000');
+    //     $("#member_join_pw").css('border', '1px solid #767676');
+    //     $('#member_join_pw_check_error').text("비밀번호 확인란이 공백입니다.");
+    //     $("#member_join_pw_error").css('display', 'none');
+    //     $("#member_join_pw_check_error").css('display', 'block');
+    // }
 }
 function pwValueCheck(pw) {
     var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     return regExp.test(pw);
 }
+
 
 
