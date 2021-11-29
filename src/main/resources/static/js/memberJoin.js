@@ -1,21 +1,27 @@
-var idBoolean = false;
+let idBtn = false;
+let oldValue;
 function formCheck(){
-    var pwBoolean = pwCheck();
-    var nickNameBoolean= nickNameCheck();
-    var genderBoolean = genderCheck();
+    let pwBoolean = pwCheck();
+    let nickNameBoolean= nickNameCheck();
+    let genderBoolean = genderCheck();
+    let idBoolean = idCheck();
+    if(pwBoolean && nickNameBoolean && genderBoolean &&idBoolean) {
+        return true;
+    }
+    return false;
 }
 /**
- * 아이디 체크
+ * 아이디 중복 체크
  */
-function idCheck() {
-    var id = $("#member_join_id").val();
-    var sendData ={"id":id};
+function idOverlap() {
+    let id = $("#member_join_id").val();
+    let sendData ={"id":id};
 
     //아이디 유효성 체크
     if(!idValueCheck(id)){
         alert("아이디를 영문자로 시작하는 영문자 또는 숫자 6~20자로 입력하세요.");
         $("#member_join_id").css('border', '2px solid #FF0000');
-        idBoolean = false;
+        idBtn = false;
         return ;
     }
     $.ajax({
@@ -30,11 +36,12 @@ function idCheck() {
             if(data == true){
                 alert("사용 가능한 아이디 입니다.");
                 $("#member_join_id").css('border', '1px solid #767676');
-                idBoolean = true;
+                idBtn = true;
+                oldValue = id;
             }else{
                 $("#member_join_id").css('border', '2px solid #FF0000');
                 alert("이미 사용중인 아이디 입니다");
-                idBoolean = false;
+                idBtn = false;
             }
         },
         error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -43,16 +50,29 @@ function idCheck() {
     });
 }
 function idValueCheck(id) {
-    var regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
+    let regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
     return regExp.test(id);
 }
+
+/**
+ * 아이디 체크
+ */
+function idCheck() {
+    let currentValue = $("#member_join_id").val();
+    if(currentValue === oldValue && idBtn) {
+        return true;
+    }
+    alert("id를 중복체크 해주세요.");
+    return false;
+}
+
 
 /**
  * 닉네임 체크
  */
 function nickNameCheck() {
-    var nickName = $("#member_join_nickname").val();
-    var sendData = {"nickName":nickName};
+    let nickName = $("#member_join_nickname").val();
+    let sendData = {"nickName":nickName};
     //닉네임 정규식 검사
     if(!nickNameValueCheck(nickName)){
         $("#member_join_nickname").css('border', '2px solid #FF0000');
@@ -87,19 +107,19 @@ function nickNameCheck() {
 }
 //2~6자 닉네임 체크
 function nickNameValueCheck(nickName) {
-    var regExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/
+    let regExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{1,5}$/
     return regExp.test(nickName);
 }
 /**
  * 비밀번호 체크
  */
 function pwValueCheck(pw) {
-    var regExp = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    let regExp = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
     return regExp.test(pw);
 }
 function pwCheck(){
-    var pw = $("#member_join_pw").val();
-    var pwCheck = $("#member_join_pw_check").val();
+    let pw = $("#member_join_pw").val();
+    let pwCheck = $("#member_join_pw_check").val();
 
     //비밀번호 유효성 체크
     if(!pwValueCheck(pw)){
@@ -140,7 +160,7 @@ function pwCheck(){
     // }
 }
 function pwValueCheck(pw) {
-    var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+    let regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     return regExp.test(pw);
 }
 function genderCheck() {
