@@ -29,7 +29,8 @@
           </div>
           <div class="input_container">
             <label for="member_join_nickname" class="member_join_label">닉네임 :</label>
-            <input type="text" id="member_join_nickname" class="member_join"  name="nickName">
+            <input type="text" id="member_join_nickname" class="member_join" name="nickName">
+            <div class="member_join_nickname_error" id="member_join_nickname_error">닉네임을 2글자 이상 6글자 이하로 해주세요</div>
           </div>
           <div class="input_container">
             <span>성별 :</span>
@@ -55,7 +56,7 @@
               <option value="2">daum.net</option>
             </select>
           </div>
-          <button type="submit" class="member_join_btn" id="member_join_btn">가입하기</button>
+          <button type="button" class="member_join_btn" id="member_join_btn" onclick="formCheck()">가입하기</button>
           <button type="button" class="member_join_btn" href="#">취소하기</button>
         </div>
       </form>

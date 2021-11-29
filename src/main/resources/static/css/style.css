@@ -428,6 +428,12 @@ fieldset {
     margin-left: 10px;
     border: 1px solid #cccccc;
 }
+.member_join_nickname_error {
+    display: none;
+    color: red;
+    text-align: center;
+    padding-left: 50px;
+}
 .member_join_btn:hover,
 .member_join_id_btn:hover,
 .member_join_phone_check:hover {

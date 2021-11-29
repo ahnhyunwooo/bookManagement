@@ -31,4 +31,12 @@ public class MemberRepository implements MemberRepositoryImple{
                 .getResultList();
         return resultList;
     }
+
+    @Override
+    public List<String> findMemberByNickName(String nickName) {
+        List<String> resultList = e.createQuery("select m.id from Member m where m.nickName = :nickName",String.class)
+                .setParameter("nickName",nickName)
+                .getResultList();
+        return resultList;
+    }
 }
