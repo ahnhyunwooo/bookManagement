@@ -142,27 +142,15 @@ function pwCheck(){
         $("#member_join_pw_check").css('border', '1px solid #767676');
     }
     return true;
-    // //비밀번호란이 null일경우
-    // if(pw == null){
-    //     $("#member_join_pw").css('border', '2px solid #FF0000');
-    //     $("#member_join_pw_error").text("비밀번호란이 공백입니다.");
-    //     $("#member_join_pw_error").css('display', 'block');
-    //     $("#member_join_pw_check_error").css('display', 'none');
-    //     return ;
-    // }
-    // //비밀번호 확인란이 null일경우
-    // if(pwCheck == null){
-    //     $("#member_join_pw_check").css('border', '2px solid #FF0000');
-    //     $("#member_join_pw").css('border', '1px solid #767676');
-    //     $('#member_join_pw_check_error').text("비밀번호 확인란이 공백입니다.");
-    //     $("#member_join_pw_error").css('display', 'none');
-    //     $("#member_join_pw_check_error").css('display', 'block');
-    // }
 }
 function pwValueCheck(pw) {
     let regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     return regExp.test(pw);
 }
+
+/**
+ * 성별 체크
+ */
 function genderCheck() {
     if(!$("input[name=gender]").is(":checked")) {
         $("#gender_error").css('display', 'block');
@@ -170,5 +158,55 @@ function genderCheck() {
         $("#gender_error").css('display', 'none');
     }
 }
+
+/**
+ * 핸드폰 인증번호
+ */
+function sendPhone() {
+    const phoneNumber = $("#member_join_phone").val();
+    const ncpAccessKey = "AkHun7IKEQmKYKTYXnBa";
+    const ncpSecretKey = "sdsrwMTdaWwrRlQLLRoyPNjiqHscB8ynnGEde2Rq";
+    const ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
+    const myPhoneNumber = "01099498902";
+    let timestamp = new Date().getTime();
+
+    let url = `https://sens.apigw.ntruss.com/sms/v2/services/${ncpServiceID}/messages`;
+    let sendData = {
+        "type" : "SMS",
+        "contentType":"COMM",
+        "from":myPhoneNumber,
+        "messages":[
+            {
+                "to":phoneNumber,
+                "content":"hi"
+            },
+        ]
+    }
+    $.ajax({
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
+            xhr.setRequestHeader("x-ncp-apigw-timestamp","JWT " + timestamp);
+            xhr.setRequestHeader("x-ncp-iam-access-key",ncpAccessKey);
+            xhr.setRequestHeader("x-ncp-apigw-signature-v2", ncpSecretKey);
+            xhr.setRequestHeader("Access-Control-Allow-Origin:*")
+            xhr.setRequestHeader("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
+            xhr.setRequestHeader("Access-Control-Max-Age:3600");
+            xhr.setRequestHeader("Access-Control-Allow-Headers: Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+        },
+        url: url,
+        type: "post",
+        data: sendData,
+        dataType: "json",
+        success: function () {
+            alert("성공");
+        },
+        error: function (requestId, requestTime, statusCode, statusName) {
+            alert(requestId);
+        }
+
+    })
+
+}
+
 
 
