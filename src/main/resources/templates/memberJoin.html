@@ -3,6 +3,7 @@
       xmlns:th="http://thymeleaf.org">
 <title>상상도서관 :: 회원가입</title>
 <script th:src="@{/js/memberJoin.js}"></script>
+
 </head>
 <body>
   <main>
@@ -48,7 +49,8 @@
             <label for="member_join_phone" class="member_join_label" >연락처 :</label>
             <input type="text" id="member_join_phone" class="member_join" name="phoneNumber">
             <button type="button" class="member_join_phone_check" name="phoneCheck" onclick="sendPhone()">인증번호 받기</button>
-            <input type="number" class="phone_check">
+            <input type="number" class="phone_check" id="phone_check">
+            <button type="button" class="member_join_phone_check" onclick="phoneCheck()">인증번호 확인</button>
           </div>
           <div class="input_container">
             <label for="member_join_email" class="member_join_label" >이메일 :</label>

@@ -1,5 +1,6 @@
 let idBtn = false;
 let oldValue;
+let phoneCheckBtn =false;
 function formCheck(){
     let pwBoolean = pwCheck();
     let nickNameBoolean= nickNameCheck();
@@ -162,50 +163,37 @@ function genderCheck() {
 /**
  * 핸드폰 인증번호
  */
+let phoneRealCertification;
 function sendPhone() {
     const phoneNumber = $("#member_join_phone").val();
-    const ncpAccessKey = "AkHun7IKEQmKYKTYXnBa";
-    const ncpSecretKey = "sdsrwMTdaWwrRlQLLRoyPNjiqHscB8ynnGEde2Rq";
-    const ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
-    const myPhoneNumber = "01099498902";
-    let timestamp = new Date().getTime();
-
-    let url = `https://sens.apigw.ntruss.com/sms/v2/services/${ncpServiceID}/messages`;
-    let sendData = {
-        "type" : "SMS",
-        "contentType":"COMM",
-        "from":myPhoneNumber,
-        "messages":[
-            {
-                "to":phoneNumber,
-                "content":"hi"
-            },
-        ]
-    }
+    let sendData ={"phoneNumber":phoneNumber};
     $.ajax({
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Content-type","application/json; charset=utf-8");
-            xhr.setRequestHeader("x-ncp-apigw-timestamp","JWT " + timestamp);
-            xhr.setRequestHeader("x-ncp-iam-access-key",ncpAccessKey);
-            xhr.setRequestHeader("x-ncp-apigw-signature-v2", ncpSecretKey);
-            xhr.setRequestHeader("Access-Control-Allow-Origin:*")
-            xhr.setRequestHeader("Access-Control-Allow-Methods:GET,POST,PUT,DELETE,OPTIONS");
-            xhr.setRequestHeader("Access-Control-Max-Age:3600");
-            xhr.setRequestHeader("Access-Control-Allow-Headers: Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
-        },
-        url: url,
+        url: "/phoneMessage",
         type: "post",
-        data: sendData,
-        dataType: "json",
-        success: function () {
-            alert("성공");
+        data: JSON.stringify(sendData),
+        dataType:'json',
+        contentType: "application/json",
+        async: false,
+        success : function(data)
+        {
+            phoneRealCertification = data;
         },
-        error: function (requestId, requestTime, statusCode, statusName) {
-            alert(requestId);
+        error: function () {
+            alert("실패");
         }
-
-    })
-
+    });
+}
+function phoneCheck(){
+    let phoneCertification = $("#phone_check").val();
+    if(phoneCertification == phoneRealCertification) {
+        alert("핸드폰 인증이 되었습니다");
+        phoneCheckBtn = true;
+        $("#member_join_phone").attr("readonly",true);
+        $("#phone_check").attr("readonly", true);
+    }else {
+        alert("다시 확인 부탁드립니다.");
+        phoneCheckBtn = false;
+    }
 }
 
 

@@ -35,4 +35,11 @@ public class MemberJoinController {
     public boolean nickNameOverlapCheck(@RequestBody Map<String,String> info){
         return m.nickNameOverlap(info);
     }
+    //핸드폰 인증번호
+    @PostMapping("/phoneMessage")
+    @ResponseBody
+    public int phoneMessage(@RequestBody Map<String,String> info) {
+        int number = m.phoneMessage(info);
+        return number;
+    }
 }
