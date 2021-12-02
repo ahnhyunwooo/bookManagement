@@ -1,15 +1,25 @@
 let idBtn = false;
 let oldValue;
-let phoneCheckBtn =false;
+let phoneCheckBtn = false;
+let emailCheckBtn = false;
 function formCheck(){
     let pwBoolean = pwCheck();
     let nickNameBoolean= nickNameCheck();
     let genderBoolean = genderCheck();
     let idBoolean = idCheck();
-    if(pwBoolean && nickNameBoolean && genderBoolean && idBoolean && phoneCheckBtn) {
+
+    // console.log("pwBoolean"+pwBoolean);
+    // console.log("nickNameBoolean"+nickNameBoolean);
+    // console.log("genderBoolean" + genderBoolean);
+    // console.log("idBoolean" + idBoolean);
+    // console.log("phoneCheckBtn" + phoneCheckBtn);
+    // console.log("emailCheckBtn" + emailCheckBtn);
+
+    if(pwBoolean && nickNameBoolean && genderBoolean && idBoolean && phoneCheckBtn && emailCheckBtn) {
         return true;
     }
     return false;
+
 }
 /**
  * 아이디 중복 체크
@@ -74,6 +84,7 @@ function idCheck() {
 function nickNameCheck() {
     let nickName = $("#member_join_nickname").val();
     let sendData = {"nickName":nickName};
+    let result = null;
     //닉네임 정규식 검사
     if(!nickNameValueCheck(nickName)){
         $("#member_join_nickname").css('border', '2px solid #FF0000');
@@ -92,12 +103,12 @@ function nickNameCheck() {
                 if(data == true){
                     $("#member_join_nickname_error").css('display', 'none');
                     $("#member_join_nickname").css('border', '1px solid #767676');
-                    return true;
+                    result = true;
                 }else{
                     $("#member_join_nickname").css('border', '2px solid #FF0000');
                     $("#member_join_nickname_error").css('display', 'block');
                     $("#member_join_nickname").text("이미 사용 중인 닉네임입니다.");
-                    return false;
+                    result = false;
                 }
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){
@@ -105,6 +116,7 @@ function nickNameCheck() {
             }
         });
     }
+    return result;
 }
 //2~6자 닉네임 체크
 function nickNameValueCheck(nickName) {
@@ -155,8 +167,10 @@ function pwValueCheck(pw) {
 function genderCheck() {
     if(!$("input[name=gender]").is(":checked")) {
         $("#gender_error").css('display', 'block');
+        return false;
     }else {
         $("#gender_error").css('display', 'none');
+        return true;
     }
 }
 
@@ -242,8 +256,10 @@ function emailCheck() {
     let emailString = $("#email_check").val();
     if(emailString == emailRealString) {
         alert("이메일 인증이 되었습니다.");
+        emailCheckBtn = true;
     }else {
         alert("다시 한번 확인 부탁드립니다.");
+        emailCheckBtn = false;
     }
 }
 

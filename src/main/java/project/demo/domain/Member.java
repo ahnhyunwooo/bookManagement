@@ -29,12 +29,6 @@ public class Member {
     @Column(name="MEMBER_PW")
     private String pw;
 
-    @Transient
-    private String pwCheck;
-
-    @Transient
-    private String phoneCheck;
-
     @Column(name="MEMBER_NICKNAME")
     private String nickName;
 

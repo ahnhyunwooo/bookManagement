@@ -7,7 +7,11 @@ import org.json.simple.JSONObject;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import project.demo.dto.EmailAddressDto;
+import project.demo.domain.Member;
+import project.demo.dto.EmailAddressGetDto;
+import project.demo.dto.IdGetDto;
+import project.demo.dto.NickNameGetDto;
+import project.demo.dto.PhoneNumberGetDto;
 import project.demo.repository.MemberRepositoryImple;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -17,6 +21,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -32,8 +38,8 @@ public class MemberJoinService implements MemberJoinServiceImple{
     private final JavaMailSender mailSender;
     //ID 중복체크
     @Override
-    public boolean idOverlap(Map<String,String> info) {
-        String id = info.get("id");
+    public boolean idOverlap(IdGetDto idGetDto) {
+        String id = idGetDto.getId();
         List<String>  result = m.findMemberById(id);
         if(result.isEmpty()){
             return true;
@@ -42,8 +48,8 @@ public class MemberJoinService implements MemberJoinServiceImple{
     }
     //닉네임 중복체크
     @Override
-    public boolean nickNameOverlap(Map<String, String> info) {
-        String nickName = info.get("nickName");
+    public boolean nickNameOverlap(NickNameGetDto nickNameGetDto) {
+        String nickName = nickNameGetDto.getNickName();
         List<String> result = m.findMemberByNickName(nickName);
         if(result.isEmpty()){
             return true;
@@ -52,8 +58,8 @@ public class MemberJoinService implements MemberJoinServiceImple{
     }
 
     @Override
-    public int phoneMessage(Map<String, String> info) {
-        String phoneNumber = info.get("phoneNumber");
+    public int phoneMessage(PhoneNumberGetDto phoneNumberGetDto) {
+        String phoneNumber = phoneNumberGetDto.getPhoneNumber();
         String timestamp = Long.toString(System.currentTimeMillis());
         String ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
         String url = "https://sens.apigw.ntruss.com/sms/v2/services/"+ncpServiceID+"/messages";
@@ -151,7 +157,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
 
     //email 보내기
     @Override
-    public String sendMail(EmailAddressDto emailAddressDto) {
+    public String sendMail(EmailAddressGetDto emailAddressDto) {
         String email = emailAddressDto.getEmailAddress();
         Random random = new Random();
         String key = "";
@@ -167,5 +173,44 @@ public class MemberJoinService implements MemberJoinServiceImple{
         mailSender.send(message);
         log.info(String.valueOf(message));
         return key;
+    }
+
+    private int indexNumber = 0;
+    private boolean[] calendarCheck = {false,false,false,false,false,false,false,false,false,false,false,false,false};
+
+    @Override
+    public boolean makeMember(Member member) {
+
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat sdfyyMM = new SimpleDateFormat("yyMM");
+        int strTodayYYMM = Integer.parseInt(sdfyyMM.format(c.getTime()));
+
+        SimpleDateFormat sdfMM = new SimpleDateFormat("MM");
+        int strTodayMM = Integer.parseInt(sdfMM.format(c.getTime()));
+
+        SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
+        int strTodaydd = Integer.parseInt(sdfdd.format(c.getTime()));
+
+        if((strTodaydd == 1) && (!calendarCheck[strTodayMM])){
+            indexNumber = 0;
+            calendarCheck[strTodayMM] = true;
+            if(strTodayMM == 1){
+                calendarCheck[12] = false;
+            } else {
+                calendarCheck[strTodayMM-1] = false;
+            }
+        }
+        indexNumber++;
+        String resultIndexNumber = String.format("%03d", indexNumber);
+
+        String memberIndex = strTodayYYMM + String.valueOf(resultIndexNumber);
+        member.setIndex(memberIndex);
+
+        //joindate
+        boolean result = m.insertMember(member);
+
+        return result;
+
     }
 }

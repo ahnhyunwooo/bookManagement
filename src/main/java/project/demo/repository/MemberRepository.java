@@ -39,4 +39,16 @@ public class MemberRepository implements MemberRepositoryImple{
                 .getResultList();
         return resultList;
     }
+
+    @Override
+    @Transactional
+    public boolean insertMember(Member member) {
+        try {
+            e.persist(member);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
 }

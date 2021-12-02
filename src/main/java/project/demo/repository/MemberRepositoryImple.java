@@ -9,4 +9,6 @@ public interface MemberRepositoryImple {
 
     public List<String> findMemberById(String id);
     public List<String> findMemberByNickName(String nickName);
+    public boolean insertMember(Member member);
+
 }

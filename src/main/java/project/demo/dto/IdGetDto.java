@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class EmailAddressDto {
-    private String emailAddress;
+public class IdGetDto {
+    private String id;
 }

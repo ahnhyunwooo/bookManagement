@@ -3,6 +3,7 @@ package project.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import project.demo.controller.MemberJoinController;
 import project.demo.domain.Member;
 
 import javax.persistence.EntityManager;
@@ -16,14 +17,20 @@ class LibrayApplicationTests {
 
     @PersistenceContext
     private  EntityManager e;
+
+    @Autowired
+    MemberJoinController mj;
+
     @Test
     public void func(){
 
-        Member m = new Member();
+        /*Member m = new Member();
         m.setIndex("123");
         e.persist(m);
         Optional<Member> member = Optional.ofNullable(e.find(Member.class, "123"));
-        System.out.println("@@@@@@@@@"+member.get().getIndex());
+        System.out.println("@@@@@@@@@"+member.get().getIndex());*/
+
+        mj.loginJoin(new Member());
     }
 
 }
