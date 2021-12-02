@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import project.demo.domain.Member;
+import project.demo.dto.EmailAddressDto;
 import project.demo.service.MemberJoinServiceImple;
 
 import java.util.Map;
@@ -41,5 +42,12 @@ public class MemberJoinController {
     public int phoneMessage(@RequestBody Map<String,String> info) {
         int number = m.phoneMessage(info);
         return number;
+    }
+
+    //email 인증
+    @PostMapping("/email")
+    @ResponseBody
+    public String emailNumber(@RequestBody EmailAddressDto emailAddressDto) {
+        return m.sendMail(emailAddressDto);
     }
 }

@@ -16,6 +16,18 @@ spring:
       ddl-auto: none
     show-sql: true
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "dksgusdnnw"
+    password: "!tkfkdgo12"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 
 
 

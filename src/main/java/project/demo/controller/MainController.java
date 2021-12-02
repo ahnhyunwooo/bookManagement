@@ -1,11 +1,8 @@
 package project.demo.controller;
-
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.annotations.Parameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import project.demo.domain.Member;
+
 
 @Log4j2
 @Controller

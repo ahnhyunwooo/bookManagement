@@ -4,26 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import project.demo.dto.SmsResponseDto;
+import project.demo.dto.EmailAddressDto;
 import project.demo.repository.MemberRepositoryImple;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 @Slf4j
@@ -33,6 +29,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
 
     private final MemberRepositoryImple m;
 
+    private final JavaMailSender mailSender;
     //ID 중복체크
     @Override
     public boolean idOverlap(Map<String,String> info) {
@@ -60,7 +57,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
         String timestamp = Long.toString(System.currentTimeMillis());
         String ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
         String url = "https://sens.apigw.ntruss.com/sms/v2/services/"+ncpServiceID+"/messages";
-        String urlFront ="/sms/v2/services/"+ncpServiceID+"/messages";
+        String urlBack ="/sms/v2/services/"+ncpServiceID+"/messages";
         String accessKey = "AkHun7IKEQmKYKTYXnBa";
         String method = "POST";
         String secretKey ="sdsrwMTdaWwrRlQLLRoyPNjiqHscB8ynnGEde2Rq";
@@ -90,7 +87,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
             con.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             con.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
             con.setRequestProperty("x-ncp-iam-access-key", accessKey);
-            con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(timestamp, urlFront, accessKey, secretKey));
+            con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(timestamp, urlBack, accessKey, secretKey));
             con.setRequestMethod(method);
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -133,6 +130,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
                 .append(accessKey)
                 .toString();
         SecretKeySpec signingKey = null;
+
         try {
             signingKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), "HmacSHA256");
         } catch (UnsupportedEncodingException e) {
@@ -149,5 +147,25 @@ public class MemberJoinService implements MemberJoinServiceImple{
         }
         String encodeBase64String = Base64.encodeBase64String(rawHmac);
         return encodeBase64String;
+    }
+
+    //email 보내기
+    @Override
+    public String sendMail(EmailAddressDto emailAddressDto) {
+        String email = emailAddressDto.getEmailAddress();
+        Random random = new Random();
+        String key = "";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        for(int i=0; i<3; i++) {
+            int index = random.nextInt(25)+65;
+            key += (char)index;
+        }
+        key += makeNumber();
+        message.setSubject("인증번호 입력을 위한 메일 전송");
+        message.setText("상상도서관 인증번호 : "+key+ "입니다.");
+        mailSender.send(message);
+        log.info(String.valueOf(message));
+        return key;
     }
 }

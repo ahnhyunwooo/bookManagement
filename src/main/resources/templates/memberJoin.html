@@ -48,18 +48,23 @@
           <div class="input_container">
             <label for="member_join_phone" class="member_join_label" >연락처 :</label>
             <input type="text" id="member_join_phone" class="member_join" name="phoneNumber">
-            <button type="button" class="member_join_phone_check" name="phoneCheck" onclick="sendPhone()">인증번호 받기</button>
+            <button type="button" class="member_join_phone_check" onclick="sendPhone()">인증번호 받기</button>
             <input type="number" class="phone_check" id="phone_check">
             <button type="button" class="member_join_phone_check" onclick="phoneCheck()">인증번호 확인</button>
           </div>
           <div class="input_container">
             <label for="member_join_email" class="member_join_label" >이메일 :</label>
-            <input type="text" id="member_join_email" class="member_join" name="email">
+            <input type="text" id="member_join_email" class="member_join member_join_email_front" name="email">
             <span class="email_sign">@</span>
-            <select class="email_items">
+            <select class="email_items" id="email_items" onchange="emailText()">
               <option value="1">naver.com</option>
               <option value="2">daum.net</option>
+              <option value="3">직접입력</option>
             </select>
+            <input type="text" id="member_join_email_text" class="member_join member_join_email">
+            <button type="button" class="member_join_email_check" onclick="sendEmail()">인증번호 받기</button>
+            <input type="text" class="email_check" id="email_check">
+            <button type="button" class="member_join_email_check" onclick="emailCheck()">인증번호 확인</button>
           </div>
           <button type="submit" class="member_join_btn" id="member_join_btn">가입하기</button>
           <button type="button" class="member_join_btn" href="#">취소하기</button>

@@ -6,7 +6,7 @@ function formCheck(){
     let nickNameBoolean= nickNameCheck();
     let genderBoolean = genderCheck();
     let idBoolean = idCheck();
-    if(pwBoolean && nickNameBoolean && genderBoolean &&idBoolean) {
+    if(pwBoolean && nickNameBoolean && genderBoolean && idBoolean && phoneCheckBtn) {
         return true;
     }
     return false;
@@ -193,6 +193,57 @@ function phoneCheck(){
     }else {
         alert("다시 확인 부탁드립니다.");
         phoneCheckBtn = false;
+    }
+}
+
+/**
+ * email
+ */
+function emailText() {
+    if($("#email_items").val()==3) {
+        $("#member_join_email_text").css("display", "inline-block");
+    }else {
+        $("#member_join_email_text").css("display", "none");
+    }
+}
+let emailRealString;
+function sendEmail() {
+    let emailFront = $("#member_join_email").val();
+    let emailBack = $("#email_items").val();
+    if( emailFront == null || emailFront == "") {
+        alert("이메일을 입력해주세요.");
+        return ;
+    }
+    if(emailBack == 1){
+        emailBack = "naver.com";
+    }else if(emailBack == 2) {
+        emailBack = "daum.net";
+    }else {
+        emailBack = $("#member_join_email_text").val();
+    }
+    let emailAddress = emailFront + "@" + emailBack;
+    $.ajax({
+        url: "/email",
+        type: "post",
+        data: JSON.stringify(emailAddress),
+        dataType:'text',
+        contentType: "application/json",
+        async: false,
+        success : function(data) {
+            alert("인증번호 발송했습니다.");
+            emailRealString = data;
+        },
+        error: function () {
+            alert("실패");
+        }
+    })
+}
+function emailCheck() {
+    let emailString = $("#email_check").val();
+    if(emailString == emailRealString) {
+        alert("이메일 인증이 되었습니다.");
+    }else {
+        alert("다시 한번 확인 부탁드립니다.");
     }
 }
 
