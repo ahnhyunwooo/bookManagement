@@ -3,6 +3,7 @@ package project.demo.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.demo.domain.Member;
 import project.demo.dto.EmailAddressGetDto;
@@ -22,9 +23,6 @@ public class MemberJoinController {
 
     private final MemberJoinServiceImple m;
 
-
-
-
     //id 중복체크
     @PostMapping("/idOverlap")
     @ResponseBody
@@ -33,13 +31,14 @@ public class MemberJoinController {
     }
 
     @PostMapping("login-join")
-    public String loginJoin(@ModelAttribute Member member){
+    public String loginJoin(@ModelAttribute Member member, Model model){
         boolean result = m.makeMember(member);
         //member index
         //joindate set
     ////고쳐주세요!!!!!!!!!!!!!!!!!!!
         log.info("@@@member :: "+member);
-        return "login.html";
+        model.addAttribute("result",result);
+        return "login-join";
     }
 
     //닉네임 중복체크

@@ -22,6 +22,8 @@ import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -192,6 +194,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
         SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
         int strTodaydd = Integer.parseInt(sdfdd.format(c.getTime()));
 
+
         if((strTodaydd == 1) && (!calendarCheck[strTodayMM])){
             indexNumber = 0;
             calendarCheck[strTodayMM] = true;
@@ -206,7 +209,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
 
         String memberIndex = strTodayYYMM + String.valueOf(resultIndexNumber);
         member.setIndex(memberIndex);
-
+        member.setJoinDate(LocalDateTime.now());
         //joindate
         boolean result = m.insertMember(member);
 

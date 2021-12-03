@@ -30,7 +30,7 @@ class LibrayApplicationTests {
         Optional<Member> member = Optional.ofNullable(e.find(Member.class, "123"));
         System.out.println("@@@@@@@@@"+member.get().getIndex());*/
 
-        mj.loginJoin(new Member());
+
     }
 
 }
