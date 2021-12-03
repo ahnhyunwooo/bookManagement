@@ -200,7 +200,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
         String indexBack = String.format("%03", indexNumber);
         String index = strTodayyymm + indexBack ;
         member.setIndex(index);
-        //joindate
+        //joindate   
         boolean result = m.insertMember(member);
 
         return result;
