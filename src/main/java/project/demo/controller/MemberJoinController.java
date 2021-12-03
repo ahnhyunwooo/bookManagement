@@ -34,8 +34,8 @@ public class MemberJoinController {
     public String loginJoin(@ModelAttribute Member member, Model model){
         boolean result = m.makeMember(member);
         //member index
-        //joindate set
-    ////고쳐주세요!!!!!!!!!!!!!!!!!!!
+        //        //joindate set
+        //    ////고쳐주세요!!!!!!!!!!!!!!!!!!!
         log.info("@@@member :: "+member);
         model.addAttribute("result",result);
         return "login-join";

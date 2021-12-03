@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.demo.controller.MemberJoinController;
-import project.demo.domain.Member;
+
+import project.demo.repository.MemberRepositoryImple;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.util.Optional;
+
 
 @SpringBootTest
 @Transactional
@@ -21,6 +22,9 @@ class LibrayApplicationTests {
     @Autowired
     MemberJoinController mj;
 
+    @Autowired
+    MemberRepositoryImple mr;
+
     @Test
     public void func(){
 
@@ -29,8 +33,12 @@ class LibrayApplicationTests {
         e.persist(m);
         Optional<Member> member = Optional.ofNullable(e.find(Member.class, "123"));
         System.out.println("@@@@@@@@@"+member.get().getIndex());*/
-
-
+        String maxIndex = mr.findMaxIndex();
+        System.out.println("@@@@"+maxIndex);
+//        Optional<String> memberByNickName = mr.findMemberByNickName("123");
+//        System.out.println("@@@"+memberByNickName);
+        Object memberById = mr.findMemberByNickName("123");
+        System.out.println("memberById = " + memberById);
     }
 
 }

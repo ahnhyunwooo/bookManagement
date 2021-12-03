@@ -7,10 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.demo.domain.Member;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Transient;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -24,20 +20,29 @@ public class MemberRepository implements MemberRepositoryImple{
     //id로 회원정보 찾기
     @Override
     //@Transactional
-    public List<String> findMemberById(String id) {
-
-        List<String> resultList = e.createQuery("select m.id from Member m where m.id = :id",String.class)
-                .setParameter("id",id)
-                .getResultList();
-        return resultList;
+    public String findMemberById(String id) {
+        String result;
+        try {
+            result = e.createQuery("select m.id from Member m where m.id = :id", String.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+        return result;
     }
 
     @Override
-    public List<String> findMemberByNickName(String nickName) {
-        List<String> resultList = e.createQuery("select m.id from Member m where m.nickName = :nickName",String.class)
-                .setParameter("nickName",nickName)
-                .getResultList();
-        return resultList;
+    public String findMemberByNickName(String nickName) {
+        String result;
+        try {
+            result = e.createQuery("select m.id from Member m where m.nickName = :nickName",String.class)
+                    .setParameter("nickName", nickName)
+                    .getSingleResult();
+        }catch (Exception e) {
+            return null;
+        }
+        return result;
     }
 
     @Override
@@ -51,4 +56,10 @@ public class MemberRepository implements MemberRepositoryImple{
         }
     }
 
+    @Override
+    public String findMaxIndex() {
+        String result = e.createQuery("select  max(m.index) from Member m", String.class)
+                .getSingleResult();
+        return result;
+    }
 }

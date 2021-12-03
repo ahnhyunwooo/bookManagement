@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 import project.demo.domain.Member;
 import project.demo.dto.EmailAddressGetDto;
 import project.demo.dto.IdGetDto;
@@ -24,10 +25,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 @Slf4j
@@ -42,21 +40,21 @@ public class MemberJoinService implements MemberJoinServiceImple{
     @Override
     public boolean idOverlap(IdGetDto idGetDto) {
         String id = idGetDto.getId();
-        List<String>  result = m.findMemberById(id);
+        String result = m.findMemberById(id);
         if(result.isEmpty()){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     //닉네임 중복체크
     @Override
     public boolean nickNameOverlap(NickNameGetDto nickNameGetDto) {
         String nickName = nickNameGetDto.getNickName();
-        List<String> result = m.findMemberByNickName(nickName);
-        if(result.isEmpty()){
-            return true;
+        String result = m.findMemberByNickName(nickName);
+        if(StringUtils.isEmpty(result)){
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -177,8 +175,6 @@ public class MemberJoinService implements MemberJoinServiceImple{
         return key;
     }
 
-    private int indexNumber = 0;
-    private boolean[] calendarCheck = {false,false,false,false,false,false,false,false,false,false,false,false,false};
 
     @Override
     public boolean makeMember(Member member) {
@@ -186,30 +182,24 @@ public class MemberJoinService implements MemberJoinServiceImple{
         Calendar c = Calendar.getInstance();
 
         SimpleDateFormat sdfyyMM = new SimpleDateFormat("yyMM");
-        int strTodayYYMM = Integer.parseInt(sdfyyMM.format(c.getTime()));
+        String strTodayyymm = sdfyyMM.format(c.getTime());
 
-        SimpleDateFormat sdfMM = new SimpleDateFormat("MM");
-        int strTodayMM = Integer.parseInt(sdfMM.format(c.getTime()));
-
+        SimpleDateFormat sdfmm = new SimpleDateFormat("MM");
+        String strTodaymm = sdfmm.format(c.getTime());
         SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
         int strTodaydd = Integer.parseInt(sdfdd.format(c.getTime()));
-
-
-        if((strTodaydd == 1) && (!calendarCheck[strTodayMM])){
-            indexNumber = 0;
-            calendarCheck[strTodayMM] = true;
-            if(strTodayMM == 1){
-                calendarCheck[12] = false;
-            } else {
-                calendarCheck[strTodayMM-1] = false;
-            }
+        String maxIndex = m.findMaxIndex();
+        String tempIndex = maxIndex.substring(2, 3);
+        int indexNumber = 0;
+        if(strTodaydd == 1 && tempIndex != strTodaymm) {
+            indexNumber = 1;
+        }else {
+            indexNumber = Integer.parseInt(maxIndex);
+            indexNumber++;
         }
-        indexNumber++;
-        String resultIndexNumber = String.format("%03d", indexNumber);
-
-        String memberIndex = strTodayYYMM + String.valueOf(resultIndexNumber);
-        member.setIndex(memberIndex);
-        member.setJoinDate(LocalDateTime.now());
+        String indexBack = String.format("%03", indexNumber);
+        String index = strTodayyymm + indexBack ;
+        member.setIndex(index);
         //joindate
         boolean result = m.insertMember(member);
 

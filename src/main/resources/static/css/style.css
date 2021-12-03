@@ -400,6 +400,7 @@ fieldset {
     width: 800px;
     margin: 0 auto;
     padding-top: 30px;
+    padding-left: 150px;
 }
 .input_container {
     font-size: 15px;
