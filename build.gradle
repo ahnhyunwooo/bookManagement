@@ -19,7 +19,6 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 	implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
