@@ -441,6 +441,9 @@ fieldset {
 .member_join_nickname_error,
 .member_join_pw_error,
 .member_join_pw_check_error,
+.phone_error,
+.email_error,
+.name_error,
 .gender_error {
     display: none;
     color: red;

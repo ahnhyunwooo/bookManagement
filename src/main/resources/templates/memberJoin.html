@@ -9,17 +9,17 @@
   <main>
     <div class="member_join_container">
       <h2 class="member_join_title">회원가입</h2>
-      <form th:action="login-join" method="post" id="member_join_action"  onsubmit="return formCheck()" th:object="${memberJoinGetDto}" >
+      <form th:action="login-join" method="post" id="member_join_action" onsubmit="return formCheck()" th:object="${memberJoinGetDto}" >
         <div class="member_join_form_container">
           <div class="input_container">
             <label for="member_join_id" class="member_join_label">아이디 :</label>
-            <input type="text" id="member_join_id" class="member_join" name="id">
+            <input type="text" id="member_join_id" class="member_join" name="id" th:field="*{id}">
             <button type="button" class="member_join_id_btn" onclick="idOverlap()">중복체크</button>
           </div>
           <div class="field-error" th:errors="*{id}"></div>
           <div class="input_container" id="input_container_pw">
             <label for="member_join_pw" class="member_join_label" >비밀번호 :</label>
-            <input type="password" id="member_join_pw" class="member_join"name="pw">
+            <input type="password" id="member_join_pw" class="member_join"name="pw" th:field="*{pw}">
             <div class="member_join_pw_error" id="member_join_pw_error"></div>
           </div>
           <div class="field-error" th:errors="*{pw}"></div>
@@ -30,21 +30,22 @@
           </div>
           <div class="input_container">
             <label for="member_join_name" class="member_join_label" >이름 :</label>
-            <input type="text" id="member_join_name" class="member_join" name="name">
+            <input type="text" id="member_join_name" class="member_join" name="name" th:field="*{name}">
+            <div class="name_error" id="name_error">이름을 입력해주세요.</div>
           </div>
           <div class="field-error" th:errors="*{name}"></div>
           <div class="input_container">
             <label for="member_join_nickname" class="member_join_label">닉네임 :</label>
-            <input type="text" id="member_join_nickname" class="member_join" name="nickName">
+            <input type="text" id="member_join_nickname" class="member_join" name="nickName" th:field="*{nickName}">
             <div class="member_join_nickname_error" id="member_join_nickname_error">닉네임을 2글자 이상 6글자 이하로 해주세요</div>
           </div>
           <div class="field-error" th:errors="*{nickName}"></div>
           <div class="input_container">
             <span>성별 :</span>
             <div class="radio_container">
-              <input type="radio" id="member_join_men" name="gender" class="member_join_gender" value="M">
+              <input type="radio" id="member_join_men" name="gender" class="member_join_gender" value="M" th:field="*{gender}">
               <label for="member_join_men" class="member_join_label">남</label>
-              <input type="radio" id="member_join_girl" name="gender" class="member_join_gender" value="W">
+              <input type="radio" id="member_join_girl" name="gender" class="member_join_gender" value="W" th:field="*{gender}">
               <label for="member_join_girl" class="member_join_label">여</label>
             </div>
             <div class="gender_error" id="gender_error">성별을 선택해주세요.</div>
@@ -52,15 +53,16 @@
           </div>
           <div class="input_container">
             <label for="member_join_phone" class="member_join_label" >연락처 :</label>
-            <input type="text" id="member_join_phone" class="member_join" name="phoneNumber">
+            <input type="text" id="member_join_phone" class="member_join" name="phoneNumber" th:field="*{phoneNumber}">
             <button type="button" class="member_join_phone_check" onclick="sendPhone()">인증번호 받기</button>
             <div class="field-error" th:errors="*{phoneNumber}"></div>
             <input type="number" class="phone_check" id="phone_check">
             <button type="button" class="member_join_phone_check" onclick="phoneCheck()">인증번호 확인</button>
+            <div class="phone_error" id="phone_error">핸드폰 인증을 해주세요.</div>
           </div>
           <div class="input_container">
             <label for="member_join_email" class="member_join_label" >이메일 :</label>
-            <input type="text" id="member_join_email" class="member_join member_join_email_front" name="email">
+            <input type="text" id="member_join_email" class="member_join member_join_email_front" name="email" th:field="*{email}">
             <span class="email_sign">@</span>
             <select class="email_items" id="email_items" onchange="emailText()">
               <option value="1">naver.com</option>
@@ -73,6 +75,7 @@
             <input type="text" class="email_check" id="email_check">
             <button type="button" class="member_join_email_check" onclick="emailCheck()">인증번호 확인</button>
           </div>
+          <div class="email_error" id="email_error">이메일 인증을 해주세요.</div>
           <button type="submit" class="member_join_btn" id="member_join_btn">가입하기</button>
           <button type="button" class="member_join_btn" href="#">취소하기</button>
         </div>

@@ -7,6 +7,17 @@ function formCheck(){
     let nickNameBoolean= nickNameCheck();
     let genderBoolean = genderCheck();
     let idBoolean = idCheck();
+    let nameBoolean = nameCheck();
+    if(phoneCheckBtn) {
+        $("#phone_error").css("display","none");
+    } else {
+        $("#phone_error").css("display","block");
+    }
+    if(emailCheckBtn) {
+        $("#email_error").css("display","none");
+    } else {
+        $("#email_error").css("display","block");
+    }
 
     // console.log("pwBoolean"+pwBoolean);
     // console.log("nickNameBoolean"+nickNameBoolean);
@@ -16,6 +27,7 @@ function formCheck(){
     // console.log("emailCheckBtn" + emailCheckBtn);
 
     if(pwBoolean && nickNameBoolean && genderBoolean && idBoolean && phoneCheckBtn && emailCheckBtn) {
+        alert("회원가입이 되었습니다.");
         return true;
     }
     return false;
@@ -209,6 +221,7 @@ function phoneCheck(){
         alert("다시 확인 부탁드립니다.");
         phoneCheckBtn = false;
     }
+
 }
 
 /**
@@ -262,6 +275,21 @@ function emailCheck() {
         alert("다시 한번 확인 부탁드립니다.");
         emailCheckBtn = false;
     }
+}
+
+/**
+ * 이름 체크
+ */
+function nameCheck() {
+    let nameString = $("#member_join_name").val();
+    if(!nameString) {
+        $("#member_join_name").css("border", "2px solid red");
+        $("#name_error").css("display", "block");
+        return false;
+    }
+    $("#member_join_name").css("border","1px solid black");
+    $("#name_error").css("display", "none");
+    return true;
 }
 
 

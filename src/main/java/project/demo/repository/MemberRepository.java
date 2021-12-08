@@ -50,6 +50,7 @@ public class MemberRepository implements MemberRepositoryImple{
     public boolean insertMember(Member member) {
         try {
             e.persist(member);
+            log.info("member = {}",member);
             return true;
         }catch(Exception e){
             return false;

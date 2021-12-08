@@ -16,4 +16,6 @@ public interface MemberJoinServiceImple {
     public int makeNumber();
     public String sendMail(EmailAddressGetDto emailAddressDto);
     public boolean makeMember(MemberJoinGetDto member);
+    public String salt();
+    public String SHA512(String pw, String hash);
 }

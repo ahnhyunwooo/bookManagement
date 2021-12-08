@@ -16,11 +16,13 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.*;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -191,31 +193,59 @@ public class MemberJoinService implements MemberJoinServiceImple{
         if(StringUtils.isEmpty(maxIndex)) {
              index = strTodayymm + "001";
         } else {
-             tempIndex = maxIndex.substring(2, 3);
+             tempIndex = maxIndex.substring(2, 4);
+             log.info(tempIndex);
             int indexNumber = 0;
             if(strTodaydd == 1 && tempIndex != strTodaymm) {
                 indexNumber = 1;
             }else {
-                indexNumber = Integer.parseInt(maxIndex);
+                indexNumber = Integer.parseInt(maxIndex.substring(4,7));
                 indexNumber++;
             }
-            String indexBack = String.format("%%03", indexNumber);
+            String indexBack = String.format("%03d", indexNumber);
             index = strTodayymm + indexBack ;
         }
+        String salt = salt();
         Member member = new Member();
         member.setId(memberJoinGetDto.getId());
         member.setIndex(index);
-
         member.setEmail(memberJoinGetDto.getEmail());
         member.setGender(memberJoinGetDto.getGender());
         member.setName(memberJoinGetDto.getName());
-        member.setPw(memberJoinGetDto.getPw());
+        member.setPw(SHA512(memberJoinGetDto.getPw(), salt));
         member.setPhoneNumber(memberJoinGetDto.getPhoneNumber());
         member.setJoinDate(LocalDateTime.now());
-
+        member.setSalt(salt);
         boolean result = m.insertMember(member);
 
         return result;
 
+    }
+    //비밀번호 암호화
+
+    @Override
+    public String salt() {
+        String salt="";
+        try {
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            byte[] bytes = new byte[16];
+            random.nextBytes(bytes);
+            salt = new String(java.util.Base64.getEncoder().encode(bytes));}
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } return salt;
+
+    }
+
+    @Override
+    public String SHA512(String pw, String hash) {
+        String salt = hash+pw;
+        String hex = null;
+        try {
+            MessageDigest msg = MessageDigest.getInstance("SHA-512");
+            msg.update(salt.getBytes());
+            hex = String.format("%128x", new BigInteger(1, msg.digest()));
+        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+        return hex;
     }
 }

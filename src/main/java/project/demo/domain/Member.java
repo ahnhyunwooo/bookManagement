@@ -44,6 +44,9 @@ public class Member {
     @Column(name="MEMBER_JOINDATE")
     private LocalDateTime joinDate;
 
+    @Column(name="MEMBER_SALT")
+    private String salt;
+
     @Column(name="MEMBER_BOOK_RENTAL_COUNT")
     private int bookRentalCount;
 
