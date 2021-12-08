@@ -205,17 +205,14 @@ public class MemberJoinService implements MemberJoinServiceImple{
         Member member = new Member();
         member.setId(memberJoinGetDto.getId());
         member.setIndex(index);
-<<<<<<< .merge_file_a30748
+
         member.setEmail(memberJoinGetDto.getEmail());
         member.setGender(memberJoinGetDto.getGender());
         member.setName(memberJoinGetDto.getName());
         member.setPw(memberJoinGetDto.getPw());
         member.setPhoneNumber(memberJoinGetDto.getPhoneNumber());
         member.setJoinDate(LocalDateTime.now());
-        //joindate   
-=======
-        //joindate
->>>>>>> .merge_file_a16508
+
         boolean result = m.insertMember(member);
 
         return result;
