@@ -205,7 +205,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
         Member member = new Member();
         member.setId(memberJoinGetDto.getId());
         member.setIndex(index);
-<<<<<<< .merge_file_a30748
+<<<<<<< HEAD
         member.setEmail(memberJoinGetDto.getEmail());
         member.setGender(memberJoinGetDto.getGender());
         member.setName(memberJoinGetDto.getName());
@@ -215,7 +215,7 @@ public class MemberJoinService implements MemberJoinServiceImple{
         //joindate   
 =======
         //joindate
->>>>>>> .merge_file_a16508
+>>>>>>> origin/main
         boolean result = m.insertMember(member);
 
         return result;

@@ -9,7 +9,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;
 import project.demo.domain.Member;
-import project.demo.dto.*;
+import project.demo.dto.EmailAddressGetDto;
+import project.demo.dto.IdGetDto;
+import project.demo.dto.NickNameGetDto;
+import project.demo.dto.PhoneNumberGetDto;
 import project.demo.repository.MemberRepositoryImple;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -38,10 +41,10 @@ public class MemberJoinService implements MemberJoinServiceImple{
     public boolean idOverlap(IdGetDto idGetDto) {
         String id = idGetDto.getId();
         String result = m.findMemberById(id);
-        if(StringUtils.isEmpty(result)){
-            return true;
+        if(result.isEmpty()){
+            return false;
         }
-        return false;
+        return true;
     }
     //닉네임 중복체크
     @Override
@@ -49,9 +52,9 @@ public class MemberJoinService implements MemberJoinServiceImple{
         String nickName = nickNameGetDto.getNickName();
         String result = m.findMemberByNickName(nickName);
         if(StringUtils.isEmpty(result)){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -174,48 +177,30 @@ public class MemberJoinService implements MemberJoinServiceImple{
 
 
     @Override
-    public boolean makeMember(MemberJoinGetDto memberJoinGetDto) {
+    public boolean makeMember(Member member) {
 
-        String tempIndex;
-        String index;
         Calendar c = Calendar.getInstance();
+
         SimpleDateFormat sdfyyMM = new SimpleDateFormat("yyMM");
-        String strTodayymm = sdfyyMM.format(c.getTime());
+        String strTodayyymm = sdfyyMM.format(c.getTime());
 
         SimpleDateFormat sdfmm = new SimpleDateFormat("MM");
         String strTodaymm = sdfmm.format(c.getTime());
         SimpleDateFormat sdfdd = new SimpleDateFormat("dd");
         int strTodaydd = Integer.parseInt(sdfdd.format(c.getTime()));
         String maxIndex = m.findMaxIndex();
-
-        if(StringUtils.isEmpty(maxIndex)) {
-             index = strTodayymm + "001";
-        } else {
-             tempIndex = maxIndex.substring(2, 3);
-            int indexNumber = 0;
-            if(strTodaydd == 1 && tempIndex != strTodaymm) {
-                indexNumber = 1;
-            }else {
-                indexNumber = Integer.parseInt(maxIndex);
-                indexNumber++;
-            }
-            String indexBack = String.format("%%03", indexNumber);
-            index = strTodayymm + indexBack ;
+        String tempIndex = maxIndex.substring(2, 3);
+        int indexNumber = 0;
+        if(strTodaydd == 1 && tempIndex != strTodaymm) {
+            indexNumber = 1;
+        }else {
+            indexNumber = Integer.parseInt(maxIndex);
+            indexNumber++;
         }
-        Member member = new Member();
-        member.setId(memberJoinGetDto.getId());
+        String indexBack = String.format("%03", indexNumber);
+        String index = strTodayyymm + indexBack ;
         member.setIndex(index);
-<<<<<<< .merge_file_a30748
-        member.setEmail(memberJoinGetDto.getEmail());
-        member.setGender(memberJoinGetDto.getGender());
-        member.setName(memberJoinGetDto.getName());
-        member.setPw(memberJoinGetDto.getPw());
-        member.setPhoneNumber(memberJoinGetDto.getPhoneNumber());
-        member.setJoinDate(LocalDateTime.now());
-        //joindate   
-=======
         //joindate
->>>>>>> .merge_file_a16508
         boolean result = m.insertMember(member);
 
         return result;
