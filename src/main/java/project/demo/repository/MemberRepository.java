@@ -21,26 +21,26 @@ public class MemberRepository implements MemberRepositoryImple{
     @Override
     //@Transactional
     public String findMemberById(String id) {
-        String result;
+        String result="";
         try {
             result = e.createQuery("select m.id from Member m where m.id = :id", String.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (Exception e) {
-            return null;
+            return result;
         }
         return result;
     }
 
     @Override
     public String findMemberByNickName(String nickName) {
-        String result;
+        String result="";
         try {
             result = e.createQuery("select m.id from Member m where m.nickName = :nickName",String.class)
                     .setParameter("nickName", nickName)
                     .getSingleResult();
         }catch (Exception e) {
-            return null;
+            return result;
         }
         return result;
     }

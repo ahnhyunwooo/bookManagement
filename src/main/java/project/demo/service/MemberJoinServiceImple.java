@@ -1,10 +1,7 @@
 package project.demo.service;
 
 import project.demo.domain.Member;
-import project.demo.dto.EmailAddressGetDto;
-import project.demo.dto.IdGetDto;
-import project.demo.dto.NickNameGetDto;
-import project.demo.dto.PhoneNumberGetDto;
+import project.demo.dto.*;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -18,5 +15,5 @@ public interface MemberJoinServiceImple {
     public String makeSignature(String timestamp, String url, String accessKey, String secretKey) throws NoSuchAlgorithmException, InvalidKeyException;
     public int makeNumber();
     public String sendMail(EmailAddressGetDto emailAddressDto);
-    public boolean makeMember(Member member);
+    public boolean makeMember(MemberJoinGetDto member);
 }

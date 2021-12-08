@@ -28,17 +28,6 @@ class LibrayApplicationTests {
     @Test
     public void func(){
 
-        /*Member m = new Member();
-        m.setIndex("123");
-        e.persist(m);
-        Optional<Member> member = Optional.ofNullable(e.find(Member.class, "123"));
-        System.out.println("@@@@@@@@@"+member.get().getIndex());*/
-        String maxIndex = mr.findMaxIndex();
-        System.out.println("@@@@"+maxIndex);
-//        Optional<String> memberByNickName = mr.findMemberByNickName("123");
-//        System.out.println("@@@"+memberByNickName);
-        Object memberById = mr.findMemberByNickName("123");
-        System.out.println("memberById = " + memberById);
     }
 
 }

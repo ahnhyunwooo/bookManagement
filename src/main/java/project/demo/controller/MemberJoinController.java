@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.domain.Member;
-import project.demo.dto.EmailAddressGetDto;
-import project.demo.dto.IdGetDto;
-import project.demo.dto.NickNameGetDto;
-import project.demo.dto.PhoneNumberGetDto;
+import project.demo.dto.*;
 import project.demo.service.MemberJoinServiceImple;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +23,13 @@ public class MemberJoinController {
 
     private final MemberJoinServiceImple m;
 
+    //초기화면
+    @GetMapping("login-join")
+    public String loginJoin( @ModelAttribute MemberJoinGetDto memberJoinGetDto){
+        return "memberJoin";
+    }
+
+
     //id 중복체크
     @PostMapping("/idOverlap")
     @ResponseBody
@@ -31,14 +38,14 @@ public class MemberJoinController {
     }
 
     @PostMapping("login-join")
-    public String loginJoin(@ModelAttribute Member member, Model model){
-        boolean result = m.makeMember(member);
-        //member index
-        //        //joindate set
-        //    ////고쳐주세요!!!!!!!!!!!!!!!!!!!
-        log.info("@@@member :: "+member);
-        model.addAttribute("result",result);
-        return "login-join";
+    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        log.info("memberJoinGetDto ={}",memberJoinGetDto);
+        if(bindingResult.hasErrors()) {
+            return "memberJoin";
+        }
+        boolean result = m.makeMember(memberJoinGetDto);
+
+        return "redirect:/login";
     }
 
     //닉네임 중복체크
