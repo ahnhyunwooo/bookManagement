@@ -248,4 +248,6 @@ public class MemberJoinService implements MemberJoinServiceImple{
         } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
         return hex;
     }
+
+
 }

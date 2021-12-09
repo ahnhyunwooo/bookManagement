@@ -28,9 +28,14 @@ public class MemberJoinTest {
 
     @Test
     public void memberSaveTest() {
-        MemberJoinGetDto memberJoinGetDto = new MemberJoinGetDto("배지영","배지영","qowldud12", "배찌","W", "00000","123");
+        MemberJoinGetDto memberJoinGetDto = new MemberJoinGetDto();
+        memberJoinGetDto.setGender("M");
+        memberJoinGetDto.setEmail("dksgusdnx");
+        memberJoinGetDto.setName("안현우");
+        memberJoinGetDto.setPhoneNumber("01099498902");
+        memberJoinGetDto.setNickName("안현우");
         ms.makeMember(memberJoinGetDto);
         Member member = e.find(Member.class, "2112001");
-        System.out.println("member = " + member);
+        System.out.println("@@@member = " + member);
     }
 }

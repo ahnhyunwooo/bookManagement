@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.demo.domain.Member;
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Repository
@@ -62,5 +64,31 @@ public class MemberRepository implements MemberRepositoryImple{
         String result = e.createQuery("select  max(m.index) from Member m", String.class)
                 .getSingleResult();
         return result;
+    }
+    //아이디 비밀번호 확인
+    @Override
+    public List<Object[]> findSaltAndPwById(String id) {
+        try{
+            List<Object[]> result = e.createQuery("select m.salt, m.pw from Member m where m.id = :id")
+                    .setParameter("id", id)
+                    .getResultList();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    //salt로 pw 찾기
+    @Override
+    public String findPwBySalt(String salt) {
+        try{
+            String result = e.createQuery("select m.pw from Member m where m.salt = :salt", String.class)
+                    .setParameter("salt", salt)
+                    .getSingleResult();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
+
     }
 }

@@ -487,4 +487,8 @@ fieldset {
     padding: 5px 0 5px 180px;
     line-height: 20px;
 }
+.login_id_container + .field-error,
+.login_pw_container + .field-error{
+    padding: 10px 0 0 0;
+}
 
