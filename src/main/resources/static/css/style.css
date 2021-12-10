@@ -491,4 +491,49 @@ fieldset {
 .login_pw_container + .field-error{
     padding: 10px 0 0 0;
 }
+.id_search_form {
+    line-height: 40px;
+    padding: 5px 0;
+    text-align: center;
+}
+.id_search_title {
+    line-height: 40px;
+    padding: 10px 0;
+    text-align: center;
+}
+.id_search_link {
+    border: 1px solid #cccccc;
+    font-size: 20px;
+    padding: 5px;
+}
+.id_search_container {
+    width: 150px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 20px;
+}
+.id_search_phone_container {
+    width: 240px;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 20px;
+    padding: 5px 0 ;
+}
+.id_search_textBox {
+    height: 40px;
+    float: right;
+    box-sizing: border-box;
+}
+.id_search_textBox:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.id_search_text {
+    font-size: 20px;
+}
+.id_search_error {
+    display: none;
+    color: red;
+}
 

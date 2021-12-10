@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::link},~{::main})}"
+<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::script},~{::main})}"
       xmlns:th="http://thymeleaf.org">
 <head>
     <title>상상도서관 :: 로그인</title>
-    <link>
+    <script th:src="@{/js/login.js}"></script>
 </head>
 <body>
     <main>
@@ -23,7 +23,7 @@
                 <div class="field-error" th:errors="*{pw}"></div>
                 <a href="#" class="login_page_link" onclick="document.getElementById('form').submit();">로그인</a>
                 <div class="login_id_pw_search">
-                    <a href="#" class="login_id_pw_link">아이디 찾기</a>
+                    <a href="#" class="login_id_pw_link" onclick="searchId()">아이디 찾기</a>
                     <a href="#" class="login_id_pw_link">비밀번호 찾기</a>
                 </div>
             </div>

@@ -14,5 +14,7 @@ public interface MemberRepositoryImple {
     public String findMaxIndex();
     public List<Object[]> findSaltAndPwById(String id);
     public String findPwBySalt(String salt);
+    public String idSearchByNameAndPhone(String name, String phone);
+    public String idSearchByNameAndEmail(String name, String email);
 
 }

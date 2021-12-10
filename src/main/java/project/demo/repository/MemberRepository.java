@@ -89,6 +89,31 @@ public class MemberRepository implements MemberRepositoryImple{
         }catch (Exception e) {
             return null;
         }
+    }
+    //이름, 핸드폰
+    @Override
+    public String idSearchByNameAndPhone(String name, String phone) {
+        try {
+            String result = e.createQuery("select m.id from Member m where m.name = :name and m.phoneNumber = :phone", String.class)
+                    .setParameter("name", name)
+                    .setParameter("phone", phone)
+                    .getSingleResult();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
+    }
 
+    @Override
+    public String idSearchByNameAndEmail(String name, String email) {
+        try {
+            String result = e.createQuery("select m.id from Member m where m.name = :name and m.email = :email", String.class)
+                    .setParameter("name", name)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
     }
 }

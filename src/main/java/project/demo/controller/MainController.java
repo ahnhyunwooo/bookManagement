@@ -17,34 +17,10 @@ import project.demo.service.MemberLoginServiceImple;
 @RequestMapping("/")
 public class MainController {
 
-    private final MemberLoginServiceImple ml;
 
     @GetMapping
     public String mainPage(){
         return "main.html";
     }
-    @GetMapping("login")
-    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto){
-        return "login.html";
-    }
-    @PostMapping("login")
-    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult, Model model){
-        log.info("idPwGetDto ={}",idPwGetDto);
-        if(bindingResult.hasErrors()) {
-            return "login";
-        }
-        //아이디 존재여부
-        int result = ml.idSamePw(idPwGetDto);
-        if(result == 1) {
-            return "main.html";
-        } else if(result == -1) {
-            bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));
-        } else {
-            bindingResult.addError(new ObjectError("idPwErr", null, null,"아이디가 존재하지 않습니다."));
-        }
-        log.info("{}", result);
-        return "login";
-    }
-
 
 }
