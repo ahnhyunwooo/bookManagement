@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.demo.controller.MemberJoinController;
 
-import project.demo.repository.MemberRepositoryImple;
+import project.demo.repository.MemberRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +23,7 @@ class LibrayApplicationTests {
     MemberJoinController mj;
 
     @Autowired
-    MemberRepositoryImple mr;
+    MemberRepository mr;
 
     @Test
     public void func(){

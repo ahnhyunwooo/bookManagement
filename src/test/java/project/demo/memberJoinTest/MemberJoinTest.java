@@ -3,11 +3,10 @@ package project.demo.memberJoinTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.demo.controller.MemberJoinController;
 import project.demo.domain.Member;
 import project.demo.dto.MemberJoinGetDto;
-import project.demo.repository.MemberRepositoryImple;
-import project.demo.service.MemberJoinServiceImple;
+import project.demo.repository.MemberRepository;
+import project.demo.service.MemberJoinService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,10 +20,10 @@ public class MemberJoinTest {
     private EntityManager e;
     
     @Autowired
-    MemberJoinServiceImple ms;
+    MemberJoinService ms;
 
     @Autowired
-    MemberRepositoryImple mr;
+    MemberRepository mr;
 
     @Test
     public void memberSaveTest() {

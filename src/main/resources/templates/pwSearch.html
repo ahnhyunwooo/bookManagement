@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{template/fragment/head :: copy(~{::title},~{::script})}">
+  <meta charset="UTF-8">
+  <title>비밀번호 찾기</title>
+  <script th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<header>
+  <h1 class="id_search_title">비밀번호 찾기</h1>
+</header>
+<main>
+  <form action="pwSearch" method="post" id="form">
+    <div class="id_search_form">
+      <div class="id_search_container">
+        <input type="radio" class="id_search_radio" name="pw_search" id="id_search_phone" checked="checked" value="phone"><label for="id_search_phone">연락처로 찾기</label>
+      </div>
+      <div class="id_search_container">
+        <input type="radio" class="id_search_radio" name="pw_search" id="id_search_email" value="email"><label for="id_search_email">Email로 찾기</label>
+      </div>
+      <a href="#" onclick="document.getElementById('form').submit();" class="id_search_link">다음</a>
+    </div>
+  </form>
+</main>
+</body>
+</html>

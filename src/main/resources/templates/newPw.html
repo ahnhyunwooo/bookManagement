@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{template/fragment/head :: copy(~{::title},~{::script})}">
+  <meta charset="UTF-8">
+  <title>비밀번호 찾기 :: 이메일</title>
+  <script th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<header>
+  <h1 class="id_search_title">비밀번호 찾기</h1>
+</header>
+<main>
+  <form action="pwChange" th="action">
+    <div class="pw_change_form">
+      <div class="pw_input_container">
+        <label for="new_pw">새로운 비밀번호: </label>
+        <input type="password" class="new_pw" id="new_pw">
+      </div>
+      <div class="pw_input_container">
+        <label for="new_pw_check">비밀번호 확인: </label>
+        <input type="password" class="new_pw" id="new_pw_check">
+      </div>
+
+    </div>
+  </form>
+
+</main>
+</body>
+</html>

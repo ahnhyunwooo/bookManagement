@@ -1,11 +1,20 @@
-//아이디 찾기
+//아이디 팝업
 function searchId() {
     // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
     let popupX = (window.screen.width / 2) - (400 / 2);
 
     // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
-    let popupY= (window.screen.height / 2) - (300 / 2);
+    let popupY= (window.screen.height / 2) - (270 / 2);
     window.open("login/idSearch","아이디찾기",'status=no, height=' + 270  + ', width=' + 400  + ', left='+ popupX + ', top='+ popupY);
+}
+//비밀번호 팝업
+function searchPw() {
+    // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+    let popupX = (window.screen.width / 2) - (400 / 2);
+
+    // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
+    let popupY= (window.screen.height / 2) - (270 / 2);
+    window.open("login/pwSearch","비밀번호찾기",'status=no, height=' + 270  + ', width=' + 400  + ', left='+ popupX + ', top='+ popupY);
 }
 //핸드폰으로 아이디 찾기
 function searchIdByPhone() {
@@ -34,7 +43,7 @@ function searchIdByPhone() {
     });
 }
 //email로 아이디 찾기
-function searchIdByPhone() {
+function searchIdByEmail() {
     let name = $("#id_search_name").val();
     let email =$("#id_search_email").val();
     let sendData = {"name":name, "email":email};

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://thymeleaf.org">
+<head th:replace="~{template/fragment/head :: copy(~{::title},~{::script})}">
+  <meta charset="UTF-8">
+  <title>비밀번호 찾기 :: 이메일</title>
+  <script th:src="@{/js/login.js}"></script>
+</head>
+<body>
+<header>
+  <h1 class="id_search_title">비밀번호 찾기</h1>
+</header>
+<main>
+  <div class="id_search_form">
+    <div class="id_search_phone_container">
+      <label class="id_search_text" for="pw_search_id">아이디:</label><input type="text" class="id_search_textBox" id="pw_search_id">
+    </div>
+    <div class="id_search_error" id="id_search_error">일치하는 정보가 없습니다.</div>
+    <div class="id_search_phone_container">
+      <label class="id_search_text" for="pw_search_phone">이메일:</label>
+      <input type="number" class="id_search_textBox" id="pw_search_phone">
+      <button type="button" class="pw_btn">인증</button>
+    </div>
+    <input type="number" class="pw_search_check" id="pw_search_check">
+    <div>
+      <a href="#" class="id_search_link" th:onclick="searchPwByEmail()">찾기</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

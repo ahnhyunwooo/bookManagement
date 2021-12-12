@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import project.demo.dto.IdPwGetDto;
 import project.demo.dto.NameEmailGetDto;
 import project.demo.dto.NamePhoneGetDto;
-import project.demo.service.MemberLoginServiceImple;
+import project.demo.service.MemberLoginService;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final MemberLoginServiceImple ml;
+    private final MemberLoginService ml;
 
     @GetMapping("login")
     public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto){
@@ -74,6 +74,20 @@ public class LoginController {
         }else {
             return false;
         }
+    }
+    @GetMapping("login/pwSearch")
+    public String pwSearchPage() {
+        return "pwSearch";
+    }
+    @PostMapping("login/pwSearch")
+    public String pwSearchChoiceForm(@RequestParam("pw_search")String way) {
+        log.info("@@@@{}", way);
+        if(way.equals("phone")) {
+            return "pwSearchPhone";
+        }else {
+            return "pwSearchEmail";
+        }
+
     }
 
 

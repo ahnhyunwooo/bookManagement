@@ -513,27 +513,42 @@ fieldset {
     font-size: 20px;
 }
 .id_search_phone_container {
-    width: 240px;
+    width: 300px;
     margin: 0 auto;
     text-align: left;
     font-size: 20px;
     padding: 5px 0 ;
 }
-.id_search_textBox {
+.id_search_text {
+    float: left;
+}
+.pw_btn {
+    float: left;
     height: 40px;
-    float: right;
     box-sizing: border-box;
 }
-.id_search_textBox:after {
+.id_search_textBox {
+    height: 40px;
+    float: left;
+    box-sizing: border-box;
+    margin: 0 5px;
+}
+.id_search_phone_container:after {
     content: '';
     display: block;
     clear: both;
 }
 .id_search_text {
     font-size: 20px;
+    width: 70px;
 }
 .id_search_error {
     display: none;
     color: red;
+}
+.pw_search_check {
+    height: 40px;
+    box-sizing: border-box;
+    margin-left: 5px;
 }
 
