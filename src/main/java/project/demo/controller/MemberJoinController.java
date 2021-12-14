@@ -18,21 +18,55 @@ public class MemberJoinController {
 
     private final MemberJoinService m;
 
-    //초기화면
+    /**
+     * 초기화면
+     */
     @GetMapping("login-join")
     public String loginJoin(Model model){
         model.addAttribute("memberJoinGetDto",new MemberJoinGetDto());
         return "memberJoin";
     }
 
-
-    //id 중복체크
+    /**
+     * 회원가입 - 아이디 중복체크
+     */
     @PostMapping("/idOverlap")
     @ResponseBody
     public boolean idOverlapCheck(@RequestBody IdGetDto idGetDto){
         return m.idOverlap(idGetDto);
     }
 
+    /**
+     * 회원가입 - 닉네임 중복체크
+     */
+    @PostMapping("/nickNameOverlap")
+    @ResponseBody
+    public boolean nickNameOverlapCheck(@RequestBody NickNameGetDto nickNameGetDto){
+        return m.nickNameOverlap(nickNameGetDto);
+    }
+
+    /**
+     * 회원가입 - 핸드폰 인증
+     */
+    @PostMapping("/phoneMessage")
+    @ResponseBody
+    public int phoneMessage(@RequestBody PhoneNumberGetDto phoneNumberGetDto) {
+        int number = m.phoneMessage(phoneNumberGetDto);
+        return number;
+    }
+
+    /**
+     * 회원가입 - Email 인증
+     */
+    @PostMapping("/email")
+    @ResponseBody
+    public String emailNumber(@RequestBody EmailAddressGetDto emailAddressDto) {
+        return m.sendMail(emailAddressDto);
+    }
+
+    /**
+     * 회원가입 최종 체크
+     */
     @PostMapping("login-join")
     public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
         log.info("memberJoinGetDto ={}",memberJoinGetDto);
@@ -42,26 +76,5 @@ public class MemberJoinController {
         boolean result = m.makeMember(memberJoinGetDto);
 
         return "redirect:/login";
-    }
-
-    //닉네임 중복체크
-    @PostMapping("/nickNameOverlap")
-    @ResponseBody
-    public boolean nickNameOverlapCheck(@RequestBody NickNameGetDto nickNameGetDto){
-        return m.nickNameOverlap(nickNameGetDto);
-    }
-    //핸드폰 인증번호
-    @PostMapping("/phoneMessage")
-    @ResponseBody
-    public int phoneMessage(@RequestBody PhoneNumberGetDto phoneNumberGetDto) {
-        int number = m.phoneMessage(phoneNumberGetDto);
-        return number;
-    }
-
-    //email 인증
-    @PostMapping("/email")
-    @ResponseBody
-    public String emailNumber(@RequestBody EmailAddressGetDto emailAddressDto) {
-        return m.sendMail(emailAddressDto);
     }
 }

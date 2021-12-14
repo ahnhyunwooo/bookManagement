@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import project.demo.domain.Member;
 import project.demo.dto.IdPwGetDto;
 import project.demo.dto.NameEmailGetDto;
 import project.demo.dto.NamePhoneGetDto;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -89,7 +91,6 @@ public class MemberLoginServiceImple implements MemberLoginService {
         toJson.put("content", "상상도서관 아이디"+"["+id+"]"+"입니다.");
         toJson.put("to", phoneNumber);
         toArr.add(toJson);
-
         bodyJson.put("type", "sms");
         bodyJson.put("contentType", "COMM");
         bodyJson.put("countryCode", "82");
@@ -184,5 +185,10 @@ public class MemberLoginServiceImple implements MemberLoginService {
         message.setText("상상도서관 아이디는 : "+id+ "입니다.");
         mailSender.send(message);
         log.info(String.valueOf(message));
+    }
+    //로그인 멤버 정보 찾기
+    @Override
+    public Optional<Member> findLoginMember(String id) {
+        return mr.findMemberByLoginId(id);
     }
 }
