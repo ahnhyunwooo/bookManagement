@@ -202,7 +202,7 @@ function sendPhone() {
         async: false,
         success : function(data)
         {
-            alert("문자 전송되었습니다.");
+            alert("인증번호가 전송되었습니다.");
             phoneRealCertification = data;
         },
         error: function () {
