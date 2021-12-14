@@ -8,10 +8,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import project.demo.domain.Member;
 import project.demo.dto.IdPwGetDto;
 import project.demo.dto.NameEmailGetDto;
 import project.demo.dto.NamePhoneGetDto;
 import project.demo.service.MemberLoginService;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -21,11 +24,15 @@ public class LoginController {
     private final MemberLoginService ml;
 
     @GetMapping("login")
-    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto){
-        return "login.html";
+    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto,@SessionAttribute(name = "loginMember", required = false)IdPwGetDto loginMember,Model model){
+        if(loginMember ==null) {
+            return "login";
+        }
+        model.addAttribute("loginMember",loginMember);
+        return "main";
     }
     @PostMapping("login")
-    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult, Model model){
+    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult,HttpSession httpSession){
         log.info("idPwGetDto ={}",idPwGetDto);
         if(bindingResult.hasErrors()) {
             return "login";
@@ -33,6 +40,7 @@ public class LoginController {
         //아이디 존재여부
         int result = ml.idSamePw(idPwGetDto);
         if(result == 1) {
+            httpSession.setAttribute("loginMember",idPwGetDto);
             return "main";
         } else if(result == -1) {
             bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));

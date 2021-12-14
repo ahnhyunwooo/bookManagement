@@ -1,6 +1,9 @@
 server:
   port: 8181
-
+  servlet:
+    session:
+      tracking-modes: cookie
+      timeout: 1800
 
 spring:
   datasource:
@@ -30,6 +33,7 @@ spring:
 
   messages:
     basename: errors
+
 
 
 
