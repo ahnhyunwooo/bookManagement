@@ -68,7 +68,7 @@ public class MemberJoinController {
      * 회원가입 최종 체크
      */
     @PostMapping("login-join")
-    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult){
         log.info("memberJoinGetDto ={}",memberJoinGetDto);
         if(bindingResult.hasErrors()) {
             return "memberJoin";

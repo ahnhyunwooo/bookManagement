@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.domain.Member;
 import project.demo.dto.IdPwGetDto;
 import project.demo.dto.NameEmailGetDto;
@@ -29,13 +30,13 @@ public class LoginController {
      * 로그인
      */
     @GetMapping("login")
-    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto,@SessionAttribute(name = "loginMember", required = false)Member loginMember,Model model){
+    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto, @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model){
         if(loginMember ==null) {
             return "login";
         }
-        log.info("loginMember = {}",loginMember);
+        log.info("loginMember2 = {}",loginMember);
         model.addAttribute("loginMember",loginMember);
-        return "main";
+        return "redirect:/main";
     }
 
     @PostMapping("login")
@@ -51,10 +52,10 @@ public class LoginController {
             HttpSession session = request.getSession();
             //회원정보 조회
             Optional<Member> loginMember = ml.findLoginMember(idPwGetDto.getId());
-            log.info("loginMember = {}", loginMember);
+            log.info("loginMember1 = {}", loginMember);
             //세션에 로그인 회원 정보 보관
             session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
-            return "main";
+            return "redirect:/main";
         } else if(result == -1) {
             bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));
         } else {
