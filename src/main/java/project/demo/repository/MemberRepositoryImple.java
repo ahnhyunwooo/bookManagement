@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.demo.domain.Member;
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -114,5 +115,18 @@ public class MemberRepositoryImple implements MemberRepository {
         }catch (Exception e) {
             return null;
         }
+    }
+    //id로 전체정보조회
+    @Override
+    public Optional<Member> findMemberByLoginId(String id) {
+        return findAll().stream()
+                .filter(m->m.getId().equals(id))
+                .findAny();
+    }
+    //전체정보 조회
+    @Override
+    public List<Member> findAll() {
+        return e.createQuery("select m from Member m")
+                .getResultList();
     }
 }

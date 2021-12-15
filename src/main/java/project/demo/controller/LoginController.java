@@ -14,10 +14,9 @@ import project.demo.dto.NameEmailGetDto;
 import project.demo.dto.NamePhoneGetDto;
 import project.demo.service.MemberLoginService;
 import project.demo.session.SessionConst;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -30,12 +29,17 @@ public class LoginController {
      * 로그인
      */
     @GetMapping("login")
-    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto){
-        return "login.html";
+    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto,@SessionAttribute(name = "loginMember", required = false)Member loginMember,Model model){
+        if(loginMember ==null) {
+            return "login";
+        }
+        log.info("loginMember = {}",loginMember);
+        model.addAttribute("loginMember",loginMember);
+        return "main";
     }
 
     @PostMapping("login")
-    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult, Model model, HttpServletRequest request){
+    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult, HttpServletRequest request){
         log.info("idPwGetDto ={}",idPwGetDto);
         if(bindingResult.hasErrors()) {
             return "login";
@@ -45,8 +49,11 @@ public class LoginController {
         if(result == 1) {
             //세션생성
             HttpSession session = request.getSession();
+            //회원정보 조회
+            Optional<Member> loginMember = ml.findLoginMember(idPwGetDto.getId());
+            log.info("loginMember = {}", loginMember);
             //세션에 로그인 회원 정보 보관
-            session.setAttribute(SessionConst.LOGIN_MEMBER, idPwGetDto);
+            session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
             return "main";
         } else if(result == -1) {
             bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));
