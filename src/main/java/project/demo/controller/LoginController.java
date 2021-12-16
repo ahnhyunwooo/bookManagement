@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import project.demo.annotation.Login;
 import project.demo.domain.Member;
 import project.demo.dto.IdPwGetDto;
 import project.demo.dto.NameEmailGetDto;
@@ -29,7 +30,7 @@ public class LoginController {
      * 로그인
      */
     @GetMapping("login")
-    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto, @SessionAttribute(name = "loginMember", required = false)Member loginMember, Model model){
+    public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto, @Login Member loginMember, Model model){
         if(loginMember ==null) {
             return "login";
         }
