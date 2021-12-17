@@ -552,3 +552,95 @@ fieldset {
     margin-left: 5px;
 }
 
+aside {
+    float: left;
+    width: 25%;
+}
+.aside_title {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.my_menu_link {
+    font-size: 24px;
+    line-height: 50px;
+    position: relative;
+    padding-left: 16px;
+    display: inline-block;
+    vertical-align: top;
+    width: 120px;
+    text-align: left;
+}
+.my_menu_link:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    vertical-align: top;
+    background: url("../img/star.png") no-repeat 0 0/50%;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    margin-top: -8px;
+    margin-left: -16px;
+}
+.aside_container {
+    height: 630px;
+    box-sizing: border-box;
+    padding-top: 100px;
+    border-right: 1px solid #cccccc;
+    text-align: center;
+}
+.book_register_container {
+    float: left;
+    width: 75%;
+    margin:0 auto;
+    height: 630px;
+    box-sizing: border-box;
+    padding: 50px 50px 0;
+
+}
+main:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+.book_register_title {
+    font-size: 32px;
+}
+
+.book_register_form:first-child {
+    margin-top: 40px;
+}
+.book_register_form_container {
+    line-height: 50px;
+    font-size: 24px;
+}
+.book_register_label {
+    padding-right: 20px;
+    width: 150px;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+.book_register_text {
+    line-height: 30px;
+    width: calc(100% - 160px);
+    box-sizing: border-box;
+}
+.book_register_genre {
+    width: calc(100% - 160px);
+    box-sizing: border-box;
+    height: 36px;
+}
+.book_register_btn_container {
+    padding-top: 40px;
+    text-align: right;
+}
+.book_register_btn {
+    padding: 0 30px;
+    line-height: 40px;
+}
+.book_register_btn + .book_register_btn {
+    margin-left: 20px;
+}
+

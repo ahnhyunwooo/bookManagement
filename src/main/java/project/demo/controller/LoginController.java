@@ -29,18 +29,18 @@ public class LoginController {
     /**
      * 로그인
      */
-    @GetMapping("login")
+    @GetMapping("/login")
     public String loginPage(@ModelAttribute("member") IdPwGetDto idPwGetDto, @Login Member loginMember, Model model){
-        if(loginMember ==null) {
-            return "login";
+        if(loginMember!=null) {
+            log.info("loginMember2 = {}",loginMember);
+            model.addAttribute("loginMember",loginMember);
+            return "redirect:/main";
         }
-        log.info("loginMember2 = {}",loginMember);
-        model.addAttribute("loginMember",loginMember);
-        return "redirect:/main";
+       return "login";
     }
 
-    @PostMapping("login")
-    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult, HttpServletRequest request){
+    @PostMapping("/login")
+    public String loginInfo(@Validated @ModelAttribute("member") IdPwGetDto idPwGetDto, BindingResult bindingResult,@RequestParam(defaultValue = "/main")String redirectURL, HttpServletRequest request){
         log.info("idPwGetDto ={}",idPwGetDto);
         if(bindingResult.hasErrors()) {
             return "login";
@@ -55,7 +55,8 @@ public class LoginController {
             log.info("loginMember1 = {}", loginMember);
             //세션에 로그인 회원 정보 보관
             session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
-            return "redirect:/main";
+            log.info("1redirectURL:{}",redirectURL);
+            return "redirect:"+redirectURL;
         } else if(result == -1) {
             bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));
         } else {

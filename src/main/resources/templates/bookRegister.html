@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::script},~{::main})}"
+      xmlns:th="http://thymeleaf.org">
+<head>
+  <title>상상도서관 :: 마이메뉴 :: 도서등록하기</title>
+  <script th:src="@{/js/bookRegister.js}"></script>
+</head>
+<body>
+  <main>
+    <div th:replace="~{template/fragment/aside :: copy('마이메뉴',${myMenuList})}">
+    </div>
+    <div class="book_register_container">
+      <h2 class="book_register_title">도서 등록하기</h2>
+      <form>
+        <div class="book_register_form">
+          <div class="book_register_form_container">
+            <label for="book_register_file" class="book_register_label">도서 사진 :</label>
+            <input type="file" id="book_register_file">
+          </div>
+          <div class="book_register_form_container">
+            <label for="book_register_name" class="book_register_label">도서 이름 :</label>
+            <input type="text" id="book_register_name" class="book_register_text">
+          </div>
+          <div class="book_register_form_container">
+            <label for="book_register_publisher" class="book_register_label">출판사 :</label>
+            <input type="text" id="book_register_publisher" class="book_register_text">
+          </div>
+          <div class="book_register_form_container">
+            <label for="book_register_author" class="book_register_label">지은이 :</label>
+            <input type="text" id="book_register_author" class="book_register_text">
+          </div>
+          <div class="book_register_form_container">
+            <label class="book_register_label">장르 :</label>
+            <select name="book_register_genre" class="book_register_genre">
+              <option>소설</option>
+              <option>IT</option>
+              <option>역사</option>
+              <option>육아</option>
+            </select>
+          </div>
+          <div class="book_register_btn_container">
+            <button type="submit" class="book_register_btn">등록</button>
+            <button type="reset" class="book_register_btn">취소</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

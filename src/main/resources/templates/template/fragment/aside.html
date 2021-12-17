@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<aside th:fragment="copy(title,myMenuList)">
+  <div class="aside_container">
+    <h2 class="aside_title" th:text="${title}">사이드 타이틀</h2>
+    <th:block th:each="myMenu:${myMenuList}">
+      <a th:href="${myMenu.url}" th:text="${myMenu.text}" class="my_menu_link"></a><br>
+    </th:block>
+  </div>
+</aside>
+</body>
+</html>
