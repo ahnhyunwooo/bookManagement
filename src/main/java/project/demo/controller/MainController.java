@@ -14,7 +14,7 @@ public class MainController {
 
     @GetMapping("main")
     public String mainPage(){
-        return "main.html";
+        return "main";
     }
 
 }

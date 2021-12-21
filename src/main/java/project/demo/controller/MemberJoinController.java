@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.dto.*;
 import project.demo.service.MemberJoinService;
 
@@ -32,8 +31,8 @@ public class MemberJoinController {
      */
     @PostMapping("/idOverlap")
     @ResponseBody
-    public boolean idOverlapCheck(@RequestBody IdGetDto idGetDto){
-        return m.idOverlap(idGetDto);
+    public boolean idOverlapCheck(@RequestBody IdDto idDto){
+        return m.idOverlap(idDto);
     }
 
     /**
@@ -41,8 +40,8 @@ public class MemberJoinController {
      */
     @PostMapping("/nickNameOverlap")
     @ResponseBody
-    public boolean nickNameOverlapCheck(@RequestBody NickNameGetDto nickNameGetDto){
-        return m.nickNameOverlap(nickNameGetDto);
+    public boolean nickNameOverlapCheck(@RequestBody NickNameDto nickNameDto){
+        return m.nickNameOverlap(nickNameDto);
     }
 
     /**
@@ -50,8 +49,8 @@ public class MemberJoinController {
      */
     @PostMapping("/phoneMessage")
     @ResponseBody
-    public int phoneMessage(@RequestBody PhoneNumberGetDto phoneNumberGetDto) {
-        int number = m.phoneMessage(phoneNumberGetDto);
+    public int phoneMessage(@RequestBody PhoneNumberDto phoneNumberDto) {
+        int number = m.phoneMessage(phoneNumberDto);
         return number;
     }
 
@@ -60,7 +59,7 @@ public class MemberJoinController {
      */
     @PostMapping("/email")
     @ResponseBody
-    public String emailNumber(@RequestBody EmailAddressGetDto emailAddressDto) {
+    public String emailNumber(@RequestBody EmailAddressDto emailAddressDto) {
         return m.sendMail(emailAddressDto);
     }
 

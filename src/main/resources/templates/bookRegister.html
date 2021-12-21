@@ -11,32 +11,45 @@
     </div>
     <div class="book_register_container">
       <h2 class="book_register_title">도서 등록하기</h2>
-      <form>
-        <div class="book_register_form">
+      <form  th:action method="post" enctype="multipart/form-data" th:object="${book}">
+        <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form">
           <div class="book_register_form_container">
-            <label for="book_register_file" class="book_register_label">도서 사진 :</label>
-            <input type="file" id="book_register_file">
+            <label for="file_0" class="book_register_label">도서 사진 :</label>
+            <input type="text" class="book_register_file_text" readonly>
+            <label for="file_0" class="book_register_file_btn">파일추가</label>
+            <input type="file" id="file_0" name="file" class="book_register_file" onchange="fileNameChange()">
+            <button type="button" class="book_register_file_add_btn">+</button>
+            <button type="button" class="book_register_file_add_btn">-</button>
           </div>
           <div class="book_register_form_container">
             <label for="book_register_name" class="book_register_label">도서 이름 :</label>
-            <input type="text" id="book_register_name" class="book_register_text">
+            <input type="text" id="book_register_name" class="book_register_text" name="bookName" th:field="*{bookName}">
+            <div class="field-error" th:errors="*{bookName}"></div>
           </div>
           <div class="book_register_form_container">
             <label for="book_register_publisher" class="book_register_label">출판사 :</label>
-            <input type="text" id="book_register_publisher" class="book_register_text">
+            <input type="text" id="book_register_publisher" class="book_register_text" name="bookPublisher" th:field="*{bookPublisher}">
+            <div class="field-error" th:errors="*{bookPublisher}"></div>
           </div>
           <div class="book_register_form_container">
             <label for="book_register_author" class="book_register_label">지은이 :</label>
-            <input type="text" id="book_register_author" class="book_register_text">
+            <input type="text" id="book_register_author" class="book_register_text" name="bookAuthor" th:field="*{bookAuthor}">
+            <div class="field-error" th:errors="*{bookAuthor}"></div>
           </div>
           <div class="book_register_form_container">
             <label class="book_register_label">장르 :</label>
-            <select name="book_register_genre" class="book_register_genre">
-              <option>소설</option>
-              <option>IT</option>
-              <option>역사</option>
-              <option>육아</option>
+            <select  class="book_register_genre" name="bookGenre" th:field="*{bookGenre}">
+              <option value="소설">소설</option>
+              <option value="IT">IT</option>
+              <option value="역사">역사</option>
+              <option value="육아">육아</option>
             </select>
+            <div class="field-error" th:errors="*{bookGenre}"></div>
+          </div>
+          <div class="book_register_form_container">
+            <label class="book_register_label" for="book_register_count"> 도서개수:</label>
+            <input type="text" id="book_register_count" class="book_register_text" name="bookCount" th:field="*{bookCount}">
+            <div class="field-error" th:errors="*{bookCount}"></div>
           </div>
           <div class="book_register_btn_container">
             <button type="submit" class="book_register_btn">등록</button>

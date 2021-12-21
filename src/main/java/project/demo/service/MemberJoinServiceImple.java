@@ -37,8 +37,8 @@ public class MemberJoinServiceImple implements MemberJoinService {
     private final JavaMailSender mailSender;
     //ID 중복체크
     @Override
-    public boolean idOverlap(IdGetDto idGetDto) {
-        String id = idGetDto.getId();
+    public boolean idOverlap(IdDto idDto) {
+        String id = idDto.getId();
         String result = m.findMemberById(id);
         if(StringUtils.isEmpty(result)){
             return true;
@@ -47,8 +47,8 @@ public class MemberJoinServiceImple implements MemberJoinService {
     }
     //닉네임 중복체크
     @Override
-    public boolean nickNameOverlap(NickNameGetDto nickNameGetDto) {
-        String nickName = nickNameGetDto.getNickName();
+    public boolean nickNameOverlap(NickNameDto nickNameDto) {
+        String nickName = nickNameDto.getNickName();
         String result = m.findMemberByNickName(nickName);
         if(StringUtils.isEmpty(result)){
             return true;
@@ -57,8 +57,8 @@ public class MemberJoinServiceImple implements MemberJoinService {
     }
 
     @Override
-    public int phoneMessage(PhoneNumberGetDto phoneNumberGetDto) {
-        String phoneNumber = phoneNumberGetDto.getPhoneNumber();
+    public int phoneMessage(PhoneNumberDto phoneNumberDto) {
+        String phoneNumber = phoneNumberDto.getPhoneNumber();
         String timestamp = Long.toString(System.currentTimeMillis());
         String ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
         String url = "https://sens.apigw.ntruss.com/sms/v2/services/"+ncpServiceID+"/messages";
@@ -156,7 +156,7 @@ public class MemberJoinServiceImple implements MemberJoinService {
 
     //email 보내기
     @Override
-    public String sendMail(EmailAddressGetDto emailAddressDto) {
+    public String sendMail(EmailAddressDto emailAddressDto) {
         String email = emailAddressDto.getEmailAddress();
         Random random = new Random();
         String key = "";

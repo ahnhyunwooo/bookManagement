@@ -35,7 +35,13 @@ spring:
 
   messages:
     basename: errors
-
+#   파일업로드 사이즈 제한
+    servlet:
+      multipart:
+        max-file-size: 1MB
+        max-request-size: 10MB
+file:
+  dir: /C:/Spring-boot/demo/src/main/resources/static/uploadImage/
 
 
 

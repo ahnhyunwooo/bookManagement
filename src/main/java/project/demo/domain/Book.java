@@ -40,7 +40,7 @@ public class Book {
 
 
     @Column(name="BOOK_RENTAL_COUNT")
-    private LocalDateTime rentalCount;
+    private int rentalCount;
 
     @OneToMany(mappedBy = "book")
     private List<BookReservation> bookReservations = new ArrayList<>();

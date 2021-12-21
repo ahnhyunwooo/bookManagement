@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class NickNameGetDto {
+public class NickNameDto {
     private String nickName;
 }

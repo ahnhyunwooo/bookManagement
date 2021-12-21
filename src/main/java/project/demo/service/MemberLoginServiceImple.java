@@ -9,9 +9,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import project.demo.domain.Member;
-import project.demo.dto.IdPwGetDto;
-import project.demo.dto.NameEmailGetDto;
-import project.demo.dto.NamePhoneGetDto;
+import project.demo.dto.IdPwDto;
+import project.demo.dto.NameEmailDto;
+import project.demo.dto.NamePhoneDto;
 import project.demo.repository.MemberRepository;
 
 import javax.crypto.Mac;
@@ -39,11 +39,11 @@ public class MemberLoginServiceImple implements MemberLoginService {
 
     //아이디 비밀번호 맞는지 확인
     @Override
-    public int idSamePw(IdPwGetDto idPwGetDto) {
-        String id = idPwGetDto.getId();
+    public int idSamePw(IdPwDto idPwDto) {
+        String id = idPwDto.getId();
         String salt = null;
         String loginPw = null;
-        String pw = idPwGetDto.getPw();
+        String pw = idPwDto.getPw();
         List<Object[]> saltAndPw = mr.findSaltAndPwById(id);
         //아이디 없음
         if(saltAndPw.isEmpty()) {
@@ -63,9 +63,9 @@ public class MemberLoginServiceImple implements MemberLoginService {
     }
 
     @Override
-    public boolean idSearchByPhone(NamePhoneGetDto namePhoneGetDto) {
-        String name = namePhoneGetDto.getName();
-        String phone = namePhoneGetDto.getPhone();
+    public boolean idSearchByPhone(NamePhoneDto namePhoneDto) {
+        String name = namePhoneDto.getName();
+        String phone = namePhoneDto.getPhone();
         String id = mr.idSearchByNameAndPhone(name, phone);
         log.info(id);
         if(id.isEmpty()) {
@@ -165,10 +165,10 @@ public class MemberLoginServiceImple implements MemberLoginService {
     }
 
     @Override
-    public boolean idSearchByEmail(NameEmailGetDto nameEmailGetDto) {
-        String name = nameEmailGetDto.getName();
-        String email = nameEmailGetDto.getEmail();
-        log.info("{}", nameEmailGetDto);
+    public boolean idSearchByEmail(NameEmailDto nameEmailDto) {
+        String name = nameEmailDto.getName();
+        String email = nameEmailDto.getEmail();
+        log.info("{}", nameEmailDto);
         String id = mr.idSearchByNameAndEmail(name, email);
         if(id.isEmpty()) {
             return false;
