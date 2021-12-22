@@ -666,4 +666,7 @@ main:after {
     box-sizing: border-box;
     width: 40px;
 }
+.plus_file {
+    margin-left: 150px;
+}
 

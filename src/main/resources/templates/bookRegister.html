@@ -12,15 +12,15 @@
     <div class="book_register_container">
       <h2 class="book_register_title">도서 등록하기</h2>
       <form  th:action method="post" enctype="multipart/form-data" th:object="${book}">
-        <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form">
+        <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <div class="book_register_form_container">
             <label for="file_0" class="book_register_label">도서 사진 :</label>
-            <input type="text" class="book_register_file_text" readonly>
+            <input type="text" id="book_register_text0"class="book_register_file_text" readonly>
             <label for="file_0" class="book_register_file_btn">파일추가</label>
-            <input type="file" id="file_0" name="file" class="book_register_file" onchange="fileNameChange()">
-            <button type="button" class="book_register_file_add_btn">+</button>
-            <button type="button" class="book_register_file_add_btn">-</button>
+            <input type="file" id="file_0" name="file" class="book_register_file" onchange="fileNameChange(this)">
+            <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd()">+</button>
           </div>
+        </div>
           <div class="book_register_form_container">
             <label for="book_register_name" class="book_register_label">도서 이름 :</label>
             <input type="text" id="book_register_name" class="book_register_text" name="bookName" th:field="*{bookName}">
