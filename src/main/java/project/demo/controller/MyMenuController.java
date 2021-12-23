@@ -44,11 +44,15 @@ public class MyMenuController {
         List<MyMenuDto> myMenuDtos = myMenuService.searchMyMenu();
         model.addAttribute("myMenuList", myMenuDtos);
         bookRegisterDto.fileCheck();
+        log.info("file = {}", bookRegisterDto.getFile());
         log.info("filesize = {}",bookRegisterDto.getFile().size());
+
         if(bookRegisterDto.getFile().size() == 0) {
             bindingResult.rejectValue("file", null, "파일을 첨부해주세요.");
         }
         if(bindingResult.hasErrors()) {
+            log.info("@@@fileIndexTemp :: " + bookRegisterDto.getFileIndexTemp());
+            model.addAttribute("fileIndexTemp", bookRegisterDto.getFileIndexTemp());
             model.addAttribute("fileList",bookRegisterDto.getFile());
             return "bookRegister";
         }

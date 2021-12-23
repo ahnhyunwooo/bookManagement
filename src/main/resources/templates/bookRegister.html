@@ -12,6 +12,7 @@
     <div class="book_register_container">
       <h2 class="book_register_title">도서 등록하기</h2>
       <form  th:action method="post" enctype="multipart/form-data" th:object="${book}">
+        <input type="hidden" id="fileIndexTemp" name="fileIndexTemp" th:value="${fileIndexTemp}">
         <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <div class="book_register_form_container">
             <div class="field-error" th:errors="*{file}"></div>
@@ -25,6 +26,7 @@
         <div th:unless="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <th:block th:unless="${#lists.isEmpty(fileList)}" th:each="row, status :${fileList}">
             <div class="book_register_form_container">
+              <input type="hidden" id="|realFileData_${status.index}|" name="file" th:value="${row.getBytes}">
               <label th:unless="${status.index}" th:for="|file_${status.index}|" class="book_register_label">도서 사진 :</label>
               <input th:classappend="${status.index} != 0 ? plus_file" type="text" th:id="|book_register_text${status.index}|"class="book_register_file_text" readonly th:value="${row.getOriginalFilename}">
               <label th:for="|file_${status.index}|" class="book_register_file_btn">파일추가</label>

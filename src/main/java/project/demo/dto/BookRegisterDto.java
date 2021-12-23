@@ -21,6 +21,8 @@ public class BookRegisterDto {
     @NotBlank(message = "개수를 입력해주세요.")
     private String bookCount;
 
+    private String  fileIndexTemp;
+
     public void fileCheck() {
         for(int i=0; i<file.size(); i++) {
             if(file.get(i).getOriginalFilename().equals("")) {
