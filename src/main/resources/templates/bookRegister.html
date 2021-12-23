@@ -2,8 +2,8 @@
 <html lang="ko" th:replace="~{template/layout/layout :: layout(~{::title},~{::script},~{::main})}"
       xmlns:th="http://thymeleaf.org">
 <head>
-  <title>마이메뉴 :: 도서등록하기</title>
-  <script th:src="@{/js/bookRegister.js}" th:inline="javascript"></script>
+  <title>상상도서관 :: 마이메뉴 :: 도서등록하기</title>
+  <script th:src="@{/js/bookRegister.js}"></script>
 </head>
 <body>
   <main>
@@ -14,25 +14,12 @@
       <form  th:action method="post" enctype="multipart/form-data" th:object="${book}">
         <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <div class="book_register_form_container">
-            <div class="field-error" th:errors="*{file}"></div>
             <label for="file_0" class="book_register_label">도서 사진 :</label>
             <input type="text" id="book_register_text0"class="book_register_file_text" readonly>
             <label for="file_0" class="book_register_file_btn">파일추가</label>
             <input type="file" id="file_0" name="file" class="book_register_file" onchange="fileNameChange(this)">
-            <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd(this)">+</button>
+            <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd()">+</button>
           </div>
-        </div>
-        <div th:unless="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
-          <th:block th:unless="${#lists.isEmpty(fileList)}" th:each="row, status :${fileList}">
-            <div class="book_register_form_container">
-              <label th:unless="${status.index}" th:for="|file_${status.index}|" class="book_register_label">도서 사진 :</label>
-              <input th:classappend="${status.index} != 0 ? plus_file" type="text" th:id="|book_register_text${status.index}|"class="book_register_file_text" readonly th:value="${row.getOriginalFilename}">
-              <label th:for="|file_${status.index}|" class="book_register_file_btn">파일추가</label>
-              <input type="file" th:id="|file_${status.index}|" name="file" class="book_register_file" onchange="fileNameChange(this)">
-              <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd(this)">+</button>
-              <button th:if="${status.index}"type="button" class="book_register_file_add_btn" onclick="fileRowMinus(this)">-</button>
-            </div>
-          </th:block>
         </div>
           <div class="book_register_form_container">
             <label for="book_register_name" class="book_register_label">도서 이름 :</label>

@@ -597,7 +597,6 @@ aside {
     height: 630px;
     box-sizing: border-box;
     padding: 50px 50px 0;
-    overflow: scroll;
 
 }
 main:after {
@@ -668,6 +667,6 @@ main:after {
     width: 40px;
 }
 .plus_file {
-    margin-left: 156px;
+    margin-left: 150px;
 }
 
