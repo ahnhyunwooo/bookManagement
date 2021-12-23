@@ -1,5 +1,4 @@
 let fileIndex = 0;
-
 /**
  *
  * @param file
