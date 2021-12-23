@@ -37,16 +37,16 @@ public class MyMenuServiceImple implements MyMenuService{
     }
     @Override
     public boolean insertBook(BookRegisterDto bookRegisterDto) throws IOException {
-        List<UploadFile> uploadFiles = storeFiles(bookRegisterDto.getFile());
-        Book book = new Book();
-        book.setAuthor(bookRegisterDto.getBookAuthor());
-
-        book.setGenre(bookRegisterDto.getBookGenre());
-        book.setName(bookRegisterDto.getBookName());
-        book.setPublisher(bookRegisterDto.getBookPublisher());
-        book.setYn("y");
-        book.setRegisterDate(LocalDateTime.now());
-        book.setRentalCount(0);
+//        List<UploadFile> uploadFiles = storeFiles(bookRegisterDto.getFile());
+//        Book book = new Book();
+//        book.setAuthor(bookRegisterDto.getBookAuthor());
+//
+//        book.setGenre(bookRegisterDto.getBookGenre());
+//        book.setName(bookRegisterDto.getBookName());
+//        book.setPublisher(bookRegisterDto.getBookPublisher());
+//        book.setYn("y");
+//        book.setRegisterDate(LocalDateTime.now());
+//        book.setRentalCount(0);
         return false;
     }
 

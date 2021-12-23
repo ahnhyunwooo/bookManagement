@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 public class BookRegisterDto {
 
-
     private List<MultipartFile> file;
     @NotBlank(message = "책 이름을 입력해주세요.")
     private String bookName;
@@ -22,12 +21,13 @@ public class BookRegisterDto {
     @NotBlank(message = "개수를 입력해주세요.")
     private String bookCount;
 
-    public boolean fileEmpty(List<MultipartFile> file) {
-        for (MultipartFile multipartFile : file) {
-            if(multipartFile.getOriginalFilename().equals("") || multipartFile.getOriginalFilename() ==null) {
-                return true;
+    public void fileCheck() {
+        for(int i=0; i<file.size(); i++) {
+            if(file.get(i).getOriginalFilename().equals("")) {
+                file.remove(i);
+                i--;
             }
         }
-        return false;
     }
+
 }

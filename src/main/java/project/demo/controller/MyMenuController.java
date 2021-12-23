@@ -31,6 +31,8 @@ public class MyMenuController {
     public String bookRegisterPage(Model model, @ModelAttribute("book") BookRegisterDto bookRegisterDto) {
         List<MyMenuDto> myMenuDtos = myMenuService.searchMyMenu();
         model.addAttribute("myMenuList", myMenuDtos);
+        model.addAttribute("fileList",bookRegisterDto.getFile());
+
         for (MyMenuDto myMenuDto : myMenuDtos) {
             log.info("myMenuSenderDtos {}", myMenuDto);
         }
@@ -38,13 +40,16 @@ public class MyMenuController {
     }
     //도서 등록 데이터 받기
     @PostMapping("/bookRegister")
-    public String bookRegisterForm(@Validated @ModelAttribute("book") BookRegisterDto bookRegisterDto, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model) throws IOException {
+    public String bookRegisterForm(@Validated @ModelAttribute("book") BookRegisterDto bookRegisterDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) throws IOException {
         List<MyMenuDto> myMenuDtos = myMenuService.searchMyMenu();
         model.addAttribute("myMenuList", myMenuDtos);
-        if(bookRegisterDto.fileEmpty(bookRegisterDto.getFile())) {
+        bookRegisterDto.fileCheck();
+        log.info("filesize = {}",bookRegisterDto.getFile().size());
+        if(bookRegisterDto.getFile().size() == 0) {
             bindingResult.rejectValue("file", null, "파일을 첨부해주세요.");
         }
         if(bindingResult.hasErrors()) {
+            model.addAttribute("fileList",bookRegisterDto.getFile());
             return "bookRegister";
         }
         myMenuService.insertBook(bookRegisterDto);
