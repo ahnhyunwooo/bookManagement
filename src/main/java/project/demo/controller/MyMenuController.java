@@ -41,10 +41,19 @@ public class MyMenuController {
     public String bookRegisterForm(@Validated @ModelAttribute("book") BookRegisterDto bookRegisterDto, BindingResult bindingResult, RedirectAttributes redirectAttributes,Model model) throws IOException {
         List<MyMenuDto> myMenuDtos = myMenuService.searchMyMenu();
         model.addAttribute("myMenuList", myMenuDtos);
-        if(bookRegisterDto.fileEmpty(bookRegisterDto.getFile())) {
+        bookRegisterDto.fileCheck();
+        if(bindingResult.hasErrors()) {
+            bookRegisterDto.fileCheck();
+            log.info("file = {}", bookRegisterDto.getFile());
+            log.info("filesize = {}", bookRegisterDto.getFile().size());
+        }
+        if(bookRegisterDto.getFile().size() == 0) {
             bindingResult.rejectValue("file", null, "파일을 첨부해주세요.");
         }
         if(bindingResult.hasErrors()) {
+            log.info("@@@fileIndexTemp :: " + bookRegisterDto.getFileIndexTemp());
+            model.addAttribute("fileIndexTemp", bookRegisterDto.getFileIndexTemp());
+            model.addAttribute("fileList",bookRegisterDto.getFile());
             return "bookRegister";
         }
         myMenuService.insertBook(bookRegisterDto);

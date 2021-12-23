@@ -13,7 +13,12 @@ function fileNameChange(file) {
 /**
  * 파일 행 추가
  */
-function fileRowAdd() {
+
+
+function fileRowAdd(btn) {
+    if($('#fileIndexTemp').val() > fileIndex){
+        fileIndex = $('#fileIndexTemp').val();
+    }
     ++fileIndex;
     const fileHtml ='<div class="book_register_form_container">'+
         '&nbsp;<input type="text" id="book_register_text'+fileIndex+'"class="book_register_file_text plus_file" readonly>'+
@@ -21,7 +26,10 @@ function fileRowAdd() {
         ' <input type="file" id="file_'+fileIndex+'" name="file" class="book_register_file" onchange="fileNameChange(this)">'+
         ' <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd()">+</button>'+
         ' <button type="button" class="book_register_file_add_btn" onclick="fileRowMinus(this)">-</button>';
-    $("#book_register_form").append(fileHtml);
+
+    $(btn).parent().parent().append(fileHtml);
+    $('#fileIndexTemp').val(fileIndex);
+
 }
 /**
  * 파일 행 제거

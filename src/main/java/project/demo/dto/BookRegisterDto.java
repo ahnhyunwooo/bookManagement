@@ -22,12 +22,14 @@ public class BookRegisterDto {
     @NotBlank(message = "개수를 입력해주세요.")
     private String bookCount;
 
-    public boolean fileEmpty(List<MultipartFile> file) {
-        for (MultipartFile multipartFile : file) {
-            if(multipartFile.getOriginalFilename().equals("") || multipartFile.getOriginalFilename() ==null) {
-                return true;
+    private String  fileIndexTemp;
+
+    public void fileCheck() {
+        for(int i=0; i<file.size(); i++) {
+            if(file.get(i).getOriginalFilename().equals("")) {
+                file.remove(i);
+                i--;
             }
         }
-        return false;
     }
 }
