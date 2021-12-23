@@ -1,12 +1,10 @@
 let fileIndex = 0;
-<<<<<<< HEAD
 /**
  *
  * @param file
  * 텍스트 박스에 파일 이름 넣기
  */
-=======
->>>>>>> parent of 6145199 (파일 추가2)
+
 function fileNameChange(file) {
     let splitFile = file.value.split('\\');
     $("#book_register_text0").val(splitFile[splitFile.length-1]);
