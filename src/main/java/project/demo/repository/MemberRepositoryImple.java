@@ -129,4 +129,31 @@ public class MemberRepositoryImple implements MemberRepository {
         return e.createQuery("select m from Member m")
                 .getResultList();
     }
+
+    //이름, 핸드폰
+    @Override
+    public String pwSearchByIdAndPhone(String id, String phone) {
+        try {
+            String result = e.createQuery("select m.name from Member m where m.id = :id and m.phoneNumber = :phone", String.class)
+                    .setParameter("id", id)
+                    .setParameter("phone", phone)
+                    .getSingleResult();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public String pwSearchByIdAndEmail(String id, String email) {
+        try {
+            String result = e.createQuery("select m.name from Member m where m.id = :id and m.email = :email", String.class)
+                    .setParameter("id", id)
+                    .setParameter("email", email)
+                    .getSingleResult();
+            return result;
+        }catch (Exception e) {
+            return null;
+        }
+    }
 }

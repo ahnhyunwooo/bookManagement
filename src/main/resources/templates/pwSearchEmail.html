@@ -17,10 +17,10 @@
     <div class="id_search_error" id="id_search_error">일치하는 정보가 없습니다.</div>
     <div class="id_search_phone_container">
       <label class="id_search_text" for="pw_search_phone">이메일:</label>
-      <input type="number" class="id_search_textBox" id="pw_search_phone">
-      <button type="button" class="pw_btn">인증</button>
+      <input type="text" class="id_search_textBox" id="pw_search_phone">
+      <button type="button" class="pw_btn" onclick="sendEmail()">인증</button>
     </div>
-    <input type="number" class="pw_search_check" id="pw_search_check">
+    <input type="text" class="pw_search_check" id="pw_search_check">
     <div>
       <a href="#" class="id_search_link" th:onclick="searchPwByEmail()">찾기</a>
     </div>

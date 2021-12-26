@@ -16,5 +16,7 @@ public interface MemberRepository {
     public String idSearchByNameAndEmail(String name, String email);
     public Optional<Member> findMemberByLoginId(String id);
     public List<Member> findAll();
+    public String pwSearchByIdAndPhone(String id, String phone);
+    public String pwSearchByIdAndEmail(String id, String email);
 
 }

@@ -18,13 +18,13 @@
     <div class="id_search_phone_container">
       <label class="id_search_text" for="pw_search_phone">폰번호:</label>
       <input type="number" class="id_search_textBox" id="pw_search_phone">
-      <button type="button" class="pw_btn" onclick="searchPwByPhone()">인증</button>
+      <button type="button" class="pw_btn" onclick="sendPhone()">인증</button>
     </div>
     <input type="number" class="pw_search_check" id="pw_search_check">
-    <button type="button" class="pw_search_phone_check" onclick="searchPwByPhoneCheck()">인증번호 확인</button>
+    <button type="button" class="pw_search_phone_check" onclick="phoneCheck()">인증번호 확인</button>
     <div class="phone_search_error" id="phone_search_error">핸드폰 인증을 해주세요.</div>
     <div>
-      <a href="#" class="id_search_link" th:onclick="">찾기</a>
+      <a href="#" class="id_search_link" th:onclick="searchPwByPhone()">찾기</a>
     </div>
   </div>
 </main>

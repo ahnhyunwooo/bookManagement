@@ -10,9 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import project.demo.annotation.Login;
 import project.demo.domain.Member;
-import project.demo.dto.IdPwDto;
-import project.demo.dto.NameEmailDto;
-import project.demo.dto.NamePhoneDto;
+import project.demo.dto.*;
 import project.demo.service.MemberLoginService;
 import project.demo.session.SessionConst;
 import javax.servlet.http.HttpServletRequest;
@@ -84,16 +82,25 @@ public class LoginController {
         }
     }
 
+    /**
+     * 아이디 찾기 - 연락처로 찾기
+     */
     @PostMapping("login/idSearch/phone")
     @ResponseBody
     public boolean idSearchPhone(@Validated @RequestBody NamePhoneDto namePhoneDto, BindingResult bindingResult) {
         log.info("member = {}", namePhoneDto);
         if(ml.idSearchByPhone(namePhoneDto)) {
+            log.info("정보 일치!!");
             return true;
         }else {
+            log.info("정보 불일치!!");
             return false;
         }
     }
+
+    /**
+     * 아이디 찾기 - Email로 찾기
+     */
     @PostMapping("login/idSearch/email")
     @ResponseBody
     public boolean idSearchEmail(@Validated @RequestBody NameEmailDto nameEmailDto, BindingResult bindingResult) {
@@ -114,7 +121,7 @@ public class LoginController {
     }
     @PostMapping("login/pwSearch")
     public String pwSearchChoiceForm(@RequestParam("pw_search")String way) {
-        log.info("@@@@{}", way);
+
         if(way.equals("phone")) {
             return "pwSearchPhone";
         }else {
@@ -122,26 +129,68 @@ public class LoginController {
         }
     }
 
+    /**
+     * 비밀번호 찾기 - 연락처로 찾기
+     */
     @PostMapping("login/pwSearch/phone")
     @ResponseBody
-    public boolean pwSearchPhone(@Validated @RequestBody NamePhoneDto namePhoneDto, BindingResult bindingResult) {
-        log.info("member = {}", namePhoneDto);
-        if(ml.idSearchByPhone(namePhoneDto)) {
+    public boolean pwSearchPhone(@Validated @RequestBody IdPhoneDto idPhoneDto, BindingResult bindingResult) {
+        log.info("member = {}", idPhoneDto);
+        if(ml.pwSearchByPhone(idPhoneDto)) {
+            log.info("정보 일치!!");
+            return true;
+        }else {
+            log.info("정보 불일치!!");
+            return false;
+        }
+    }
+
+    /**
+     * 비밀번호찾기 - 핸드폰 인증
+     */
+    @PostMapping("login/pwSearch/phone/phoneMessage")
+    @ResponseBody
+    public int phoneMessage(@RequestBody PhoneNumberDto phoneNumberDto) {
+        log.info("우와 여기탄다");
+        int number = ml.phoneMessage(phoneNumberDto);
+        log.info("인증번호 : " + number);
+        return number;
+    }
+
+    /**
+     * 비밀번호 찾기 - Email로 찾기
+     */
+    @PostMapping("login/pwSearch/email")
+    @ResponseBody
+    public boolean pwSearchEmail(@Validated @RequestBody IdEmailDto idEmailDto, BindingResult bindingResult) {
+        log.info("member = {}", idEmailDto);
+        if(ml.pwSearchByEmail(idEmailDto)) {
             return true;
         }else {
             return false;
         }
     }
-    /*
-    @PostMapping("login/idSearch/email")
-    @ResponseBody
-    public boolean pwSearchEmail(@Validated @RequestBody NameEmailGetDto nameEmailGetDto, BindingResult bindingResult) {
-        log.info("member = {}", nameEmailGetDto);
-        if(ml.idSearchByEmail(nameEmailGetDto)) {
-            return true;
-        }else {
-            return false;
-        }
-    }*/
 
+    /**
+     *비밀번호 찾기 - Email 인증
+     */
+    @PostMapping("login/pwSearch/email/sendEmailCertification")
+    @ResponseBody
+    public String emailNumber(@RequestBody EmailAddressDto emailAddressDto) {
+        return ml.sendMailCertification(emailAddressDto);
+    }
+
+
+    /**
+     *비밀번호 찾기 - 새 비밀번호 등록하기
+     */
+    @GetMapping("login/pwSearch/newPw")
+    public String newPwPage() {
+        return "newPw";
+    }
+
+    @PostMapping("/pwChange")
+    public String pwChange(){
+        return "개발중";
+    }
 }

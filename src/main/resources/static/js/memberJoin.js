@@ -210,7 +210,7 @@ function sendPhone() {
         }
     });
 }
-function phoneCheck(){
+function searchPwByPhoneCheck(){
     let phoneCertification = $("#phone_check").val();
     if(phoneCertification == phoneRealCertification) {
         alert("핸드폰 인증이 되었습니다");
