@@ -189,8 +189,30 @@ public class LoginController {
         return "newPw";
     }
 
+    /////////////개발중/////////////////
     @PostMapping("/pwChange")
-    public String pwChange(){
-        return "개발중";
+    public String pwChange(@Validated @ModelAttribute IdPwDto idPwDto, BindingResult bindingResult){
+        log.info("idPwDt{}",idPwDto);
+        if(bindingResult.hasErrors()) {
+            return "";
+        }
+        //boolean result = ml.updateMember(idPwDto);
+
+        return "redirect:/login";
+    }
+
+
+    /**
+     * 회원가입 최종 체크
+     */
+    @PostMapping("login-join")
+    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult){
+        log.info("memberJoinGetDto ={}",memberJoinGetDto);
+        if(bindingResult.hasErrors()) {
+            return "memberJoin";
+        }
+        boolean result = m.makeMember(memberJoinGetDto);
+
+        return "redirect:/login";
     }
 }

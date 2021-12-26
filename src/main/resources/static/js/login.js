@@ -86,16 +86,21 @@ function searchIdByEmail() {
 let phoneRealCertification;
 
 function searchPwByPhone() {
-    let name = $("#pw_search_id").val();
+    let id = $("#pw_search_id").val();
     let phone =$("#pw_search_phone").val();
     let phoneCheck = $("#pw_search_check").val();
 
-    let sendData = {"name":name, "phone":phone};
+    console.log("id : "+id);
+    console.log("phone : "+phone);
+    console.log("phoneCheck : "+phoneCheck);
+    console.log("phoneRealCertification : "+phoneRealCertification);
+
+    let sendData = {"id":id, "phone":phone};
     if(name == "" || phone== "") {
         alert("정보를 입력해주세요.");
         return ;
     }
-    if(phoneCertification != phoneRealCertification) {
+    if(phoneCheck == "" || phoneCheck != phoneRealCertification) {
         alert("핸드폰 인증을 진행해주세요.");
     }
     $.ajax({
@@ -107,11 +112,9 @@ function searchPwByPhone() {
         async: false,
         success : function(data)
         {
-            return "";
-            alert("성공.");
+            location.href = "/login/pwSearch/newPw";
         },
         error: function () {
-            alert("실패");
         }
     });
 }
