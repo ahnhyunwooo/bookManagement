@@ -9,6 +9,7 @@ CREATE TABLE member
     member_phonenumber    VARCHAR2(20),
     member_email          VARCHAR2(50),
     member_joindate       DATE,
+    member_salt            VARCHAR2(20),
     member_book_rental_count  NUMBER,
     member_book_rental_total  NUMBER,
     member_waring_count   NUMBER,
