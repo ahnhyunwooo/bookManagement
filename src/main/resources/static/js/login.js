@@ -1,3 +1,15 @@
+$(document).ready(function() {
+    /**
+     * 엔터키 입력으로 로그인하기
+     */
+    $("#pw_box").keydown(function(key) {
+        //13번은 엔터키
+        if (key.keyCode == 13) {
+            document.getElementById('form').submit();
+        }
+    });
+});
+
 /**
  * 아이디 찾기 팝업 (새창)
  */
@@ -217,15 +229,20 @@ function sendEmail() {
 }
 
 /**
- * 엔터키 입력으로 로그인하기
+ * 취소
  */
-$(document).ready(function() {
-    $("#pw_box").keydown(function(key) {
-        //13번은 엔터키
-        if (key.keyCode == 13) {
-            document.getElementById('form').submit();
-        }
-    });
-});
+function cancel() {
+    window.close();
+}
+
+function formCheck(){
+    if($("#new_pw").val() === $("#new_pw_check").val()){
+        return true;
+    }
+    alert("비밀번호를 다시 확인해주세요!!");
+    return false;
+}
+
+
 
 

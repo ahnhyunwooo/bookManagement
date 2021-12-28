@@ -8,6 +8,7 @@
 <body>
     <main>
         <form th:action="|login?redirectURL=${param.redirectURL}|" th:method="post" th:object="${member}" id="form">
+
             <div class="login_text_container">
                 <h2 class="login_title">로그인</h2>
                 <div class="login_id_container">

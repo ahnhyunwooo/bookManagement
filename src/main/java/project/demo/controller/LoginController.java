@@ -55,6 +55,12 @@ public class LoginController {
             //세션에 로그인 회원 정보 보관
             session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
             log.info("1redirectURL:{}",redirectURL);
+
+            if( redirectURL.equals("null") ){
+                redirectURL = "/main";
+            }
+            log.info("redirectURL={}",redirectURL);
+
             return "redirect:"+redirectURL;
         } else if(result == -1) {
             bindingResult.addError(new ObjectError("idPwErr", null, null,"비밀번호가 틀렸습니다."));
@@ -202,18 +208,4 @@ public class LoginController {
         return "redirect:/login";
     }
 
-//
-//    /**
-//     * 회원가입 최종 체크
-//     */
-//    @PostMapping("login-join")
-//    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult){
-//        log.info("memberJoinGetDto ={}",memberJoinGetDto);
-//        if(bindingResult.hasErrors()) {
-//            return "memberJoin";
-//        }
-//        boolean result = m.makeMember(memberJoinGetDto);
-//
-//        return "redirect:/login";
-//    }
 }
