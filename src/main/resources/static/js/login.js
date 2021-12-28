@@ -215,3 +215,17 @@ function sendEmail() {
         }
     })
 }
+
+/**
+ * 엔터키 입력으로 로그인하기
+ */
+$(document).ready(function() {
+    $("#pw_box").keydown(function(key) {
+        //13번은 엔터키
+        if (key.keyCode == 13) {
+            document.getElementById('form').submit();
+        }
+    });
+});
+
+
