@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import project.demo.annotation.Login;
 import project.demo.domain.Member;
 import project.demo.dto.*;
+import project.demo.service.MemberJoinService;
 import project.demo.service.MemberLoginService;
 import project.demo.session.SessionConst;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.util.Optional;
 public class LoginController {
 
     private final MemberLoginService ml;
-
+    private final MemberJoinService m;
     /**
      * 로그인
      */
@@ -201,18 +202,18 @@ public class LoginController {
         return "redirect:/login";
     }
 
-
-    /**
-     * 회원가입 최종 체크
-     */
-    @PostMapping("login-join")
-    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult){
-        log.info("memberJoinGetDto ={}",memberJoinGetDto);
-        if(bindingResult.hasErrors()) {
-            return "memberJoin";
-        }
-        boolean result = m.makeMember(memberJoinGetDto);
-
-        return "redirect:/login";
-    }
+//
+//    /**
+//     * 회원가입 최종 체크
+//     */
+//    @PostMapping("login-join")
+//    public String loginJoin(@Validated @ModelAttribute MemberJoinGetDto memberJoinGetDto, BindingResult bindingResult){
+//        log.info("memberJoinGetDto ={}",memberJoinGetDto);
+//        if(bindingResult.hasErrors()) {
+//            return "memberJoin";
+//        }
+//        boolean result = m.makeMember(memberJoinGetDto);
+//
+//        return "redirect:/login";
+//    }
 }
