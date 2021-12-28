@@ -11,14 +11,13 @@ import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new LoginCheckInterceptor())
-//                .order(1)
-//                .addPathPatterns("/**")  //추후 수정
-//                .excludePathPatterns("/login", "/css/**", "/img/**", "/js/**", "/login/idSearch/**", "/login/pwSearch/**", "/login-join");
-//
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginCheckInterceptor())
+                .order(1)
+                .addPathPatterns("/main")  //추후 수정
+                .excludePathPatterns("/css/**", "/img/**", "/js/**");
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
