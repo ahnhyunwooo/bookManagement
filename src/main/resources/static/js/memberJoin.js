@@ -204,6 +204,7 @@ function sendPhone() {
         {
             alert("인증번호가 전송되었습니다.");
             phoneRealCertification = data;
+            timerStart("phoneTimer");
         },
         error: function () {
             alert("실패");
@@ -260,6 +261,7 @@ function sendEmail() {
         success : function(data) {
             alert("인증번호 발송했습니다.");
             emailRealString = data;
+            timerStart("emailTimer");
         },
         error: function () {
             alert("실패");
@@ -317,9 +319,9 @@ function timer(){
 
         //인증번호 초기화
         if(certificationWay == "phoneTimer"){
-            phoneRealCertification = -1;
+            phoneRealCertification = "x";
         } else if(certificationWay == "emailTimer"){
-            emailRealString = -1;
+            emailRealString = "x";
         }
 
         document.getElementById(certificationWay).innerHTML = "";
