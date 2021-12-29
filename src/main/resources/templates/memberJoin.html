@@ -55,6 +55,7 @@
             <label for="member_join_phone" class="member_join_label" >연락처 :</label>
             <input type="text" id="member_join_phone" class="member_join" name="phoneNumber" th:field="*{phoneNumber}">
             <button type="button" class="member_join_phone_check" onclick="sendPhone()">인증번호 받기</button>
+            <span class="timer" id="phoneTimer"></span>
             <div class="field-error" th:errors="*{phoneNumber}"></div>
             <input type="number" class="phone_check" id="phone_check">
             <button type="button" class="member_join_phone_check" onclick="phoneCheck()">인증번호 확인</button>
@@ -71,6 +72,7 @@
             </select>
             <input type="text" id="member_join_email_text" class="member_join member_join_email">
             <button type="button" class="member_join_email_check" onclick="sendEmail()">인증번호 받기</button>
+            <span class="timer" id="emailTimer"></span>
             <div class="field-error" th:errors="*{email}"></div>
             <input type="text" class="email_check" id="email_check">
             <button type="button" class="member_join_email_check" onclick="emailCheck()">인증번호 확인</button>

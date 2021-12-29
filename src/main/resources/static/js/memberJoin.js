@@ -292,5 +292,42 @@ function nameCheck() {
     return true;
 }
 
+/**
+ * 인증번호 timer
+ */
+let setTime;
+let certificationWay;
+function timerStart(way){
+    setTime = 10;
+    certificationWay = way;
+    tid = setInterval('timer()',1000);
+
+}
+
+function timer(){
+    //남은 시간 계산
+    m = Math.floor(setTime / 60) + "분" + (setTime % 60) + "초";
+
+    let msg = "남은시간 : " + m ;
+    document.getElementById(certificationWay).innerHTML = msg;
+
+    if(setTime < 0) {
+        clearInterval(tid);
+        alert("인증번호를 재발송 해주세요");
+
+        //인증번호 초기화
+        if(certificationWay == "phoneTimer"){
+            phoneRealCertification = -1;
+        } else if(certificationWay == "emailTimer"){
+            emailRealString = -1;
+        }
+
+        document.getElementById(certificationWay).innerHTML = "";
+        return;
+    }
+    setTime--;
+}
+
+
 
 

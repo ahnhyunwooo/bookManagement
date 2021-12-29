@@ -15,10 +15,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.demo.dto.BookRegisterDto;
 import project.demo.dto.MyMenuDto;
 import project.demo.service.MyMenuService;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +46,6 @@ public class MyMenuController {
         model.addAttribute("myMenuList", myMenuDtos);
         String[] fileNames = httpServletRequest.getParameterValues("fileName");
         multipartFiles = bookRegisterDto.fileUpdate(multipartFiles, fileNames);
-        bookRegisterDto.setFile(multipartFiles);
         for(int i =0 ; i<bookRegisterDto.getFile().size();i++) {
             log.info("real = {}",multipartFiles.get(i).getOriginalFilename());
         }
