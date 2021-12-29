@@ -1,11 +1,14 @@
 package project.demo.dto;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Data
 public class BookRegisterDto {
 
@@ -21,9 +24,7 @@ public class BookRegisterDto {
     private String bookGenre;
     @NotBlank(message = "개수를 입력해주세요.")
     private String bookCount;
-
-    private String  fileIndexTemp;
-
+    private String fileIndexTemp;
     public void fileCheck() {
         for(int i=0; i<file.size(); i++) {
             if(file.get(i).getOriginalFilename().equals("")) {
@@ -31,5 +32,24 @@ public class BookRegisterDto {
                 i--;
             }
         }
+    }
+    public List<MultipartFile> fileUpdate(List<MultipartFile>multipartFiles, String [] name) {
+        List<MultipartFile> newFiles = new ArrayList<>();
+        for (int i =0 ; i<name.length; i++) {
+            if(name[i].equals("")) {
+                continue;
+            }
+            for(int j=0; j<multipartFiles.size(); j++) {
+                if(name[i].equals(multipartFiles.get(j).getOriginalFilename())) {
+                    newFiles.add(multipartFiles.get(j));
+                    break;
+                }
+            }
+        }
+        for(int i=0;i< newFiles.size() ; i++) {
+            file.add(newFiles.get(i));
+        }
+        fileCheck();
+        return file;
     }
 }

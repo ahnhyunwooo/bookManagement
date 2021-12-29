@@ -19,7 +19,7 @@ function fileRowAdd(btn) {
     }
     ++fileIndex;
     const fileHtml ='<div class="book_register_form_container">'+
-        ' <input type="text" id="book_register_text'+fileIndex+'"class="book_register_file_text plus_file" readonly>'+
+        ' <input type="text" id="book_register_text'+fileIndex+'"class="book_register_file_text plus_file" readonly name="fileName">'+
         ' <label for="file_'+fileIndex+'" class="book_register_file_btn">파일추가</label>'+
         ' <input type="file" id="file_'+fileIndex+'" name="file" class="book_register_file" onchange="fileNameChange(this)">'+
         ' <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd(this)">+</button>'+

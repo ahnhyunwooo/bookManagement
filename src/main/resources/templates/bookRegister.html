@@ -16,7 +16,7 @@
         <div th:if="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <div class="book_register_form_container">
             <label for="file_0" class="book_register_label">도서 사진 :</label>
-            <input type="text" id="book_register_text0"class="book_register_file_text" readonly>
+            <input type="text" id="book_register_text0"class="book_register_file_text" readonly name="fileName">
             <label for="file_0" class="book_register_file_btn">파일추가</label>
             <input type="file" id="file_0" name="file" class="book_register_file" onchange="fileNameChange(this)">
             <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd(this)">+</button>
@@ -26,9 +26,8 @@
         <div th:unless="${#lists.isEmpty( fileList )}" class="book_register_form" id="book_register_form">
           <th:block th:unless="${#lists.isEmpty(fileList)}" th:each="row, status :${fileList}">
             <div class="book_register_form_container">
-              <input type="hidden" th:id="|realFileData_${status.index}|" name="file" th:value="${row}">
               <label th:unless="${status.index}" th:for="|file_${status.index}|" class="book_register_label">도서 사진 :</label>
-              <input th:classappend="${status.index} != 0 ? plus_file" type="text" th:id="|book_register_text${status.index}|"class="book_register_file_text" readonly th:value="${row.getOriginalFilename}">
+              <input th:classappend="${status.index} != 0 ? plus_file" type="text" th:id="|book_register_text${status.index}|"class="book_register_file_text" readonly th:value="${row.getOriginalFilename}" name="fileName">
               <label th:for="|file_${status.index}|" class="book_register_file_btn">파일추가</label>
               <input type="file" th:id="|file_${status.index}|" name="file" class="book_register_file" onchange="fileNameChange(this)">
               <button type="button" class="book_register_file_add_btn" onclick="fileRowAdd(this)">+</button>

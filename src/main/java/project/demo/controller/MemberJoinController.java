@@ -32,6 +32,7 @@ public class MemberJoinController {
     @PostMapping("/idOverlap")
     @ResponseBody
     public boolean idOverlapCheck(@RequestBody IdDto idDto){
+        log.info("{}",idDto);
         return m.idOverlap(idDto);
     }
 
