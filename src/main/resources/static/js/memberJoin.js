@@ -2,6 +2,9 @@ let idBtn = false;
 let oldValue;
 let phoneCheckBtn = false;
 let emailCheckBtn = false;
+let setTime;
+let certificationWay;
+
 function formCheck(){
     let pwBoolean = pwCheck();
     let nickNameBoolean= nickNameCheck();
@@ -191,8 +194,20 @@ function genderCheck() {
  */
 let phoneRealCertification;
 function sendPhone() {
+    if(certificationWay !== "phone" && typeof certificationWay !== "undefined" && certificationWay !== ""){
+        console.log('certificationWay ::',certificationWay);
+        alert("기존 진행되고 있는 인증을 끝내주세요.");
+        return;
+    }
     const phoneNumber = $("#member_join_phone").val();
     let sendData ={"phoneNumber":phoneNumber};
+
+    //핸드폰번호 유효성 체크
+    if(!phoneNumberCheck(phoneNumber)){
+        alert('휴대폰번호를 정확히 입력해주세요.');
+        return;
+    }
+
     $.ajax({
         url: "/phoneMessage",
         type: "post",
@@ -204,7 +219,8 @@ function sendPhone() {
         {
             alert("인증번호가 전송되었습니다.");
             phoneRealCertification = data;
-            timerStart("phoneTimer");
+            certificationWay = "phone"
+            timerStart();
         },
         error: function () {
             alert("실패");
@@ -218,6 +234,8 @@ function phoneCheck(){
         phoneCheckBtn = true;
         $("#member_join_phone").attr("readonly",true);
         $("#phone_check").attr("readonly", true);
+        document.getElementById(certificationWay).innerHTML = "";
+        certificationWay = ""; //초기화
     }else {
         alert("다시 확인 부탁드립니다.");
         phoneCheckBtn = false;
@@ -237,6 +255,11 @@ function emailText() {
 }
 let emailRealString;
 function sendEmail() {
+    if(certificationWay !== "email" && typeof certificationWay !== "undefined" && certificationWay !== ""){
+        console.log('certificationWay ::',certificationWay);
+        alert("기존 진행되고 있는 인증을 끝내주세요.");
+        return;
+    }
     let emailFront = $("#member_join_email").val();
     let emailBack = $("#email_items").val();
     if( emailFront == null || emailFront == "") {
@@ -251,6 +274,7 @@ function sendEmail() {
         emailBack = $("#member_join_email_text").val();
     }
     let emailAddress = emailFront + "@" + emailBack;
+
     $.ajax({
         url: "/email",
         type: "post",
@@ -259,9 +283,10 @@ function sendEmail() {
         contentType: "application/json",
         async: false,
         success : function(data) {
-            alert("인증번호 발송했습니다.");
+            alert("인증번호가 전송되었습니다.");
             emailRealString = data;
-            timerStart("emailTimer");
+            certificationWay = "email";
+            timerStart();
         },
         error: function () {
             alert("실패");
@@ -273,6 +298,8 @@ function emailCheck() {
     if(emailString == emailRealString) {
         alert("이메일 인증이 되었습니다.");
         emailCheckBtn = true;
+        document.getElementById(certificationWay).innerHTML = "";
+        certificationWay = ""; //초기화
     }else {
         alert("다시 한번 확인 부탁드립니다.");
         emailCheckBtn = false;
@@ -297,13 +324,10 @@ function nameCheck() {
 /**
  * 인증번호 timer
  */
-let setTime;
-let certificationWay;
-function timerStart(way){
-    setTime = 10;
-    certificationWay = way;
-    tid = setInterval('timer()',1000);
 
+function timerStart(){
+    setTime = 300;
+    tid = setInterval('timer()',1000);
 }
 
 function timer(){
@@ -315,12 +339,13 @@ function timer(){
 
     if(setTime < 0) {
         clearInterval(tid);
+        certificationWay = ""; //초기화
         alert("인증번호를 재발송 해주세요");
 
         //인증번호 초기화
-        if(certificationWay == "phoneTimer"){
+        if(certificationWay == "phone"){
             phoneRealCertification = "x";
-        } else if(certificationWay == "emailTimer"){
+        } else if(certificationWay == "email"){
             emailRealString = "x";
         }
 
@@ -328,8 +353,14 @@ function timer(){
         return;
     }
     setTime--;
+
 }
 
-
-
+/**
+ * 휴대폰 전화번호 유효성 체크
+ */
+function phoneNumberCheck(phoneNumber) {
+    let regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    return regPhone.test(phoneNumber);
+}
 
