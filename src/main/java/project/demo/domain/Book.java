@@ -2,6 +2,7 @@ package project.demo.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@ToString
 @Table(name="BOOK")
 public class Book {
 
@@ -33,7 +35,7 @@ public class Book {
     private LocalDateTime registerDate;
 
     @Column(name="BOOK_COUNT")
-    private int count;
+    private String count;
 
     @Column(name="BOOK_YN")
     private String yn;

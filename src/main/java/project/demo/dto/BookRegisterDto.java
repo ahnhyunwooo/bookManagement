@@ -5,8 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Data
@@ -33,12 +32,20 @@ public class BookRegisterDto {
             }
         }
     }
+    /**
+     multipartFiles 기존 파일
+     name 새로운 파일 이름
+     file 새롭게 변경된 파일
+     newFiles 최종
+     */
     public List<MultipartFile> fileUpdate(List<MultipartFile>multipartFiles, String [] name) {
         List<MultipartFile> newFiles = new ArrayList<>();
+        Set<String> set = new HashSet<>();
         for (int i =0 ; i<name.length; i++) {
-            if(name[i].equals("")) {
+            if(name[i].equals("") || set.contains(name[i])) {
                 continue;
             }
+            set.add(name[i]);
             for(int j=0; j<multipartFiles.size(); j++) {
                 if(name[i].equals(multipartFiles.get(j).getOriginalFilename())) {
                     newFiles.add(multipartFiles.get(j));

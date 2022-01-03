@@ -197,12 +197,12 @@ public class LoginController {
     }
 
     /////////////개발중/////////////////
-    @PostMapping("/pwChange")
-    public String pwChange(@Validated @ModelAttribute IdPwDto idPwDto, BindingResult bindingResult){
-        log.info("idPwDt{}",idPwDto);
-        if(bindingResult.hasErrors()) {
-            return "";
-        }
+    @PostMapping("/login/pwSearch/pwChange")
+    public String pwChange(){
+
+//        if(bindingResult.hasErrors()) {
+//            return "";
+//        }
         //boolean result = ml.updateMember(idPwDto);
 
         return "redirect:/login";

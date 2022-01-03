@@ -9,6 +9,7 @@ import project.demo.domain.Book;
 import project.demo.domain.UploadFile;
 import project.demo.dto.BookRegisterDto;
 import project.demo.dto.MyMenuDto;
+import project.demo.repository.BookRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class MyMenuServiceImple implements MyMenuService{
     @Value("${file.dir}")
     private String fileDir;
 
+    private final BookRepository bookRepository;
+
     //왼쪽 nav바 목록추가
     @Override
     public List<MyMenuDto> searchMyMenu() {
@@ -40,14 +43,16 @@ public class MyMenuServiceImple implements MyMenuService{
         List<UploadFile> uploadFiles = storeFiles(bookRegisterDto.getFile());
         Book book = new Book();
         book.setAuthor(bookRegisterDto.getBookAuthor());
-
         book.setGenre(bookRegisterDto.getBookGenre());
         book.setName(bookRegisterDto.getBookName());
         book.setPublisher(bookRegisterDto.getBookPublisher());
         book.setYn("y");
         book.setRegisterDate(LocalDateTime.now());
         book.setRentalCount(0);
-        return false;
+        book.setCount(bookRegisterDto.getBookCount());
+        book.setIndex("123");
+        log.info("book1 ={}",book);
+        return bookRepository.insertBook(book);
     }
 
     @Override

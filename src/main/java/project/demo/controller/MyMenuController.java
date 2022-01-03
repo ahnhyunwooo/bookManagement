@@ -58,7 +58,9 @@ public class MyMenuController {
             model.addAttribute("fileList",bookRegisterDto.getFile());
             return "bookRegister";
         }
-        myMenuService.insertBook(bookRegisterDto);
+        if(myMenuService.insertBook(bookRegisterDto)) {
+            return "main";
+        }
         return "bookRegister";
 
     }
