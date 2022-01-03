@@ -17,6 +17,7 @@ public class Book {
 
     @Column(name="BOOK_INDEX")
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String index;
 
     @Column(name="BOOK_NAME")

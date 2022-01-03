@@ -3,7 +3,7 @@ CREATE TABLE member
     member_index VARCHAR2(10) PRIMARY KEY,
     member_name VARCHAR2(20),
     member_id   VARCHAR2(20),
-    member_pw   VARCHAR2(20),
+    member_pw   VARCHAR2(255),
     member_nickname VARCHAR2(50),
     member_gender   VARCHAR2(5),
     member_phonenumber    VARCHAR2(20),

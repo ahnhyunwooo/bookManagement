@@ -142,7 +142,7 @@ function nickNameValueCheck(nickName) {
  * 비밀번호 체크
  */
 function pwValueCheck(pw) {
-    let regExp = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return regExp.test(pw);
 }
 function pwCheck(){
