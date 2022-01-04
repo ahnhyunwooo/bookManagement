@@ -11,11 +11,11 @@
 </header>
 <main>
   <form action="./pwChange" method="post"  onsubmit="return formCheck();">
-    <input type="hidden" id="pw_search_id" value="">
+    <input type="hidden" id="pw_search_id" name="id" th:value="${id}">
     <div class="pw_change_form">
       <div class="pw_input_container">
         <label for="new_pw">새로운 비밀번호: </label>
-        <input type="password" class="new_pw" id="new_pw">
+        <input type="password" class="new_pw" id="new_pw" name="pw">
       </div>
       <div class="pw_input_container">
         <label for="new_pw_check">비밀번호 확인: </label>

@@ -127,7 +127,7 @@ function searchPwByPhone() {
         success : function(data)
         {
             $("#phone_search_error").css("display","none");
-            location.href = "/login/pwSearch/newPw";
+            location.href = "/login/pwSearch/newPw/"+id;
         },
         error: function () {
             $("#phone_search_error").css("display","block");

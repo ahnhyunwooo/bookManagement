@@ -30,8 +30,7 @@ public class LoginController {
      */
     @GetMapping("/login")
     public String loginPage(@ModelAttribute("member") IdPwDto idPwDto, @Login Member loginMember, Model model, HttpSession session){
-        //if(loginMember!=null) {
-        if(session.getAttribute("loginId") != null ){
+        if(loginMember!=null) {
             log.info("loginMember2 = {}",loginMember);
             model.addAttribute("loginMember",loginMember);
             return "redirect:/main";
@@ -79,7 +78,8 @@ public class LoginController {
      */
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.removeAttribute("loginId");
+        //session.removeAttribute("loginId");
+        session.invalidate();
         return "redirect:/main";
     }
 
@@ -157,6 +157,7 @@ public class LoginController {
         log.info("member = {}", idPhoneDto);
         if(ml.pwSearchByPhone(idPhoneDto)) {
             log.info("정보 일치!!");
+
             return true;
         }else {
             log.info("정보 불일치!!");
@@ -203,15 +204,19 @@ public class LoginController {
     /**
      *비밀번호 찾기 - 새 비밀번호 등록하기
      */
-    @GetMapping("login/pwSearch/newPw")
-    public String newPwPage() {
+    @GetMapping("login/pwSearch/newPw/{id}")
+    public String newPwPage(@PathVariable("id") String id, Model model) {
+
+        log.info("id ::"+ id);
+        model.addAttribute("id",id);
         return "newPw";
     }
 
     /////////////개발중/////////////////
     @PostMapping("/login/pwSearch/pwChange")
-    public String pwChange(){
+    public String pwChange(@ModelAttribute IdPwDto idPwDto){
 
+        log.info("idPwDto :: " + idPwDto);
 //        if(bindingResult.hasErrors()) {
 //            return "";
 //        }
