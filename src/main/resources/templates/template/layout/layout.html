@@ -17,9 +17,12 @@
         <h1 class="header_title">
           <a href="#" class="header_link"></a>
         </h1>
-        <div class="login_container">
-          <a href="/login" class="login_link">로그인</a>
-          <a href="/login-join" class="login_link">회원가입</a>
+        <div class="login_container" th:if="${session.loginId == null}">
+            <a href="/login" class="login_link">로그인</a>
+            <a href="/login-join" class="login_link">회원가입</a>
+        </div>
+        <div class="login_container" th:if="${session.loginId != null}">
+          <a href="/logout" class="login_link">로그아웃</a>
         </div>
       </div>
     </header>

@@ -28,7 +28,7 @@ public class MemberLoginTest {
     @Test
     public void findSaltAndPwByIdTest() {
         List result = mr.findSaltAndPwById("dksgusdnw");
-        log.info("result = {}", result.get(0));
+        //log.info("result = {}", result.get(0));
 
     }
 }

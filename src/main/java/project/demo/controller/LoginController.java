@@ -29,8 +29,9 @@ public class LoginController {
      * 로그인
      */
     @GetMapping("/login")
-    public String loginPage(@ModelAttribute("member") IdPwDto idPwDto, @Login Member loginMember, Model model){
-        if(loginMember!=null) {
+    public String loginPage(@ModelAttribute("member") IdPwDto idPwDto, @Login Member loginMember, Model model, HttpSession session){
+        //if(loginMember!=null) {
+        if(session.getAttribute("loginId") != null ){
             log.info("loginMember2 = {}",loginMember);
             model.addAttribute("loginMember",loginMember);
             return "redirect:/main";
@@ -55,6 +56,8 @@ public class LoginController {
             //세션에 로그인 회원 정보 보관
             session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
             log.info("1redirectURL:{}",redirectURL);
+            //세션에 로그인 id 보관
+            session.setAttribute("loginId", idPwDto.getId());
 
             if( redirectURL.equals("null") ){
                 redirectURL = "/main";
@@ -69,6 +72,15 @@ public class LoginController {
         }
         log.info("{}", result);
         return "login";
+    }
+
+    /**
+     * 로그아웃
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("loginId");
+        return "redirect:/main";
     }
 
     /**
