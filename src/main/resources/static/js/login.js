@@ -8,6 +8,7 @@ $(document).ready(function() {
             document.getElementById('form').submit();
         }
     });
+    $("#phone_search_error").css("display","none");
 });
 
 /**
@@ -114,6 +115,7 @@ function searchPwByPhone() {
     }
     if(phoneCheck == "" || phoneCheck != phoneRealCertification) {
         alert("핸드폰 인증을 진행해주세요.");
+        return;
     }
     $.ajax({
         url: "/login/pwSearch/phone",
@@ -124,9 +126,11 @@ function searchPwByPhone() {
         async: false,
         success : function(data)
         {
+            $("#phone_search_error").css("display","none");
             location.href = "/login/pwSearch/newPw";
         },
         error: function () {
+            $("#phone_search_error").css("display","block");
         }
     });
 }
@@ -137,6 +141,13 @@ function searchPwByPhone() {
 function sendPhone() {
     const phoneNumber = $("#pw_search_phone").val();
     let sendData ={"phoneNumber":phoneNumber};
+
+    //핸드폰번호 유효성 체크
+    if(!phoneNumberCheck(phoneNumber)){
+        alert('휴대폰번호를 정확히 입력해주세요.');
+        return;
+    }
+
     $.ajax({
         url: "/login/pwSearch/phone/phoneMessage",
         type: "post",
@@ -160,6 +171,7 @@ function sendPhone() {
  */
 function phoneCheck(){
     let phoneCertification = $("#pw_search_check").val();
+
     if(phoneCertification == phoneRealCertification) {
         alert("핸드폰 인증이 되었습니다");
         phoneCheckBtn = true;
@@ -178,7 +190,9 @@ function phoneCheck(){
  */
 function searchPwByEmail() {
     let id = $("#pw_search_id").val();
-    let email =$("#pw_search_phone").val();
+    let email = $("#pw_search_phone").val();
+    let emailCheck = $("#pw_search_check").val();
+
     let sendData = {"id":id, "email":email};
     if(id == "" || email== "") {
         alert("정보를 입력해주세요.");
@@ -255,11 +269,21 @@ function formCheck() {
     };
 }
 
+/**
+ * 비밀번호 유효성 체크
+ */
 function pwValueCheck(pw) {
     let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     return regExp.test(pw);
 }
 
+/**
+ * 휴대폰 전화번호 유효성 체크
+ */
+function phoneNumberCheck(phoneNumber) {
+    let regPhone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    return regPhone.test(phoneNumber);
+}
 
 
 
