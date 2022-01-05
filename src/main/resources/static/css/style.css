@@ -114,8 +114,10 @@ fieldset {
 }
 .nav_btn.active {
     font-weight: bold;
+
 }
 .book_info_items {
+
     display: none;
     position: absolute;
     font-size: 15px;

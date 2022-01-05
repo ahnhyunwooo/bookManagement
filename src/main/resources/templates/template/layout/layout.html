@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title th:replace="${title}">제목</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{/css/style.css}">
+  <link rel="icon" type ="image/jpg" href="img/favicon.jpg"/>
   <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+  <script src="js/main.js" defer></script>
   <th:block th:replace="${link}"/>
 </head>
 <body>
@@ -15,7 +17,7 @@
     <header>
       <div class="header_container">
         <h1 class="header_title">
-          <a href="#" class="header_link"></a>
+          <a href="/main" class="header_link"></a>
         </h1>
         <div class="login_container" th:if="${session.loginId == null}">
             <a href="/login" class="login_link">로그인</a>
