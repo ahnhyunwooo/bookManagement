@@ -88,3 +88,4 @@ CREATE TABLE book_reservation
     CONSTRAINT member_book_reservation_fk FOREIGN KEY(member_index) REFERENCES member(member_index),
     CONSTRAINT book_book_reservation_fk FOREIGN KEY(book_index) REFERENCES book(book_index)
 );
+CREATE SEQUENCE book_sequence START WITH 1 INCREMENT BY 1;

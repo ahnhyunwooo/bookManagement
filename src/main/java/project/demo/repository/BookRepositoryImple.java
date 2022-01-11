@@ -24,10 +24,24 @@ public class BookRepositoryImple implements BookRepository {
         try {
             log.info("book = {}", book);
             e.persist(book);
+
             return true;
         }catch(Exception e){
+            System.out.println("aaaa = " );
             return false;
         }
     }
 
+    @Override
+    public Book findBookByName(String name) {
+        Book result = null;
+        try {
+            result = e.createQuery("select b from Book b where b.name = :name", Book.class)
+                    .setParameter("name", name)
+                    .getSingleResult();
+        }catch (Exception e) {
+            return null;
+        }
+        return result;
+    }
 }
