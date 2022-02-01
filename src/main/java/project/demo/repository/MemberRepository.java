@@ -23,5 +23,5 @@ public interface MemberRepository {
     public String pwSearchByIdAndEmail(String id, String email);
     public void pwUpdate(String index, String pw);
     public String findMemberByIndex(String id);
-
+    public Optional<Member> findNameByIdAndPhone(String id, String phone);
 }

@@ -219,8 +219,8 @@ public class MemberLoginServiceImple implements MemberLoginService {
      * 핸드폰번호로 인증번호 보내기
      */
     @Override
-    public int phoneMessage(PhoneNumberDto phoneNumberDto) {
-        String phoneNumber = phoneNumberDto.getPhoneNumber();
+    public int phoneMessage(String phone) {
+        String phoneNumber = phone;
         String timestamp = Long.toString(System.currentTimeMillis());
         String ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
         String url = "https://sens.apigw.ntruss.com/sms/v2/services/"+ncpServiceID+"/messages";
@@ -340,14 +340,30 @@ public class MemberLoginServiceImple implements MemberLoginService {
      * 새 비밀번호 등록하기
      */
     @Override
-    public void pwUpdate(IdPwDto idPwDto) {
+    public void memberUpdate(IdPwDto idPwDto) {
 
         log.info("pwUpdate Service@@@@@@@@@@@@@@@@@@@@@@");
         String index = mr.findMemberByIndex(idPwDto.getId());
         String pw = SHA512(idPwDto.getPw(), salt());
 
+        log.info("222222222index :: " + index);
+        log.info("222222222pw :: " + pw);
+
         mr.pwUpdate(index, pw);
         return;
+    }
+
+    /**
+     * id, phoneNumber로 회원정보 체크
+     */
+    @Override
+    public boolean findMemberByIdAndPhone(String id, String phone) {
+        Optional<Member> member = mr.findNameByIdAndPhone(id, phone);
+        if(member.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //비밀번호 암호화

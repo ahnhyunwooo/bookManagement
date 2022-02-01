@@ -29,10 +29,11 @@ public interface MemberLoginService {
      */
     Optional<Member> findLoginMember(String id);
 
+
     /**
      * 핸드폰번호로 인증번호 보내기
      */
-    public int phoneMessage(PhoneNumberDto phoneNumberDto);
+    public int phoneMessage(String phone);
 
     /**
      * 핸드폰번호로 pw 찾기
@@ -52,6 +53,12 @@ public interface MemberLoginService {
     /**
      * 새 비밀번호 등록하기
      */
-    public void pwUpdate(IdPwDto idPwDto);
+    public void memberUpdate(IdPwDto idPwDto);
+
+    /**
+     * id, phoneNumber로 회원정보 체크
+     */
+    boolean findMemberByIdAndPhone(String id, String phone);
+
 
 }

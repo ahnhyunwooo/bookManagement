@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.demo.domain.Member;
 import project.demo.dto.IdPwDto;
+import project.demo.service.MemberJoinService;
+import project.demo.service.MemberLoginService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -20,6 +22,7 @@ public class MemberRepositoryImple implements MemberRepository {
 
 
     private final EntityManager e;
+    MemberLoginService memberLoginService;
 
     //id로 회원정보 찾기
     @Override
@@ -167,8 +170,11 @@ public class MemberRepositoryImple implements MemberRepository {
             log.info("여기타나요?");
             Member findMember = e.find(Member.class, index);
 
+            log.info("findMember :: @@@@@@@@@@@@@@@ " + findMember);
+            
             //set 이 안되고있는 상황......
             findMember.setPw(pw);
+            //
             return;
         } catch ( Exception e ){
             new NullPointerException();
@@ -181,5 +187,16 @@ public class MemberRepositoryImple implements MemberRepository {
                 .setParameter("id", id)
                 .getSingleResult();
         return index;
+    }
+
+    @Override
+    public Optional<Member> findNameByIdAndPhone(String id, String phone) {
+        log.info("id :: " + id);
+        log.info("phone :: " + phone);
+        Optional<Member> member = findAll().stream()
+                .filter(m->m.getId().equals(id))
+                .filter(m->m.getPhoneNumber().equals(phone))
+                .findAny();
+        return member;
     }
 }
