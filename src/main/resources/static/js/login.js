@@ -253,11 +253,9 @@ function cancel() {
  * 새 비밀번호 입력 form 체크
  */
 function formCheck() {
-    console.log('d');
     let check1 = ($("#new_pw").val() === $("#new_pw_check").val());
     let check2 = pwValueCheck($("#new_pw_check").val());
-    console.log('ddd');
-    console.log('ddddd',check2);
+
     if (!check2) {
         alert("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
         return false;

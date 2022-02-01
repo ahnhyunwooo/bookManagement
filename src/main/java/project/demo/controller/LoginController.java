@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import project.demo.annotation.Login;
 import project.demo.domain.Member;
 import project.demo.dto.*;
+import project.demo.repository.MemberRepository;
 import project.demo.service.MemberJoinService;
 import project.demo.service.MemberLoginService;
 import project.demo.session.SessionConst;
@@ -212,16 +213,16 @@ public class LoginController {
         return "newPw";
     }
 
-    /////////////개발중/////////////////
-    @PostMapping("/login/pwSearch/pwChange")
-    public String pwChange(@ModelAttribute IdPwDto idPwDto){
+    @PostMapping("/login/pwSearch/newPw/pwChange")
+    public String pwChange(@ModelAttribute IdPwDto idPwDto, BindingResult bindingResult){
 
         log.info("idPwDto :: " + idPwDto);
-//        if(bindingResult.hasErrors()) {
-//            return "";
-//        }
-        //boolean result = ml.updateMember(idPwDto);
-
+        if(bindingResult.hasErrors()) {
+           return "";
+        }
+        log.info("111controller@@@@@@@@@@@@@@@@");
+        ml.pwUpdate(idPwDto);
+        log.info("222controller@@@@@@@@@@@@@@@@@@@");
         return "redirect:/login";
     }
 

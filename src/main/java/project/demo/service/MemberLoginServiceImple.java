@@ -17,11 +17,14 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -331,5 +334,44 @@ public class MemberLoginServiceImple implements MemberLoginService {
         mailSender.send(message);
         log.info(String.valueOf(message));
         return key;
+    }
+
+    /**
+     * 새 비밀번호 등록하기
+     */
+    @Override
+    public void pwUpdate(IdPwDto idPwDto) {
+
+        log.info("pwUpdate Service@@@@@@@@@@@@@@@@@@@@@@");
+        String index = mr.findMemberByIndex(idPwDto.getId());
+        String pw = SHA512(idPwDto.getPw(), salt());
+
+        mr.pwUpdate(index, pw);
+        return;
+    }
+
+    //비밀번호 암호화
+    public String salt() {
+        String salt="";
+        try {
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            byte[] bytes = new byte[16];
+            random.nextBytes(bytes);
+            salt = new String(java.util.Base64.getEncoder().encode(bytes));}
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } return salt;
+
+    }
+
+    public String SHA512(String pw, String hash) {
+        String salt = hash+pw;
+        String hex = null;
+        try {
+            MessageDigest msg = MessageDigest.getInstance("SHA-512");
+            msg.update(salt.getBytes());
+            hex = String.format("%128x", new BigInteger(1, msg.digest()));
+        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+        return hex;
     }
 }

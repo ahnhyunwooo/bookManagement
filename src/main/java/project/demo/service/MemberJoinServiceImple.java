@@ -249,5 +249,4 @@ public class MemberJoinServiceImple implements MemberJoinService {
         return hex;
     }
 
-
 }
