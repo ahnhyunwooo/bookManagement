@@ -6,6 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import project.demo.domain.Member;
+import project.demo.dto.IdPwDto;
+import project.demo.service.MemberJoinService;
+import project.demo.service.MemberLoginService;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +22,7 @@ public class MemberRepositoryImple implements MemberRepository {
 
 
     private final EntityManager e;
+    MemberLoginService memberLoginService;
 
     //id로 회원정보 찾기
     @Override
@@ -155,5 +160,43 @@ public class MemberRepositoryImple implements MemberRepository {
         }catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public void pwUpdate(String index, String pw) {
+        try{
+            log.info("index :: @@@@@@@@@@@@@@@@@@@ :: " + index);
+            log.info("pw :: @@@@@@@@@@@@@@@@@@@ :: " + pw);
+            log.info("여기타나요?");
+            Member findMember = e.find(Member.class, index);
+
+            log.info("findMember :: @@@@@@@@@@@@@@@ " + findMember);
+            
+            //set 이 안되고있는 상황......
+            findMember.setPw(pw);
+            //
+            return;
+        } catch ( Exception e ){
+            new NullPointerException();
+        }
+    }
+
+    @Override
+    public String findMemberByIndex(String id) {
+        String index = e.createQuery("select m.index from Member m where m.id = :id", String.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        return index;
+    }
+
+    @Override
+    public Optional<Member> findNameByIdAndPhone(String id, String phone) {
+        log.info("id :: " + id);
+        log.info("phone :: " + phone);
+        Optional<Member> member = findAll().stream()
+                .filter(m->m.getId().equals(id))
+                .filter(m->m.getPhoneNumber().equals(phone))
+                .findAny();
+        return member;
     }
 }

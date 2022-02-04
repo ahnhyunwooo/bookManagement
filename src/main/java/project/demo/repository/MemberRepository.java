@@ -1,5 +1,8 @@
 package project.demo.repository;
 import project.demo.domain.Member;
+import project.demo.dto.IdPwDto;
+
+import javax.persistence.Id;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,5 +21,7 @@ public interface MemberRepository {
     public List<Member> findAll();
     public String pwSearchByIdAndPhone(String id, String phone);
     public String pwSearchByIdAndEmail(String id, String email);
-
+    public void pwUpdate(String index, String pw);
+    public String findMemberByIndex(String id);
+    public Optional<Member> findNameByIdAndPhone(String id, String phone);
 }

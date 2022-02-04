@@ -17,11 +17,14 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -216,8 +219,8 @@ public class MemberLoginServiceImple implements MemberLoginService {
      * 핸드폰번호로 인증번호 보내기
      */
     @Override
-    public int phoneMessage(PhoneNumberDto phoneNumberDto) {
-        String phoneNumber = phoneNumberDto.getPhoneNumber();
+    public int phoneMessage(String phone) {
+        String phoneNumber = phone;
         String timestamp = Long.toString(System.currentTimeMillis());
         String ncpServiceID = "ncp:sms:kr:275984439775:toyproject";
         String url = "https://sens.apigw.ntruss.com/sms/v2/services/"+ncpServiceID+"/messages";
@@ -331,5 +334,60 @@ public class MemberLoginServiceImple implements MemberLoginService {
         mailSender.send(message);
         log.info(String.valueOf(message));
         return key;
+    }
+
+    /**
+     * 새 비밀번호 등록하기
+     */
+    @Override
+    public void memberUpdate(IdPwDto idPwDto) {
+
+        log.info("pwUpdate Service@@@@@@@@@@@@@@@@@@@@@@");
+        String index = mr.findMemberByIndex(idPwDto.getId());
+        String pw = SHA512(idPwDto.getPw(), salt());
+
+        log.info("222222222index :: " + index);
+        log.info("222222222pw :: " + pw);
+
+        mr.pwUpdate(index, pw);
+        return;
+    }
+
+    /**
+     * id, phoneNumber로 회원정보 체크
+     */
+    @Override
+    public boolean findMemberByIdAndPhone(String id, String phone) {
+        Optional<Member> member = mr.findNameByIdAndPhone(id, phone);
+        if(member.isEmpty()){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //비밀번호 암호화
+    public String salt() {
+        String salt="";
+        try {
+            SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+            byte[] bytes = new byte[16];
+            random.nextBytes(bytes);
+            salt = new String(java.util.Base64.getEncoder().encode(bytes));}
+        catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } return salt;
+
+    }
+
+    public String SHA512(String pw, String hash) {
+        String salt = hash+pw;
+        String hex = null;
+        try {
+            MessageDigest msg = MessageDigest.getInstance("SHA-512");
+            msg.update(salt.getBytes());
+            hex = String.format("%128x", new BigInteger(1, msg.digest()));
+        } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
+        return hex;
     }
 }

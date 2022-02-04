@@ -3,6 +3,7 @@ package project.demo.service;
 import project.demo.domain.Member;
 import project.demo.dto.*;
 
+import javax.persistence.Id;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
@@ -28,10 +29,11 @@ public interface MemberLoginService {
      */
     Optional<Member> findLoginMember(String id);
 
+
     /**
      * 핸드폰번호로 인증번호 보내기
      */
-    public int phoneMessage(PhoneNumberDto phoneNumberDto);
+    public int phoneMessage(String phone);
 
     /**
      * 핸드폰번호로 pw 찾기
@@ -48,10 +50,15 @@ public interface MemberLoginService {
      */
     public String sendMailCertification(EmailAddressDto emailAddressDto);
 
+    /**
+     * 새 비밀번호 등록하기
+     */
+    public void memberUpdate(IdPwDto idPwDto);
 
-    //void phoneMessage(String phoneNumber, String id);
-    //String makeSignature(String timestamp, String url, String accessKey, String secretKey) throws NoSuchAlgorithmException, InvalidKeyException;
-    //void sendMail(String email, String id);
-    //public int makeNumber();
+    /**
+     * id, phoneNumber로 회원정보 체크
+     */
+    boolean findMemberByIdAndPhone(String id, String phone);
+
 
 }

@@ -139,11 +139,12 @@ function searchPwByPhone() {
  * 비밀번호 찾기 - 연락처로 찾기 - 핸드폰 인증하기
  */
 function sendPhone() {
-    const phoneNumber = $("#pw_search_phone").val();
-    let sendData ={"phoneNumber":phoneNumber};
+    let phone = $("#pw_search_phone").val();
+    let id = $("#pw_search_id").val();
+    let sendData ={"id":id,"phone":phone};
 
     //핸드폰번호 유효성 체크
-    if(!phoneNumberCheck(phoneNumber)){
+    if(!phoneNumberCheck(phone)){
         alert('휴대폰번호를 정확히 입력해주세요.');
         return;
     }
@@ -157,8 +158,13 @@ function sendPhone() {
         async: false,
         success : function(data)
         {
-            alert("인증번호가 전송되었습니다.");
-            phoneRealCertification = data;
+            if(data == -1){
+                alert("일치하는 정보가 없습니다. 다시입력해주세요");
+                phoneRealCertification = -1;
+            } else {
+                alert("인증번호가 전송되었습니다.");
+                phoneRealCertification = data;
+            }
         },
         error: function () {
             alert("실패");
@@ -253,11 +259,9 @@ function cancel() {
  * 새 비밀번호 입력 form 체크
  */
 function formCheck() {
-    console.log('d');
     let check1 = ($("#new_pw").val() === $("#new_pw_check").val());
     let check2 = pwValueCheck($("#new_pw_check").val());
-    console.log('ddd');
-    console.log('ddddd',check2);
+
     if (!check2) {
         alert("최소 8 자, 하나 이상의 문자와 하나의 숫자로 입력하세요.");
         return false;

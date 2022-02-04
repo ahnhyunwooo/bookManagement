@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import project.demo.annotation.Login;
 import project.demo.domain.Member;
 import project.demo.dto.*;
+import project.demo.repository.MemberRepository;
 import project.demo.service.MemberJoinService;
 import project.demo.service.MemberLoginService;
 import project.demo.session.SessionConst;
@@ -23,8 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final MemberLoginService ml;
-    private final MemberJoinService m;
+    private final MemberLoginService memberLoginService;
+    private final MemberJoinService memberJoinService;
     /**
      * 로그인
      */
@@ -45,12 +46,12 @@ public class LoginController {
             return "login";
         }
         //아이디 존재여부
-        int result = ml.idSamePw(idPwDto);
+        int result = memberLoginService.idSamePw(idPwDto);
         if(result == 1) {
             //세션생성
             HttpSession session = request.getSession();
             //회원정보 조회
-            Optional<Member> loginMember = ml.findLoginMember(idPwDto.getId());
+            Optional<Member> loginMember = memberLoginService.findLoginMember(idPwDto.getId());
             log.info("loginMember1 = {}", loginMember);
             //세션에 로그인 회원 정보 보관
             session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember.get());
@@ -108,7 +109,7 @@ public class LoginController {
     @ResponseBody
     public boolean idSearchPhone(@Validated @RequestBody NamePhoneDto namePhoneDto, BindingResult bindingResult) {
         log.info("member = {}", namePhoneDto);
-        if(ml.idSearchByPhone(namePhoneDto)) {
+        if(memberLoginService.idSearchByPhone(namePhoneDto)) {
             log.info("정보 일치!!");
             return true;
         }else {
@@ -124,7 +125,7 @@ public class LoginController {
     @ResponseBody
     public boolean idSearchEmail(@Validated @RequestBody NameEmailDto nameEmailDto, BindingResult bindingResult) {
         log.info("member = {}", nameEmailDto);
-        if(ml.idSearchByEmail(nameEmailDto)) {
+        if(memberLoginService.idSearchByEmail(nameEmailDto)) {
             return true;
         }else {
             return false;
@@ -155,7 +156,7 @@ public class LoginController {
     @ResponseBody
     public boolean pwSearchPhone(@Validated @RequestBody IdPhoneDto idPhoneDto, BindingResult bindingResult) {
         log.info("member = {}", idPhoneDto);
-        if(ml.pwSearchByPhone(idPhoneDto)) {
+        if(memberLoginService.pwSearchByPhone(idPhoneDto)) {
             log.info("정보 일치!!");
 
             return true;
@@ -170,10 +171,20 @@ public class LoginController {
      */
     @PostMapping("login/pwSearch/phone/phoneMessage")
     @ResponseBody
-    public int phoneMessage(@RequestBody PhoneNumberDto phoneNumberDto) {
-        log.info("우와 여기탄다");
-        int number = ml.phoneMessage(phoneNumberDto);
-        log.info("인증번호 : " + number);
+    public int phoneMessage(@RequestBody IdPhoneDto idPhoneDto, BindingResult bindingResult) {
+        log.info("idPhoneDto ={}", idPhoneDto);
+        String id = idPhoneDto.getId();
+        String phone= idPhoneDto.getPhone();
+
+        int number = 0;
+
+        //id,폰번호에 일치하는 회원정보 조회
+        if (memberLoginService.findMemberByIdAndPhone(id, phone)) {
+            number = memberLoginService.phoneMessage(phone);
+            log.info("인증번호 : " + number);
+        } else{
+            number = -1;
+        }
         return number;
     }
 
@@ -184,7 +195,7 @@ public class LoginController {
     @ResponseBody
     public boolean pwSearchEmail(@Validated @RequestBody IdEmailDto idEmailDto, BindingResult bindingResult) {
         log.info("member = {}", idEmailDto);
-        if(ml.pwSearchByEmail(idEmailDto)) {
+        if(memberLoginService.pwSearchByEmail(idEmailDto)) {
             return true;
         }else {
             return false;
@@ -197,7 +208,7 @@ public class LoginController {
     @PostMapping("login/pwSearch/email/sendEmailCertification")
     @ResponseBody
     public String emailNumber(@RequestBody EmailAddressDto emailAddressDto) {
-        return ml.sendMailCertification(emailAddressDto);
+        return memberLoginService.sendMailCertification(emailAddressDto);
     }
 
 
@@ -212,16 +223,16 @@ public class LoginController {
         return "newPw";
     }
 
-    /////////////개발중/////////////////
-    @PostMapping("/login/pwSearch/pwChange")
-    public String pwChange(@ModelAttribute IdPwDto idPwDto){
+    @PostMapping("/login/pwSearch/newPw/pwChange")
+    public String pwChange(@ModelAttribute IdPwDto idPwDto, BindingResult bindingResult){
 
         log.info("idPwDto :: " + idPwDto);
-//        if(bindingResult.hasErrors()) {
-//            return "";
-//        }
-        //boolean result = ml.updateMember(idPwDto);
-
+        if(bindingResult.hasErrors()) {
+           return "";
+        }
+        log.info("111controller@@@@@@@@@@@@@@@@");
+        memberLoginService.memberUpdate(idPwDto);
+        log.info("222controller@@@@@@@@@@@@@@@@@@@");
         return "redirect:/login";
     }
 
