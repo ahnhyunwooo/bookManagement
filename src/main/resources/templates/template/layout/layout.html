@@ -9,6 +9,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{/css/style.css}">
   <link rel="icon" type ="image/jpg" href="img/favicon.jpg"/>
   <script th:src="@{/js/jquery-3.6.0.min.js}"></script>
+  <script src="https://kit.fontawesome.com/671d2e4e12.js" crossorigin="anonymous"></script>
   <script src="js/main.js" defer></script>
   <th:block th:replace="${link}"/>
 </head>
@@ -19,13 +20,13 @@
         <h1 class="header_title">
           <a href="/main" class="header_link"></a>
         </h1>
-        <div class="login_container" th:if="${session.loginId == null}">
-            <a href="/login" class="login_link">로그인</a>
-            <a href="/login-join" class="login_link">회원가입</a>
-        </div>
-        <div class="login_container" th:if="${session.loginId != null}">
-          <a href="/logout" class="login_link">로그아웃</a>
-        </div>
+      </div>
+      <div class="login_container" th:if="${session.loginId == null}">
+        <a href="/login" class="login_link">로그인</a>
+        <a href="/login-join" class="join_link">회원가입</a>
+      </div>
+      <div class="login_container" th:if="${session.loginId != null}">
+        <a href="/logout" class="logout_link">로그아웃</a>
       </div>
     </header>
     <nav>
@@ -41,9 +42,18 @@
             <a class="book_info_item">소설</a>
           </div>
         </label>
+
         <label class="nav_label">
           <button type="button" class="nav_btn">도서이용</button>
+          <div class="book_info_items">
+            <a class="book_info_item">전체보기</a>
+            <a class="book_info_item">IT</a>
+            <a class="book_info_item">역사</a>
+            <a class="book_info_item">육아</a>
+            <a class="book_info_item">소설</a>
+          </div>
         </label>
+
         <label class="nav_label">
           <button type="button" class="nav_btn">도서관소식</button>
         </label>
@@ -64,6 +74,10 @@
         <div class="footer_copyrihgt">
           &copy;COPYRIGHT
         </div>
+        <!-- Toggle button -->
+        <button class="toggle-btn">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </footer>
   </div>

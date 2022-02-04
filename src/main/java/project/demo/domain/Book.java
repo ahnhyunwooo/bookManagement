@@ -12,13 +12,14 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @ToString
+@SequenceGenerator(sequenceName = "book_sequence", name = "book_sequence_generator", allocationSize = 1)
 @Table(name="BOOK")
 public class Book {
 
     @Column(name="BOOK_INDEX")
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String index;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence_generator")
+    private Long index;
 
     @Column(name="BOOK_NAME")
     private String name;
