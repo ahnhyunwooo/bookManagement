@@ -2,10 +2,8 @@ package project.demo;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import project.demo.argumentResolver.LoginMemberArgumentResolver;
-import project.demo.interceptor.LoginCheckInterceptor;
+import project.demo.service.controller.argumentResolver.LoginMemberArgumentResolver;
 
 import java.util.List;
 

@@ -29,12 +29,12 @@
         <a href="/logout" class="logout_link">로그아웃</a>
       </div>
     </header>
+
     <nav>
       <div class="nav_container">
-        <label class="nav_label">
-          <!-- 버튼 hover 시 button 태그에 active 클래스를 추가-->
-          <button type="button" class="nav_btn">도서정보</button>
-          <div class="book_info_items">
+        <label class="nav_label" data-filter="도서정보">
+          <button class="nav_btn" data-filter="도서정보">도서정보</button>
+          <div class="book_info_items1" data-type="도서정보">
             <a class="book_info_item">전체보기</a>
             <a class="book_info_item">IT</a>
             <a class="book_info_item">역사</a>
@@ -43,22 +43,37 @@
           </div>
         </label>
 
-        <label class="nav_label">
-          <button type="button" class="nav_btn">도서이용</button>
-          <div class="book_info_items">
-            <a class="book_info_item">전체보기</a>
-            <a class="book_info_item">IT</a>
-            <a class="book_info_item">역사</a>
-            <a class="book_info_item">육아</a>
-            <a class="book_info_item">소설</a>
+        <label class="nav_label" data-filter="도서이용">
+          <button class="nav_btn" data-filter="도서이용">도서이용</button>
+          <div class="book_info_items2" data-type="도서이용">
+            <a class="book_info_item">전체보기1</a>
+            <a class="book_info_item">IT1</a>
+            <a class="book_info_item">역사1</a>
+            <a class="book_info_item">육아1</a>
+            <a class="book_info_item">소설1</a>
           </div>
         </label>
 
-        <label class="nav_label">
-          <button type="button" class="nav_btn">도서관소식</button>
+        <label class="nav_label" data-filter="도서관소식">
+          <button class="nav_btn" data-filter="도서관소식">도서관소식</button>
+          <div class="book_info_items3" data-type="도서관소식">
+            <a class="book_info_item">전체보기2</a>
+            <a class="book_info_item">IT2</a>
+            <a class="book_info_item">역사2</a>
+            <a class="book_info_item">육아2</a>
+            <a class="book_info_item">소설2</a>
+          </div>
         </label>
-        <label class="nav_label">
-          <button type="button" class="nav_btn">마이메뉴</button>
+
+        <label class="nav_label" data-filter="마이메뉴">
+          <button type="button" class="nav_btn" data-filter="마이메뉴">마이메뉴</button>
+          <div class="book_info_items4" data-type="마이메뉴">
+            <a class="book_info_item">전체보기3</a>
+            <a class="book_info_item">IT3</a>
+            <a class="book_info_item">역사3</a>
+            <a class="book_info_item">육아3</a>
+            <a class="book_info_item">소설3</a>
+          </div>
         </label>
       </div>
     </nav>

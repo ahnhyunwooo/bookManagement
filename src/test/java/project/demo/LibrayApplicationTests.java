@@ -3,7 +3,7 @@ package project.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import project.demo.controller.MemberJoinController;
+import project.demo.service.controller.MemberJoinController;
 
 import project.demo.repository.MemberRepository;
 

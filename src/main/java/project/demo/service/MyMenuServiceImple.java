@@ -50,7 +50,6 @@ public class MyMenuServiceImple implements MyMenuService{
         book.setRegisterDate(LocalDateTime.now());
         book.setRentalCount(0);
         book.setCount(bookRegisterDto.getBookCount());
-        book.setIndex("123");
         log.info("book1 ={}",book);
         return bookRepository.insertBook(book);
     }
